@@ -13,4 +13,4 @@ As definições dos primeiros papéis foram as seguintes
 - Product Owner Pedro
 - Scrum Master Alan
 
-Além disso, nessa primeira sprint, definimos as funcionalidades, cenários e perguntas no modelo BDD. Os resultados podem ser encontrados na pasta bdd
+Além disso, nessa primeira sprint, definimos as funcionalidades, cenários e perguntas no modelo BDD. Os resultados podem ser encontrados na pasta na pasta bdd [repositório](https://github.com/diogob003/CAMAAR/tree/main)
