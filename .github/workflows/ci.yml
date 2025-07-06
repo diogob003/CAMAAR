@@ -8,6 +8,8 @@ on:
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/src/Gemfile
 
     steps:
       - name: Checkout code
@@ -17,13 +19,17 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: src
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
+        working-directory: src
         run: bin/brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/src/Gemfile
 
     steps:
       - name: Checkout code
@@ -33,13 +39,17 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: src
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
+        working-directory: src
         run: bin/importmap audit
 
   lint:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/src/Gemfile
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,13 +58,17 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: src
           bundler-cache: true
 
       - name: Lint code for consistent style
+        working-directory: src
         run: bin/rubocop -f github
 
   test:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/src/Gemfile
 
     # services:
     #  redis:
@@ -73,12 +87,14 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: src
           bundler-cache: true
 
       - name: Run tests
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
+        working-directory: src
         run: bin/rails db:test:prepare test test:system
 
       - name: Keep screenshots from failed system tests
