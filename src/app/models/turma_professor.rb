@@ -1,0 +1,2 @@
+class TurmaProfessor < ApplicationRecord
+end

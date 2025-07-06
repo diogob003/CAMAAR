@@ -1,0 +1,2 @@
+class TurmaAluno < ApplicationRecord
+end

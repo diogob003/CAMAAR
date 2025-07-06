@@ -1,0 +1,2 @@
+class TurmaFormulario < ApplicationRecord
+end
