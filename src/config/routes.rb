@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   root "authentication#index"
   post "authentication/login", to: "authentication#login"
   get "authenticated/index", to: "authenticated#index"
-  # get 'formularios', to: 'form#index'
+  get "authenticated/admin", to: "authenticated#admin"
 
   get 'getUserForms', to: 'form#getUserForms'
   delete 'logout', to: 'authenticated#destroy'

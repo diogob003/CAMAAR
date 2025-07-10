@@ -1,7 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avaliações</title>
+  <title>Gerenciamento</title>
   <style>
       body {
           font-family: Arial, sans-serif;
@@ -33,7 +35,7 @@
           font-size: 20px;
           font-weight: bold;
           color: #333;
-          flex-grow: 1; /* Pushes search and user icon to the right */
+          flex-grow: 1;
       }
 
       .search-container {
@@ -60,6 +62,7 @@
           margin-right: 8px;
       }
 
+
       .user-icon-container {
           position: relative;
       }
@@ -73,21 +76,21 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 28px; /* Made the font size larger for the 'U' */
+          font-size: 28px; /* Adjusted font size for a bigger 'U' */
           cursor: pointer;
           font-weight: bold;
-          line-height: 1; /* Ensures vertical centering more precisely */
+          line-height: 1;
       }
 
       .logout-dropdown {
           position: absolute;
-          top: 50px; /* Adjust based on user icon size */
+          top: 50px;
           right: 0;
           background-color: #fff;
           border: 1px solid #ddd;
           border-radius: 5px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          display: none; /* Hidden by default */
+          display: none;
           min-width: 120px;
           z-index: 10;
       }
@@ -113,7 +116,7 @@
       }
 
       .sidebar {
-          width: 0; /* Hidden by default */
+          width: 0;
           background-color: #fff;
           overflow-x: hidden;
           transition: 0.3s;
@@ -123,7 +126,7 @@
       }
 
       .sidebar.open {
-          width: 300px; /* Increased width when open */
+          width: 300px;
       }
 
       .sidebar a {
@@ -140,7 +143,7 @@
       }
 
       .sidebar a.active {
-          background-color: #6a008a; /* Purple background for active link */
+          background-color: #6a008a;
           color: #fff;
       }
 
@@ -148,48 +151,55 @@
           flex-grow: 1;
           padding: 30px;
           display: flex;
-          flex-wrap: wrap; /* Allows items to wrap to next line */
-          gap: 20px; /* Space between boxes */
-          align-content: flex-start; /* Aligns items to the start of the container */
+          justify-content: center; /* Center content horizontally */
+          align-items: center; /* Center content vertically */
       }
 
-      .formulario_box {
+      .management-card {
           background-color: #fff;
           border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          padding: 20px;
-          width: calc((100% / 3) - 20px * 2 / 3); /* Max 3 per row with gap */
-          box-sizing: border-box; /* Include padding in width */
-          min-width: 250px; /* Minimum width to prevent squishing */
-          cursor: pointer;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px; /* Space between buttons */
+          width: 100%;
+          max-width: 400px; /* Adjust card width as needed */
       }
 
-      .formulario_box:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      .formulario_box h3 {
-          margin-top: 0;
-          margin-bottom: 5px;
-          color: #333;
-          font-size: 1.2em;
-      }
-
-      .formulario_box p {
-          margin-bottom: 5px;
-          color: #666;
-          font-size: 0.9em;
-      }
-
-      .formulario_box .professor-name {
+      .management-button {
+          width: 100%;
+          padding: 15px 25px;
+          border: none;
+          border-radius: 8px;
+          font-size: 1.1em;
           font-weight: bold;
-          color: #444;
-          margin-top: 10px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, opacity 0.3s ease;
+          color: #fff;
+          text-align: center;
       }
 
-      /* Basic Font Awesome icons */
+      .management-button.green {
+          background-color: #28a745; /* Darker green */
+      }
+
+      .management-button.light-green {
+          background-color: #6cda85; /* Lighter green */
+      }
+
+      .management-button:hover:not(:disabled) {
+          filter: brightness(0.9); /* Slightly darken on hover */
+      }
+
+      .management-button:disabled {
+          background-color: #cccccc;
+          cursor: not-allowed;
+          opacity: 0.7;
+      }
+
+
       .fa {
           display: inline-block;
           font: normal normal normal 14px/1 FontAwesome;
@@ -199,25 +209,13 @@
           -moz-osx-font-smoothing: grayscale;
       }
       .fa-bars:before { content: "\f0c9"; }
-      .fa-search:before { content: "\f002"; }
-      .fa-user:before { content: "\f007"; }
-
-      .formulario_box.respondido {
-          opacity: 0.6;
-          pointer-events: none;
-          cursor: not-allowed;
-      }
-
+      .fa-search:before { content: "\f002"; } /* Added search icon as per previous examples */
   </style>
 </head>
 <body>
 <div class="header">
   <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
-  <div class="header-title">Avaliações</div>
-  <div class="search-container">
-    <i class="search-icon fa fa-search"></i>
-    <input type="text" placeholder="">
-  </div>
+  <div class="header-title">Gerenciamento</div>
   <div class="user-icon-container">
     <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
     <div class="logout-dropdown" id="logoutDropdown">
@@ -228,18 +226,52 @@
 
 <div class="main-content">
   <div class="sidebar" id="mySidebar">
-    <a href="#" class="active">Avaliações</a>
-    <a href="admin">Gerenciamento</a>
+    <a href="/authenticated/index">Avaliações</a>
+    <a href="#" class="active">Gerenciamento</a>
   </div>
-  <div class="content-area" id="formularioBoxesContainer">
+  <div class="content-area">
+    <div class="management-card">
+      <button id="importarDadosBtn" class="management-button green" onclick="handleButtonClick('importarDados')">Importar dados</button>
+      <button id="editarTemplatesBtn" class="management-button light-green" onclick="handleButtonClick('editarTemplates')">Editar Templates</button>
+      <button id="enviarFormulariosBtn" class="management-button light-green" onclick="handleButtonClick('enviarFormularios')">Enviar Formularios</button>
+      <button id="resultadosBtn" class="management-button light-green" onclick="handleButtonClick('resultados')">Resultados</button>
+    </div>
   </div>
 </div>
 
 <script>
+    function handleButtonClick(action) {
+        console.log(`Button "${action}" clicked!`);
+        switch (action) {
+            case 'importarDados':
+                alert('Função para Importar dados será implementada aqui.');
+                // Example: window.location.href = '/import_data_page';
+                break;
+            case 'editarTemplates':
+                alert('Função para Editar Templates será implementada aqui.');
+                // Example: window.location.href = '/edit_templates_page';
+                break;
+            case 'enviarFormularios':
+                alert('Função para Enviar Formularios será implementada aqui.');
+                // Example: window.location.href = '/send_forms_page';
+                break;
+            case 'resultados':
+                alert('Função para Resultados será implementada aqui.');
+                // Example: window.location.href = '/results_page';
+                break;
+            default:
+                console.log('Unknown button clicked.');
+        }
+    }
 
-    // to make sure it will call the function
-    console.log('Document loaded, rendering boxes...');
-    renderFormularioBoxes();
+    function setButtonDisabled(buttonId, isDisabled) {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            button.disabled = isDisabled;
+        } else {
+            console.warn(`Button with ID '${buttonId}' not found.`);
+        }
+    }
 
     function toggleSidebar() {
         const sidebar = document.getElementById('mySidebar');
@@ -251,9 +283,8 @@
         dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Close the dropdown if the user clicks outside of it
     window.onclick = function(event) {
-        if (!event.target.matches('.user-icon') && !event.target.matches('.user-icon *')) {
+        if (!event.target.matches('.user-icon') && !event.target.matches('.user-icon *') && !event.target.matches('.logout-dropdown') && !event.target.matches('.logout-dropdown *')) {
             const dropdowns = document.getElementsByClassName("logout-dropdown");
             for (let i = 0; i < dropdowns.length; i++) {
                 const openDropdown = dropdowns[i];
@@ -294,54 +325,6 @@
         }
     }
 
-    async function renderFormularioBoxes() {
-        const container = document.getElementById('formularioBoxesContainer');
-        container.innerHTML = '';
-
-        console.log('Fetching data from /getUserForms...');
-
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const response = await fetch("/getUserForms", {
-            method: 'GET',
-            credentials: 'same-origin',
-            headers: { 'X-CSRF-Token': token }
-        });
-
-        const data = await response.json();
-
-        data.forEach(item => {
-            const box = document.createElement('div');
-            box.classList.add('formulario_box');
-            box.setAttribute('data-id', item.id);
-
-            if (item.respondido) {
-                box.classList.add('respondido');
-                box.innerHTML = `
-                  <h3>${item.materia}</h3>
-                  <p>${item.semestre}</p>
-                  <p class="professor-name">${item.professor}</p>
-                  <p>Respondido</p>
-                `;
-            } else {
-                box.innerHTML = `
-                  <h3>${item.materia}</h3>
-                  <p>${item.semestre}</p>
-                  <p class="professor-name">${item.professor}</p>
-                  <p>Não respondido</p>
-                `;
-                box.addEventListener('click', () => handleBoxClick(item.id, item.materia));
-            }
-
-            container.appendChild(box);
-        });
-    }
-
-    function handleBoxClick(id, materia) {
-        alert(`Box for "${materia}" (ID: ${id}) clicked!`);
-        // Here you can navigate to a detailed page, open a modal, etc.
-        // In Rails, you might redirect:
-        // window.location.href = `/evaluations/${id}`;
-    }
-
 </script>
 </body>
+</html>
