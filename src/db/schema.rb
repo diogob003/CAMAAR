@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_123345) do
 
   create_table "resposta", force: :cascade do |t|
     t.integer "pergunta_id", null: false
-    t.integer "opcao_id", null: false
+    t.integer "opcao_id"
     t.text "justificativa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
