@@ -1,3 +1,5 @@
 class Opcao < ApplicationRecord
-  belongs_to :pergunta, foreign_key: :id_pergunta
+  belongs_to :pergunta
+
+  has_many :respostas
 end

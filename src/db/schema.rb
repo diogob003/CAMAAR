@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_10_114104) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_10_123345) do
   create_table "formulario_respondidos", force: :cascade do |t|
     t.integer "usuario_id", null: false
     t.integer "formulario_id", null: false
@@ -21,14 +21,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_114104) do
   end
 
   create_table "formularios", force: :cascade do |t|
-    t.integer "id_usuario_publicador_id", null: false
-    t.integer "id_template_id", null: false
+    t.integer "usuario_publicador_id", null: false
+    t.integer "template_id", null: false
     t.date "data_abertura"
     t.date "data_fechamento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id_template_id"], name: "index_formularios_on_id_template_id"
-    t.index ["id_usuario_publicador_id"], name: "index_formularios_on_id_usuario_publicador_id"
+    t.index ["template_id"], name: "index_formularios_on_template_id"
+    t.index ["usuario_publicador_id"], name: "index_formularios_on_usuario_publicador_id"
   end
 
   create_table "materia", force: :cascade do |t|
@@ -39,40 +39,40 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_114104) do
   end
 
   create_table "opcaos", force: :cascade do |t|
-    t.integer "id_pergunta_id", null: false
+    t.integer "pergunta_id", null: false
     t.string "descricao"
     t.integer "ordem"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id_pergunta_id"], name: "index_opcaos_on_id_pergunta_id"
+    t.index ["pergunta_id"], name: "index_opcaos_on_pergunta_id"
   end
 
   create_table "pergunta", force: :cascade do |t|
-    t.integer "id_template_id", null: false
+    t.integer "template_id", null: false
     t.string "titulo"
     t.text "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id_template_id"], name: "index_pergunta_on_id_template_id"
+    t.index ["template_id"], name: "index_pergunta_on_template_id"
   end
 
   create_table "resposta", force: :cascade do |t|
-    t.integer "id_pergunta_id", null: false
-    t.integer "id_opcao_id", null: false
+    t.integer "pergunta_id", null: false
+    t.integer "opcao_id", null: false
     t.text "justificativa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id_opcao_id"], name: "index_resposta_on_id_opcao_id"
-    t.index ["id_pergunta_id"], name: "index_resposta_on_id_pergunta_id"
+    t.index ["opcao_id"], name: "index_resposta_on_opcao_id"
+    t.index ["pergunta_id"], name: "index_resposta_on_pergunta_id"
   end
 
   create_table "templates", force: :cascade do |t|
-    t.integer "id_usuario_criador_id", null: false
+    t.integer "usuario_criador_id", null: false
     t.string "titulo"
     t.text "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id_usuario_criador_id"], name: "index_templates_on_id_usuario_criador_id"
+    t.index ["usuario_criador_id"], name: "index_templates_on_usuario_criador_id"
   end
 
   create_table "turma_alunos", force: :cascade do |t|
@@ -103,12 +103,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_114104) do
   end
 
   create_table "turmas", force: :cascade do |t|
-    t.integer "id_materia_id", null: false
+    t.integer "materia_id", null: false
     t.integer "numero"
     t.string "semestre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id_materia_id"], name: "index_turmas_on_id_materia_id"
+    t.index ["materia_id"], name: "index_turmas_on_materia_id"
   end
 
   create_table "usuarios", force: :cascade do |t|
@@ -124,18 +124,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_114104) do
 
   add_foreign_key "formulario_respondidos", "formularios"
   add_foreign_key "formulario_respondidos", "usuarios"
-  add_foreign_key "formularios", "id_templates"
-  add_foreign_key "formularios", "id_usuario_publicadors"
-  add_foreign_key "opcaos", "id_pergunta", column: "id_pergunta_id"
-  add_foreign_key "pergunta", "id_templates"
-  add_foreign_key "resposta", "id_opcaos"
-  add_foreign_key "resposta", "id_pergunta", column: "id_pergunta_id"
-  add_foreign_key "templates", "id_usuario_criadors"
-  add_foreign_key "turma_alunos", "alunos"
+  add_foreign_key "formularios", "templates"
+  add_foreign_key "formularios", "usuarios", column: "usuario_publicador_id"
+  add_foreign_key "opcaos", "pergunta", column: "pergunta_id"
+  add_foreign_key "pergunta", "templates"
+  add_foreign_key "resposta", "opcaos"
+  add_foreign_key "resposta", "pergunta", column: "pergunta_id"
+  add_foreign_key "templates", "usuarios", column: "usuario_criador_id"
   add_foreign_key "turma_alunos", "turmas"
+  add_foreign_key "turma_alunos", "usuarios", column: "aluno_id"
   add_foreign_key "turma_formularios", "formularios"
   add_foreign_key "turma_formularios", "turmas"
-  add_foreign_key "turma_professors", "professors"
   add_foreign_key "turma_professors", "turmas"
-  add_foreign_key "turmas", "id_materia", column: "id_materia_id"
+  add_foreign_key "turma_professors", "usuarios", column: "professor_id"
+  add_foreign_key "turmas", "materia", column: "materia_id"
 end

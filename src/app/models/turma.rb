@@ -1,5 +1,5 @@
 class Turma < ApplicationRecord
-  belongs_to :materia, foreign_key: :id_materia
+  belongs_to :materia
 
   has_many :turma_professors
   has_many :professors, through: :turma_professors, source: :professor

@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id_materia: one
+  materia: one
   numero: 1
   semestre: MyString
 
 two:
-  id_materia: two
+  materia: two
   numero: 1
   semestre: MyString

@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id_pergunta: one
-  id_opcao: one
+  pergunta: one
+  opcao: one
   justificativa: MyText
 
 two:
-  id_pergunta: two
-  id_opcao: two
+  pergunta: two
+  opcao: two
   justificativa: MyText

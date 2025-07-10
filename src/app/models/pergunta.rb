@@ -1,4 +1,6 @@
 class Pergunta < ApplicationRecord
-  belongs_to :template, foreign_key: :id_template
+  belongs_to :template
+
   has_many :opcoes
+  has_many :respostas
 end
