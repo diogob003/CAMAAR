@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get "authenticated/index", to: "authenticated#index"
   # get 'formularios', to: 'form#index'
 
-  get 'forms', to: 'form#index'
+  get 'getUserForms', to: 'form#getUserForms'
   delete 'logout', to: 'authenticated#destroy'
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

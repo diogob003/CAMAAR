@@ -201,6 +201,13 @@
       .fa-bars:before { content: "\f0c9"; }
       .fa-search:before { content: "\f002"; }
       .fa-user:before { content: "\f007"; }
+
+      .formulario_box.respondido {
+          opacity: 0.6;
+          pointer-events: none;
+          cursor: not-allowed;
+      }
+
   </style>
 </head>
 <body>
@@ -230,10 +237,9 @@
 
 <script>
 
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('Document loaded, rendering boxes...');
-        renderFormularioBoxes();
-    });
+    // to make sure it will call the function
+    console.log('Document loaded, rendering boxes...');
+    renderFormularioBoxes();
 
     function toggleSidebar() {
         const sidebar = document.getElementById('mySidebar');
@@ -273,15 +279,14 @@
         window.location.href = '/';
     }
 
-    // Function to simulate fetching data and rendering the boxes
     async function renderFormularioBoxes() {
         const container = document.getElementById('formularioBoxesContainer');
-        container.innerHTML = ''; // Clear existing content
+        container.innerHTML = '';
 
-        console.log('Fetching data from /formularios...');
+        console.log('Fetching data from /getUserForms...');
 
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const response = await fetch("/forms", {
+        const response = await fetch("/getUserForms", {
             method: 'GET',
             credentials: 'same-origin',
             headers: { 'X-CSRF-Token': token }
@@ -292,13 +297,26 @@
         data.forEach(item => {
             const box = document.createElement('div');
             box.classList.add('formulario_box');
-            box.setAttribute('data-id', item.id); // Useful for identifying the box
-            box.innerHTML = `
-                    <h3>${item.materia}</h3>
-                    <p>${item.semestre}</p>
-                    <p class="professor-name">${item.professor}</p>
+            box.setAttribute('data-id', item.id);
+
+            if (item.respondido) {
+                box.classList.add('respondido');
+                box.innerHTML = `
+                  <h3>${item.materia}</h3>
+                  <p>${item.semestre}</p>
+                  <p class="professor-name">${item.professor}</p>
+                  <p>Respondido</p>
                 `;
-            box.addEventListener('click', () => handleBoxClick(item.id, item.materia));
+            } else {
+                box.innerHTML = `
+                  <h3>${item.materia}</h3>
+                  <p>${item.semestre}</p>
+                  <p class="professor-name">${item.professor}</p>
+                  <p>Não respondido</p>
+                `;
+                box.addEventListener('click', () => handleBoxClick(item.id, item.materia));
+            }
+
             container.appendChild(box);
         });
     }

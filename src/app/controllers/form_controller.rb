@@ -1,6 +1,6 @@
 class FormController < ApplicationController
 
-  def index
+  def getUserForms
     usuario_id = session[:usuario_id]
     return head :unauthorized unless usuario_id
 
@@ -11,18 +11,21 @@ class FormController < ApplicationController
     turma_ids += usuario.turma_professors.pluck(:turma_id) if usuario.respond_to?(:turma_professors)
     turma_ids.uniq!
 
-    turmas = Turma.includes(:materia, :professors)
-                  .where(id: turma_ids)
-
-    result = turmas.map do |turma|
+    formularios = Formulario.joins(:turma_formularios)
+                            .where(turma_formularios: {turma_id: turma_ids})
+                            .distinct
+    result = formularios.map do |formulario|
+      turma = formulario.turma_formularios.first&.turma
+      next unless turma
       professor = turma.turma_professors.first&.professor
       {
         id: turma.id,
         materia: turma.materia&.nome,
         semestre: turma.semestre,
-        professor: professor&.nome
+        professor: professor&.nome,
+        respondido: FormularioRespondido.exists?(usuario_id: usuario.id, formulario_id: formulario.id)
       }
-    end
+    end.compact
 
     render json: result
   end
