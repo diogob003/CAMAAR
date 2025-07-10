@@ -1,4 +1,3 @@
-<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -230,7 +229,9 @@
 </div>
 
 <script>
+
     document.addEventListener('DOMContentLoaded', () => {
+        console.log('Document loaded, rendering boxes...');
         renderFormularioBoxes();
     });
 
@@ -257,10 +258,19 @@
         }
     }
 
-    function handleLogout() {
-        alert('Logout clicked! (Implement your logout logic here)');
-        // In a Rails app, you would typically redirect or make an AJAX call:
-        // window.location.href = '/logout'; // Or a more specific logout path
+    async function handleLogout() {
+        event.preventDefault();
+        console.log('Logging out...');
+
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        await fetch('/logout', {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: { 'X-CSRF-Token': token }
+        });
+
+        console.log('Logout successful');
+        window.location.href = '/';
     }
 
     // Function to simulate fetching data and rendering the boxes
@@ -268,19 +278,16 @@
         const container = document.getElementById('formularioBoxesContainer');
         container.innerHTML = ''; // Clear existing content
 
-        // Simulate fetching data from a database/API
-        // In your Rails app, you would replace this with an actual fetch call:
-        // const response = await fetch('/api/your_evaluations');
-        // const data = await response.json();
-        const data = [
-            { id: 1, materia: "Nome da matéria 1", semestre: "1º semestre", professor: "Professor A" },
-            { id: 2, materia: "Nome da matéria 2", semestre: "2º semestre", professor: "Professor B" },
-            { id: 3, materia: "Nome da matéria 3", semestre: "3º semestre", professor: "Professor C" },
-            { id: 4, materia: "Nome da matéria 4", semestre: "4º semestre", professor: "Professor D" },
-            { id: 5, materia: "Nome da matéria 5", semestre: "5º semestre", professor: "Professor E" },
-            { id: 6, materia: "Nome da matéria 6", semestre: "6º semestre", professor: "Professor F" },
-            { id: 7, materia: "Nome da matéria 7", semestre: "7º semestre", professor: "Professor G" },
-        ];
+        console.log('Fetching data from /formularios...');
+
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const response = await fetch("/forms", {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: { 'X-CSRF-Token': token }
+        });
+
+        const data = await response.json();
 
         data.forEach(item => {
             const box = document.createElement('div');

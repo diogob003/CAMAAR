@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  get "form/index"
   get "authenticated/index"
   get "authentication/index"
   get "teste/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
@@ -11,6 +13,10 @@ Rails.application.routes.draw do
   root "authentication#index"
   post "authentication/login", to: "authentication#login"
   get "authenticated/index", to: "authenticated#index"
+  # get 'formularios', to: 'form#index'
+
+  get 'forms', to: 'form#index'
+  delete 'logout', to: 'authenticated#destroy'
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
