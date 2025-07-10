@@ -1,13 +1,4 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
+# Reset all data
 Resposta.delete_all
 Opcao.delete_all
 Pergunta.delete_all
@@ -23,45 +14,87 @@ Usuario.delete_all
 
 puts "Seed iniciado..."
 
-mat1 = Materia.create!(nome: "Engenharia de Software", codigo: "CIC0210")
-mat2 = Materia.create!(nome: "Banco de Dados", codigo: "CIC0304")
+materias = []
+materias << Materia.create!(nome: "Engenharia de Software", codigo: "CIC0210")
+materias << Materia.create!(nome: "Banco de Dados", codigo: "CIC0304")
+materias << Materia.create!(nome: "Redes de Computadores", codigo: "CIC0405")
+materias << Materia.create!(nome: "Inteligência Artificial", codigo: "CIC0506")
 
-prof1 = Usuario.create!(nome: "Professor Um", matricula: "12345", email: "prof1@unb.br", cargo: "professor", senha_hash: "hash", senha_salt: "salt")
-prof2 = Usuario.create!(nome: "Professor Dois", matricula: "23456", email: "prof2@unb.br", cargo: "professor", senha_hash: "hash", senha_salt: "salt")
+turmas = []
+materias.each do |mat|
+  turmas << Turma.create!(materia: mat, numero: 1, semestre: "2025.1")
+  turmas << Turma.create!(materia: mat, numero: 2, semestre: "2025.1")
+end
 
-aluno1 = Usuario.create!(nome: "Aluno Um", matricula: "34567", email: "aluno1@unb.br", cargo: "aluno", senha_hash: "hash", senha_salt: "salt")
-aluno2 = Usuario.create!(nome: "Aluno Dois", matricula: "45678", email: "aluno2@unb.br", cargo: "aluno", senha_hash: "hash", senha_salt: "salt")
+professores = []
+professores << Usuario.create!(nome: "Professor Um", matricula: "12345", email: "prof1@unb.br", cargo: "professor", senha_hash: "hash", senha_salt: "salt")
+professores << Usuario.create!(nome: "Professor Dois", matricula: "23456", email: "prof2@unb.br", cargo: "professor", senha_hash: "hash", senha_salt: "salt")
 
-turma1 = Turma.create!(materia: mat1, numero: 1, semestre: "2025.1")
-turma2 = Turma.create!(materia: mat2, numero: 2, semestre: "2025.1")
+(3..7).each do |i|
+  professores << Usuario.create!(nome: "Professor #{i}", matricula: (23456+i).to_s, email: "prof#{i}@unb.br", cargo: "professor", senha_hash: "hash", senha_salt: "salt")
+end
 
-TurmaProfessor.create!(professor: prof1, turma: turma1)
-TurmaProfessor.create!(professor: prof2, turma: turma2)
+alunos = []
+alunos << Usuario.create!(nome: "Aluno Um", matricula: "34567", email: "aluno1@unb.br", cargo: "aluno", senha_hash: "hash", senha_salt: "salt")
+alunos << Usuario.create!(nome: "Aluno Dois", matricula: "45678", email: "aluno2@unb.br", cargo: "aluno", senha_hash: "hash", senha_salt: "salt")
 
-TurmaAluno.create!(aluno: aluno1, turma: turma1)
-TurmaAluno.create!(aluno: aluno2, turma: turma2)
+(3..7).each do |i|
+  alunos << Usuario.create!(nome: "Aluno #{i}", matricula: (45678+i).to_s, email: "aluno#{i}@unb.br", cargo: "aluno", senha_hash: "hash", senha_salt: "salt")
+end
 
-template1 = Template.create!(usuario_criador: prof1, titulo: "Template Avaliação Intermediária", descricao: "Template para prova intermediária")
-template2 = Template.create!(usuario_criador: prof2, titulo: "Template Avaliação Final", descricao: "Template para prova final")
+turmas.each_with_index do |turma, i|
+  TurmaProfessor.create!(professor: professores[i % professores.size], turma: turma)
+end
 
-form1 = Formulario.create!(usuario_publicador: prof1, template: template1, data_abertura: Date.today, data_fechamento: Date.today + 7)
-form2 = Formulario.create!(usuario_publicador: prof2, template: template2, data_abertura: Date.today, data_fechamento: Date.today + 7)
+alunos.each_with_index do |aluno, i|
+  TurmaAluno.create!(aluno: aluno, turma: turmas[i % turmas.size])
+end
 
-TurmaFormulario.create!(turma: turma1, formulario: form1)
-TurmaFormulario.create!(turma: turma2, formulario: form2)
+templates = professores.map do |prof|
+  Template.create!(usuario_criador: prof, titulo: "Template de #{prof.nome}", descricao: "Template criado por #{prof.nome}")
+end
 
-pergunta1 = Pergunta.create!(template: template1, titulo: "Como avalia o conteúdo?", descricao: "Avaliação do conteúdo ministrado.")
-pergunta2 = Pergunta.create!(template: template1, titulo: "Sugestões para melhorar?", descricao: "Espaço aberto para sugestões.")
+formularios = []
+10.times do |i|
+  professor = professores[i % professores.size]
+  template = templates[i % templates.size]
+  form = Formulario.create!(
+    usuario_publicador: professor,
+    template: template,
+    data_abertura: Date.today,
+    data_fechamento: Date.today + rand(5..15)
+  )
+  turma = turmas[i % turmas.size]
+  TurmaFormulario.create!(turma: turma, formulario: form)
+  formularios << form
+end
 
-opcao1 = Opcao.create!(pergunta: pergunta1, descricao: "Excelente", ordem: 1)
-opcao2 = Opcao.create!(pergunta: pergunta1, descricao: "Bom", ordem: 2)
-opcao3 = Opcao.create!(pergunta: pergunta1, descricao: "Regular", ordem: 3)
-opcao4 = Opcao.create!(pergunta: pergunta1, descricao: "Ruim", ordem: 4)
+formularios.each_with_index do |form, i|
+  pergunta = Pergunta.create!(template: form.template, titulo: "Pergunta #{i+1}", descricao: "Descrição da pergunta #{i+1}")
 
-FormularioRespondido.create!(usuario: aluno1, formulario: form1)
-FormularioRespondido.create!(usuario: aluno2, formulario: form2)
+  if i.even?
+    3.times do |j|
+      Opcao.create!(pergunta: pergunta, descricao: "Opção #{j+1}", ordem: j+1)
+    end
+  end
+end
 
-Resposta.create!(pergunta: pergunta1, opcao: opcao1, justificativa: "Conteúdo muito bem explicado.")
-Resposta.create!(pergunta: pergunta2, justificativa: "Gostaria de mais exemplos práticos.")
+alunos.each_with_index do |aluno, i|
+  form_responded = formularios[i % formularios.size]
+  FormularioRespondido.create!(usuario: aluno, formulario: form_responded)
+
+  not_responded = (formularios - [form_responded]).sample
+  puts "#{aluno.nome} has not responded to Formulario ID #{not_responded.id}"
+end
+
+formularios.each do |form|
+  form.template.perguntas.each do |pergunta|
+    if pergunta.opcoes.any?
+      Resposta.create!(pergunta: pergunta, opcao: pergunta.opcoes.first, justificativa: "Justificativa exemplo.")
+    else
+      Resposta.create!(pergunta: pergunta, justificativa: "Resposta aberta exemplo.")
+    end
+  end
+end
 
 puts "Seed finalizado com sucesso!"
