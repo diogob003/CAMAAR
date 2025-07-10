@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "authenticated/index"
   get "authentication/index"
   get "teste/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "authentication#index"
+  post "authentication/login", to: "authentication#login"
+  get "authenticated/index", to: "authenticated#index"
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
