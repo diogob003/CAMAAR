@@ -13,9 +13,9 @@ class AuthenticationController < ApplicationController
     # end
 
     # Mockando, isso deve ser implementado depois!!!!!
-    usuario = Usuario.find_by(cargo: "aluno")
-    if usuario
-      session[:usuario_id] = usuario.id
+    user = User.find_by(role: "student")
+    if user
+      session[:user_id] = user.id
       redirect_to authenticated_index_path, notice: "Logged in!"
     else
       flash.now[:alert] = "No 'aluno' user found"

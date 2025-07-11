@@ -298,10 +298,10 @@
         const container = document.getElementById('formularioBoxesContainer');
         container.innerHTML = '';
 
-        console.log('Fetching data from /getUserForms...');
+        console.log('Fetching data from /user_forms...');
 
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const response = await fetch("/getUserForms", {
+        const response = await fetch("/user_forms", {
             method: 'GET',
             credentials: 'same-origin',
             headers: { 'X-CSRF-Token': token }
@@ -314,18 +314,18 @@
             box.classList.add('formulario_box');
             box.setAttribute('data-id', item.id);
 
-            if (item.respondido) {
+            if (item.answered) {
                 box.classList.add('respondido');
                 box.innerHTML = `
-                  <h3>${item.materia}</h3>
-                  <p>${item.semestre}</p>
+                  <h3>${item.subject}</h3>
+                  <p>${item.semester}</p>
                   <p class="professor-name">${item.professor}</p>
                   <p>Respondido</p>
                 `;
             } else {
                 box.innerHTML = `
-                  <h3>${item.materia}</h3>
-                  <p>${item.semestre}</p>
+                  <h3>${item.subject}</h3>
+                  <p>${item.semester}</p>
                   <p class="professor-name">${item.professor}</p>
                   <p>Não respondido</p>
                 `;

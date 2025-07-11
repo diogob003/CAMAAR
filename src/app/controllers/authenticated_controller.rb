@@ -3,6 +3,6 @@ class AuthenticatedController < ApplicationController
   end
 
   def destroy
-    session[:usuario_id] = nil
+    session[:user_id] = nil
   end
 end

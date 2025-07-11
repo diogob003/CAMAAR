@@ -1,28 +1,29 @@
 class FormController < ApplicationController
-  def getUserForms
-    usuario_id = session[:usuario_id]
-    return head :unauthorized unless usuario_id
+  def user_forms
+    user_id = session[:user_id]
+    return head :unauthorized unless user_id
 
-    usuario = Usuario.find(usuario_id)
+    user = User.find(user_id)
 
-    turma_ids = []
-    turma_ids += usuario.turma_alunos.pluck(:turma_id) if usuario.respond_to?(:turma_alunos)
-    turma_ids += usuario.turma_professors.pluck(:turma_id) if usuario.respond_to?(:turma_professors)
-    turma_ids.uniq!
+    class_group_ids = []
+    class_group_ids += user.class_students.pluck(:class_group_id) if user.respond_to?(:class_students)
+    class_group_ids += user.class_professors.pluck(:class_group_id) if user.respond_to?(:class_professors)
+    class_group_ids.uniq!
 
-    formularios = Formulario.joins(:turma_formularios)
-                            .where(turma_formularios: { turma_id: turma_ids })
-                            .distinct
-    result = formularios.map do |formulario|
-      turma = formulario.turma_formularios.first&.turma
-      next unless turma
-      professor = turma.turma_professors.first&.professor
+    forms = Form.joins(:class_forms)
+                .where(class_forms: { class_group_id: class_group_ids })
+                .distinct
+
+    result = forms.map do |form|
+      class_group = form.class_forms.first&.class_group
+      next unless class_group
+      professor = class_group.class_professors.first&.professor
       {
-        id: turma.id,
-        materia: turma.materia&.nome,
-        semestre: turma.semestre,
-        professor: professor&.nome,
-        respondido: FormularioRespondido.exists?(usuario_id: usuario.id, formulario_id: formulario.id)
+        id: class_group.id,
+        subject: class_group.subject&.name,
+        semester: class_group.semester,
+        professor: professor&.name,
+        answered: AnsweredForm.exists?(user_id: user.id, form_id: form.id)
       }
     end.compact
 
