@@ -1,4 +1,5 @@
 class Template < ApplicationRecord
-  belongs_to :usuario_criador, class_name: 'Usuario'
-  has_many :perguntas
+  belongs_to :creator, class_name: "User"
+  has_many :forms
+  has_many :questions
 end

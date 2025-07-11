@@ -10,132 +10,132 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_11_141720) do
-  create_table "formulario_respondidos", force: :cascade do |t|
-    t.integer "usuario_id", null: false
-    t.integer "formulario_id", null: false
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_152213) do
+  create_table "answered_forms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["formulario_id"], name: "index_formulario_respondidos_on_formulario_id"
-    t.index ["usuario_id"], name: "index_formulario_respondidos_on_usuario_id"
+    t.integer "user_id"
+    t.integer "form_id"
+    t.index ["form_id"], name: "index_answered_forms_on_form_id"
+    t.index ["user_id"], name: "index_answered_forms_on_user_id"
   end
 
-  create_table "formularios", force: :cascade do |t|
-    t.integer "usuario_publicador_id", null: false
-    t.integer "template_id", null: false
-    t.date "data_abertura"
-    t.date "data_fechamento"
+  create_table "answers", force: :cascade do |t|
+    t.text "justification"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["template_id"], name: "index_formularios_on_template_id"
-    t.index ["usuario_publicador_id"], name: "index_formularios_on_usuario_publicador_id"
+    t.integer "question_id"
+    t.integer "option_id"
+    t.index ["option_id"], name: "index_answers_on_option_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
-  create_table "materias", force: :cascade do |t|
-    t.string "nome"
-    t.string "codigo"
+  create_table "class_forms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "class_group_id"
+    t.integer "form_id"
+    t.index ["class_group_id"], name: "index_class_forms_on_class_group_id"
+    t.index ["form_id"], name: "index_class_forms_on_form_id"
   end
 
-  create_table "opcoes", force: :cascade do |t|
-    t.integer "pergunta_id", null: false
-    t.string "descricao"
-    t.integer "ordem"
+  create_table "class_groups", force: :cascade do |t|
+    t.integer "subject_id", null: false
+    t.integer "number"
+    t.string "semester"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pergunta_id"], name: "index_opcoes_on_pergunta_id"
+    t.index ["subject_id"], name: "index_class_groups_on_subject_id"
   end
 
-  create_table "perguntas", force: :cascade do |t|
-    t.integer "template_id", null: false
-    t.string "titulo"
-    t.text "descricao"
+  create_table "class_professors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["template_id"], name: "index_perguntas_on_template_id"
+    t.integer "professor_id"
+    t.integer "class_group_id"
+    t.index ["class_group_id"], name: "index_class_professors_on_class_group_id"
+    t.index ["professor_id"], name: "index_class_professors_on_professor_id"
   end
 
-  create_table "respostas", force: :cascade do |t|
-    t.integer "pergunta_id", null: false
-    t.integer "opcao_id"
-    t.text "justificativa"
+  create_table "class_students", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["opcao_id"], name: "index_respostas_on_opcao_id"
-    t.index ["pergunta_id"], name: "index_respostas_on_pergunta_id"
+    t.integer "student_id"
+    t.integer "class_group_id"
+    t.index ["class_group_id"], name: "index_class_students_on_class_group_id"
+    t.index ["student_id"], name: "index_class_students_on_student_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.date "open_date"
+    t.date "close_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "publisher_id"
+    t.integer "template_id"
+    t.index ["publisher_id"], name: "index_forms_on_publisher_id"
+    t.index ["template_id"], name: "index_forms_on_template_id"
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.string "description"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "question_id"
+    t.index ["question_id"], name: "index_options_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "template_id"
+    t.index ["template_id"], name: "index_questions_on_template_id"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "templates", force: :cascade do |t|
-    t.integer "usuario_criador_id", null: false
-    t.string "titulo"
-    t.text "descricao"
+    t.string "title"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["usuario_criador_id"], name: "index_templates_on_usuario_criador_id"
+    t.integer "creator_id"
+    t.index ["creator_id"], name: "index_templates_on_creator_id"
   end
 
-  create_table "turma_alunos", force: :cascade do |t|
-    t.integer "aluno_id", null: false
-    t.integer "turma_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["aluno_id"], name: "index_turma_alunos_on_aluno_id"
-    t.index ["turma_id"], name: "index_turma_alunos_on_turma_id"
-  end
-
-  create_table "turma_formularios", force: :cascade do |t|
-    t.integer "turma_id", null: false
-    t.integer "formulario_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["formulario_id"], name: "index_turma_formularios_on_formulario_id"
-    t.index ["turma_id"], name: "index_turma_formularios_on_turma_id"
-  end
-
-  create_table "turma_professores", force: :cascade do |t|
-    t.integer "professor_id", null: false
-    t.integer "turma_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["professor_id"], name: "index_turma_professores_on_professor_id"
-    t.index ["turma_id"], name: "index_turma_professores_on_turma_id"
-  end
-
-  create_table "turmas", force: :cascade do |t|
-    t.integer "materia_id", null: false
-    t.integer "numero"
-    t.string "semestre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["materia_id"], name: "index_turmas_on_materia_id"
-  end
-
-  create_table "usuarios", force: :cascade do |t|
-    t.string "nome"
-    t.string "matricula"
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "registration"
     t.string "email"
-    t.string "cargo"
-    t.string "senha_hash"
-    t.string "senha_salt"
+    t.string "role"
+    t.string "password_hash"
+    t.string "password_salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "formulario_respondidos", "formularios"
-  add_foreign_key "formulario_respondidos", "usuarios"
-  add_foreign_key "formularios", "templates"
-  add_foreign_key "formularios", "usuarios", column: "usuario_publicador_id"
-  add_foreign_key "opcoes", "perguntas"
-  add_foreign_key "perguntas", "templates"
-  add_foreign_key "respostas", "opcoes", column: "opcao_id"
-  add_foreign_key "respostas", "perguntas"
-  add_foreign_key "templates", "usuarios", column: "usuario_criador_id"
-  add_foreign_key "turma_alunos", "turmas"
-  add_foreign_key "turma_alunos", "usuarios", column: "aluno_id"
-  add_foreign_key "turma_formularios", "formularios"
-  add_foreign_key "turma_formularios", "turmas"
-  add_foreign_key "turma_professores", "turmas"
-  add_foreign_key "turma_professores", "usuarios", column: "professor_id"
-  add_foreign_key "turmas", "materias"
+  add_foreign_key "answered_forms", "forms"
+  add_foreign_key "answered_forms", "users"
+  add_foreign_key "answers", "options"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "class_forms", "class_groups"
+  add_foreign_key "class_forms", "forms"
+  add_foreign_key "class_groups", "subjects"
+  add_foreign_key "class_professors", "class_groups"
+  add_foreign_key "class_professors", "users", column: "professor_id"
+  add_foreign_key "class_students", "class_groups"
+  add_foreign_key "class_students", "users", column: "student_id"
+  add_foreign_key "forms", "templates"
+  add_foreign_key "forms", "users", column: "publisher_id"
+  add_foreign_key "options", "questions"
+  add_foreign_key "questions", "templates"
+  add_foreign_key "templates", "users", column: "creator_id"
 end

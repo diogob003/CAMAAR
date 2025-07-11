@@ -8,60 +8,139 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Resposta.delete_all
-Opcao.delete_all
-Pergunta.delete_all
-FormularioRespondido.delete_all
-TurmaFormulario.delete_all
-Formulario.delete_all
+
+Answer.delete_all
+Option.delete_all
+Question.delete_all
+AnsweredForm.delete_all
+ClassForm.delete_all
+Form.delete_all
 Template.delete_all
-TurmaAluno.delete_all
-TurmaProfessor.delete_all
-Turma.delete_all
-Materia.delete_all
-Usuario.delete_all
+ClassStudent.delete_all
+ClassProfessor.delete_all
+ClassGroup.delete_all
+Subject.delete_all
+User.delete_all
 
-puts "Seed iniciado..."
+puts "Seeding started..."
 
-mat1 = Materia.create!(nome: "Engenharia de Software", codigo: "CIC0210")
-mat2 = Materia.create!(nome: "Banco de Dados", codigo: "CIC0304")
+users = []
+5.times do |i|
+  users << User.create!(
+    name: "User #{i+1}",
+    registration: "U#{1000+i}",
+    email: "user#{i+1}@example.com",
+    role: i < 3 ? "professor" : "student",
+    password_hash: "hash#{i}",
+    password_salt: "salt#{i}"
+  )
+end
 
-prof1 = Usuario.create!(nome: "Professor Um", matricula: "12345", email: "prof1@unb.br", cargo: "professor", senha_hash: "hash", senha_salt: "salt")
-prof2 = Usuario.create!(nome: "Professor Dois", matricula: "23456", email: "prof2@unb.br", cargo: "professor", senha_hash: "hash", senha_salt: "salt")
+professors = users.select { |u| u.role == "professor" }
+students = users.select { |u| u.role == "student" }
 
-aluno1 = Usuario.create!(nome: "Aluno Um", matricula: "34567", email: "aluno1@unb.br", cargo: "aluno", senha_hash: "hash", senha_salt: "salt")
-aluno2 = Usuario.create!(nome: "Aluno Dois", matricula: "45678", email: "aluno2@unb.br", cargo: "aluno", senha_hash: "hash", senha_salt: "salt")
+subjects = []
+5.times do |i|
+  subjects << Subject.create!(
+    name: "Subject #{i+1}",
+    code: "SUB#{i+1}00"
+  )
+end
 
-turma1 = Turma.create!(materia: mat1, numero: 1, semestre: "2025.1")
-turma2 = Turma.create!(materia: mat2, numero: 2, semestre: "2025.1")
+class_groups = []
+subjects.each_with_index do |subj, i|
+  2.times do |j|
+    class_groups << ClassGroup.create!(
+      subject: subj,
+      number: j+1,
+      semester: "2025.#{(i%2)+1}"
+    )
+  end
+end
 
-TurmaProfessor.create!(professor: prof1, turma: turma1)
-TurmaProfessor.create!(professor: prof2, turma: turma2)
+class_groups.each_with_index do |cg, i|
+  ClassProfessor.create!(
+    professor: professors[i % professors.size],
+    class_group: cg
+  )
+end
 
-TurmaAluno.create!(aluno: aluno1, turma: turma1)
-TurmaAluno.create!(aluno: aluno2, turma: turma2)
+class_groups.each_with_index do |cg, i|
+  student = students[i % students.size]
+  ClassStudent.create!(
+    student: student,
+    class_group: cg
+  )
+end
 
-template1 = Template.create!(usuario_criador: prof1, titulo: "Template Avaliação Intermediária", descricao: "Template para prova intermediária")
-template2 = Template.create!(usuario_criador: prof2, titulo: "Template Avaliação Final", descricao: "Template para prova final")
+templates = []
+professors.each_with_index do |prof, i|
+  templates << Template.create!(
+    creator: prof,
+    title: "Template #{i+1}",
+    description: "Description for template #{i+1}"
+  )
+end
 
-form1 = Formulario.create!(usuario_publicador: prof1, template: template1, data_abertura: Date.today, data_fechamento: Date.today + 7)
-form2 = Formulario.create!(usuario_publicador: prof2, template: template2, data_abertura: Date.today, data_fechamento: Date.today + 7)
+forms = []
+class_groups.each_with_index do |cg, i|
+  form = Form.create!(
+    publisher: professors[i % professors.size],
+    template: templates[i % templates.size],
+    open_date: Date.today,
+    close_date: Date.today + 10
+  )
+  ClassForm.create!(class_group: cg, form: form)
+  forms << form
+end
 
-TurmaFormulario.create!(turma: turma1, formulario: form1)
-TurmaFormulario.create!(turma: turma2, formulario: form2)
+questions = []
+forms.each_with_index do |form, i|
+  q = Question.create!(
+    template: form.template,
+    title: "Question #{i+1}",
+    description: "Description of question #{i+1}"
+  )
+  questions << q
 
-pergunta1 = Pergunta.create!(template: template1, titulo: "Como avalia o conteúdo?", descricao: "Avaliação do conteúdo ministrado.")
-pergunta2 = Pergunta.create!(template: template1, titulo: "Sugestões para melhorar?", descricao: "Espaço aberto para sugestões.")
+  if i.even?
+    3.times do |j|
+      Option.create!(
+        question: q,
+        description: "Option #{j+1} for Q#{i+1}",
+        order: j+1
+      )
+    end
+  end
+end
 
-opcao1 = Opcao.create!(pergunta: pergunta1, descricao: "Excelente", ordem: 1)
-opcao2 = Opcao.create!(pergunta: pergunta1, descricao: "Bom", ordem: 2)
-opcao3 = Opcao.create!(pergunta: pergunta1, descricao: "Regular", ordem: 3)
-opcao4 = Opcao.create!(pergunta: pergunta1, descricao: "Ruim", ordem: 4)
+students.each_with_index do |student, i|
+  form_ans = forms[i % forms.size]
+  AnsweredForm.create!(user: student, form: form_ans)
 
-FormularioRespondido.create!(usuario: aluno1, formulario: form1)
-FormularioRespondido.create!(usuario: aluno2, formulario: form2)
+  unanswered_forms = forms - [ form_ans ]
+  if unanswered_forms.any?
+    unans = unanswered_forms.sample
+    puts "#{student.name} has not answered Form #{unans.id}"
+  end
+end
 
-Resposta.create!(pergunta: pergunta1, opcao: opcao1, justificativa: "Conteúdo muito bem explicado.")
-Resposta.create!(pergunta: pergunta2, justificativa: "Gostaria de mais exemplos práticos.")
+AnsweredForm.all.each do |af|
+  form = af.form
+  form.template.questions.each do |q|
+    if q.options.any?
+      Answer.create!(
+        question: q,
+        option: q.options.first,
+        justification: "Selected option for question #{q.id}"
+      )
+    else
+      Answer.create!(
+        question: q,
+        justification: "Written answer for question #{q.id}"
+      )
+    end
+  end
+end
 
-puts "Seed finalizado com sucesso!"
+puts "Seeding completed successfully!"
