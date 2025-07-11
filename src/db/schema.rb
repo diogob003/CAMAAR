@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_10_123345) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_141720) do
   create_table "formulario_respondidos", force: :cascade do |t|
     t.integer "usuario_id", null: false
     t.integer "formulario_id", null: false
@@ -31,39 +31,39 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_123345) do
     t.index ["usuario_publicador_id"], name: "index_formularios_on_usuario_publicador_id"
   end
 
-  create_table "materia", force: :cascade do |t|
+  create_table "materias", force: :cascade do |t|
     t.string "nome"
     t.string "codigo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "opcaos", force: :cascade do |t|
+  create_table "opcoes", force: :cascade do |t|
     t.integer "pergunta_id", null: false
     t.string "descricao"
     t.integer "ordem"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pergunta_id"], name: "index_opcaos_on_pergunta_id"
+    t.index ["pergunta_id"], name: "index_opcoes_on_pergunta_id"
   end
 
-  create_table "pergunta", force: :cascade do |t|
+  create_table "perguntas", force: :cascade do |t|
     t.integer "template_id", null: false
     t.string "titulo"
     t.text "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["template_id"], name: "index_pergunta_on_template_id"
+    t.index ["template_id"], name: "index_perguntas_on_template_id"
   end
 
-  create_table "resposta", force: :cascade do |t|
+  create_table "respostas", force: :cascade do |t|
     t.integer "pergunta_id", null: false
     t.integer "opcao_id"
     t.text "justificativa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["opcao_id"], name: "index_resposta_on_opcao_id"
-    t.index ["pergunta_id"], name: "index_resposta_on_pergunta_id"
+    t.index ["opcao_id"], name: "index_respostas_on_opcao_id"
+    t.index ["pergunta_id"], name: "index_respostas_on_pergunta_id"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -93,13 +93,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_123345) do
     t.index ["turma_id"], name: "index_turma_formularios_on_turma_id"
   end
 
-  create_table "turma_professors", force: :cascade do |t|
+  create_table "turma_professores", force: :cascade do |t|
     t.integer "professor_id", null: false
     t.integer "turma_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["professor_id"], name: "index_turma_professors_on_professor_id"
-    t.index ["turma_id"], name: "index_turma_professors_on_turma_id"
+    t.index ["professor_id"], name: "index_turma_professores_on_professor_id"
+    t.index ["turma_id"], name: "index_turma_professores_on_turma_id"
   end
 
   create_table "turmas", force: :cascade do |t|
@@ -126,16 +126,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_123345) do
   add_foreign_key "formulario_respondidos", "usuarios"
   add_foreign_key "formularios", "templates"
   add_foreign_key "formularios", "usuarios", column: "usuario_publicador_id"
-  add_foreign_key "opcaos", "pergunta", column: "pergunta_id"
-  add_foreign_key "pergunta", "templates"
-  add_foreign_key "resposta", "opcaos"
-  add_foreign_key "resposta", "pergunta", column: "pergunta_id"
+  add_foreign_key "opcoes", "perguntas"
+  add_foreign_key "perguntas", "templates"
+  add_foreign_key "respostas", "opcoes", column: "opcao_id"
+  add_foreign_key "respostas", "perguntas"
   add_foreign_key "templates", "usuarios", column: "usuario_criador_id"
   add_foreign_key "turma_alunos", "turmas"
   add_foreign_key "turma_alunos", "usuarios", column: "aluno_id"
   add_foreign_key "turma_formularios", "formularios"
   add_foreign_key "turma_formularios", "turmas"
-  add_foreign_key "turma_professors", "turmas"
-  add_foreign_key "turma_professors", "usuarios", column: "professor_id"
-  add_foreign_key "turmas", "materia", column: "materia_id"
+  add_foreign_key "turma_professores", "turmas"
+  add_foreign_key "turma_professores", "usuarios", column: "professor_id"
+  add_foreign_key "turmas", "materias"
 end
