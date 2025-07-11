@@ -3,30 +3,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avaliações</title>
   <%= stylesheet_link_tag("authenticated.index") %>
-  <%= javascript_include_tag("authenticated.index")%>
 </head>
+
 <body>
-<div class="header">
-  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
-  <div class="header-title">Avaliações</div>
-  <div class="search-container">
-    <i class="search-icon fa fa-search"></i>
-    <input type="text" placeholder="">
-  </div>
-  <div class="user-icon-container">
-    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
-    <div class="logout-dropdown" id="logoutDropdown">
-      <button onclick="handleLogout()">Logout</button>
+  <div class="header">
+    <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+    <div class="header-title">Avaliações</div>
+    <div class="search-container">
+      <i class="search-icon fa fa-search"></i>
+      <input type="text" placeholder="">
+    </div>
+    <div class="user-icon-container">
+      <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+      <div class="logout-dropdown" id="logoutDropdown">
+        <button onclick="handleLogout()">Logout</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="main-content">
-  <div class="sidebar" id="mySidebar">
-    <a href="#" class="active">Avaliações</a>
-    <a href="admin">Gerenciamento</a>
+  <div class="main-content">
+    <div class="sidebar" id="mySidebar">
+      <a href="#" class="active">Avaliações</a>
+      <a href="admin">Gerenciamento</a>
+    </div>
+    <div class="content-area" id="formularioBoxesContainer">
+    </div>
   </div>
-  <div class="content-area" id="formularioBoxesContainer">
-  </div>
-</div>
 </body>
+
+<%= javascript_include_tag("authenticated.index")%>

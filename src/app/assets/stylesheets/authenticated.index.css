@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 0; /* Remove default body margin */
     background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
@@ -15,6 +15,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 100;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .menu-icon {
@@ -28,7 +30,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: #333;
-    flex-grow: 1; /* Pushes search and user icon to the right */
+    flex-grow: 1;
 }
 
 .search-container {
@@ -68,21 +70,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px; /* Made the font size larger for the 'U' */
+    font-size: 28px;
     cursor: pointer;
     font-weight: bold;
-    line-height: 1; /* Ensures vertical centering more precisely */
+    line-height: 1;
 }
 
 .logout-dropdown {
     position: absolute;
-    top: 50px; /* Adjust based on user icon size */
+    top: 50px;
     right: 0;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: none; /* Hidden by default */
+    display: none;
     min-width: 120px;
     z-index: 10;
 }
@@ -105,20 +107,23 @@ body {
 .main-content {
     display: flex;
     flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .sidebar {
-    width: 0; /* Hidden by default */
+    width: 0;
     background-color: #fff;
     overflow-x: hidden;
-    transition: 0.3s;
+    transition: width 0.3s ease;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     padding-top: 20px;
     z-index: 99;
+    flex-shrink: 0;
 }
 
 .sidebar.open {
-    width: 300px; /* Increased width when open */
+    width: 300px;
 }
 
 .sidebar a {
@@ -143,9 +148,10 @@ body {
     flex-grow: 1;
     padding: 30px;
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap to next line */
-    gap: 20px; /* Space between boxes */
-    align-content: flex-start; /* Aligns items to the start of the container */
+    flex-wrap: wrap;
+    gap: 20px;
+    align-content: flex-start;
+    overflow-y: auto;
 }
 
 .formulario_box {
@@ -153,12 +159,25 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: calc((100% / 3) - 20px * 2 / 3); /* Max 3 per row with gap */
-    box-sizing: border-box; /* Include padding in width */
-    min-width: 250px; /* Minimum width to prevent squishing */
+    width: calc((100% - 40px) / 3); /* (total_width - (gap_count * gap_size)) / items_per_row */
+    box-sizing: border-box;
+    min-width: 250px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+@media (max-width: 900px) {
+    .formulario_box {
+        width: calc((100% - 20px) / 2); /* 2 per row */
+    }
+}
+
+@media (max-width: 600px) {
+    .formulario_box {
+        width: 100%; /* 1 per row */
+    }
+}
+
 
 .formulario_box:hover {
     transform: translateY(-5px);
@@ -184,7 +203,6 @@ body {
     margin-top: 10px;
 }
 
-/* Basic Font Awesome icons */
 .fa {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;

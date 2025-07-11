@@ -5,6 +5,8 @@ function updateFormularioBoxes() {
     const container = document.getElementById('formularioBoxesContainer');
     if(container) {
         renderFormularioBoxes();
+    } else {
+        console.log("No container found for rendering boxes.");
     }
 }
 
