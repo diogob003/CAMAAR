@@ -1,5 +1,4 @@
 class FormController < ApplicationController
-
   def getUserForms
     usuario_id = session[:usuario_id]
     return head :unauthorized unless usuario_id
@@ -12,7 +11,7 @@ class FormController < ApplicationController
     turma_ids.uniq!
 
     formularios = Formulario.joins(:turma_formularios)
-                            .where(turma_formularios: {turma_id: turma_ids})
+                            .where(turma_formularios: { turma_id: turma_ids })
                             .distinct
     result = formularios.map do |formulario|
       turma = formulario.turma_formularios.first&.turma
@@ -29,5 +28,4 @@ class FormController < ApplicationController
 
     render json: result
   end
-
 end

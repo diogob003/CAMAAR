@@ -13,7 +13,7 @@ class AuthenticationController < ApplicationController
     # end
 
     # Mockando, isso deve ser implementado depois!!!!!
-    usuario = Usuario.find_by(cargo: 'aluno')
+    usuario = Usuario.find_by(cargo: "aluno")
     if usuario
       session[:usuario_id] = usuario.id
       redirect_to authenticated_index_path, notice: "Logged in!"
@@ -21,7 +21,5 @@ class AuthenticationController < ApplicationController
       flash.now[:alert] = "No 'aluno' user found"
       render :index, status: :unprocessable_entity
     end
-
   end
-
 end
