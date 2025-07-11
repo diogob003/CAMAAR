@@ -1,8 +1,8 @@
 class Turma < ApplicationRecord
   belongs_to :materia
 
-  has_many :turma_professors
-  has_many :professors, through: :turma_professors, source: :professor
+  has_many :turma_professores
+  has_many :professors, through: :turma_professores, source: :professor
 
   has_many :turma_alunos
   has_many :alunos, through: :turma_alunos, source: :aluno

@@ -1,6 +1,6 @@
 class Usuario < ApplicationRecord
-  has_many :turma_professors, foreign_key: :professor_id
-  has_many :turmas_as_professor, through: :turma_professors, source: :turma
+  has_many :turma_professores, foreign_key: :professor_id
+  has_many :turmas_as_professor, through: :turma_professores, source: :turma
 
   has_many :turma_alunos, foreign_key: :aluno_id
   has_many :turmas_as_aluno, through: :turma_alunos, source: :turma
