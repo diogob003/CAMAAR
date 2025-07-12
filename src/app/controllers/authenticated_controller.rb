@@ -1,11 +1,8 @@
 class AuthenticatedController < ApplicationController
-
   def index
-
   end
 
   def home
-
     user_id = session[:user_id]
     return head :unauthorized unless user_id
 
@@ -32,7 +29,6 @@ class AuthenticatedController < ApplicationController
         answered: AnsweredForm.exists?(user_id: user.id, form_id: form.id)
       }
     end.compact
-
   end
 
   def destroy
