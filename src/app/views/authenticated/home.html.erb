@@ -29,7 +29,10 @@
     <div class="content-area" id="formularioBoxesContainer">
 
       <% @forms_data.each_with_index do |form, idx| %>
-        <div class="formulario_box <%= form[:answered] ? 'respondido' : '' %>" data-id="<%= form[:id] %>">
+        <div class="formulario_box <%= form[:answered] ? 'respondido' : '' %>"
+             data-form-id="<%= form[:id] %>"
+             data-class-group-id="<%= form[:class_group_id] %>"
+        >
           <h3><%= form[:subject] %></h3>
           <p><%= form[:semester] %></p>
           <p class="professor-name"><%= form[:professor] %></p>
