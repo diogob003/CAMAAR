@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   get "form/index"
   get "authenticated/index"
-  get "authentication/index"
-  get "teste/index"
+  get "login/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
 
@@ -10,8 +9,8 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root "authentication#index"
-  post "authentication/login", to: "authentication#login"
+  root "login#index"
+  post "login/login", to: "login#login"
   get "authenticated/index", to: "authenticated#index"
   get "authenticated/admin", to: "authenticated#admin"
 
