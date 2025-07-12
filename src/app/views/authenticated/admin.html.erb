@@ -3,7 +3,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerenciamento</title>
   <%= stylesheet_link_tag "authenticated.admin" %>
-  <%= javascript_include_tag "authenticated.admin" %>
 </head>
 
 <body>
@@ -13,8 +12,8 @@
   <div class="user-icon-container">
     <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
     <div class="logout-dropdown" id="logoutDropdown">
-      <button onclick="handleLogout()">Logout</button>
-    </div>
+    <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
+  </div>
   </div>
 </div>
 
@@ -32,3 +31,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "authenticated.admin" %>

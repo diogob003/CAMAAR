@@ -52,33 +52,3 @@ window.onclick = function(event) {
         }
     }
 }
-
-async function handleLogout(event) {
-    console.log('Logging out...');
-
-    const token = document.querySelector('meta[name="csrf-token"]')
-        ? document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        : '';
-
-    try {
-        const response = await fetch('/logout', {
-            method: 'DELETE',
-            credentials: 'same-origin',
-            headers: {
-                'X-CSRF-Token': token,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            console.log('Logout successful');
-            window.location.href = '/'; // Redirect to home or login page
-        } else {
-            console.error('Logout failed:', response.statusText);
-            alert('Logout failed. Please try again.');
-        }
-    } catch (error) {
-        console.error('Error during logout:', error);
-        alert('An error occurred during logout.');
-    }
-}
