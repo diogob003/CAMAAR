@@ -11,10 +11,9 @@ Rails.application.routes.draw do
 
   root "login#index"
   post "login/login", to: "login#login"
-  get "authenticated/index", to: "authenticated#index"
+  get "authenticated/home", to: "authenticated#home"
   get "authenticated/admin", to: "authenticated#admin"
 
-  get "user_forms", to: "form#user_forms"
   delete "logout", to: "authenticated#destroy"
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

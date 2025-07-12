@@ -16,7 +16,7 @@ class LoginController < ApplicationController
     user = User.find_by(role: "student")
     if user
       session[:user_id] = user.id
-      redirect_to authenticated_index_path, notice: "Logged in!"
+      redirect_to authenticated_home_path, notice: "Logged in!"
     else
       flash.now[:alert] = "No 'aluno' user found"
       render :index, status: :unprocessable_entity
