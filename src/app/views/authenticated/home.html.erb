@@ -16,7 +16,7 @@
     <div class="user-icon-container">
       <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
       <div class="logout-dropdown" id="logoutDropdown">
-        <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
+        <%= button_to "Logout", logout_path, method: :delete, class: "logout-btn" %>
       </div>
     </div>
   </div>
@@ -31,15 +31,16 @@
     <div class="content-area" id="formularioBoxesContainer">
 
       <% @forms_data.each_with_index do |form, idx| %>
-        <div class="formulario_box <%= form[:answered] ? 'respondido' : '' %>"
-             data-form-id="<%= form[:id] %>"
-             data-class-group-id="<%= form[:class_group_id] %>"
+        <a class="formulario_box <%= form[:answered] ? "respondido" : "" %>"
+           data-form-id="<%= form[:id] %>"
+           data-class-group-id="<%= form[:class_group_id] %>"
+           href="/answer_form/?form_id=<%= form[:id] %>&class_group_id=<%= form[:class_group_id] %>">
         >
-          <h3><%= form[:subject] %></h3>
-          <p><%= form[:semester] %></p>
+          <h3 class="subject"><%= form[:subject] %></h3>
+          <p class="semester"><%= form[:semester] %></p>
           <p class="professor-name"><%= form[:professor] %></p>
-          <p class="status"><%= form[:answered] ? 'Respondido' : 'Pendente' %></p>
-        </div>
+          <p class="status"><%= form[:answered] ? "Respondido" : "Pendente" %></p>
+        </a>
       <% end %>
 
     </div>

@@ -20,11 +20,3 @@ window.onclick = function(event) {
         }
     }
 }
-
-document.querySelectorAll('.formulario_box').forEach(function(box) {
-    box.addEventListener('click', function() {
-        const id = this.getAttribute('data-form-id');
-        const class_group_id = this.getAttribute('data-class-group-id');
-        window.location.href = `/answer_form/?form_id=${id}&class_group_id=${class_group_id}`;
-    });
-});

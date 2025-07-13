@@ -65,6 +65,25 @@ jobs:
         working-directory: src
         run: bin/rubocop -f github
 
+  cucumber_dbb:
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/src/Gemfile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          working-directory: src
+          bundler-cache: true
+
+      - name: Check behaviour with cucumber
+        working-directory: src
+        run: bin/cucumber
+
   test:
     runs-on: ubuntu-latest
     env:
