@@ -1,0 +1,33 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <%= stylesheet_link_tag "login.index" %>
+</head>
+<body>
+<div class="container">
+  <div class="login-section">
+    <h2>LOGIN</h2>
+    <%= form_with url: login_login_path, method: :post, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :email, "Email" %>
+        <%= f.email_field :email, placeholder: "aluno@aluno.unb.br" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, "Senha" %>
+        <%= f.password_field :password, placeholder: "Password" %>
+      </div>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-warning">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%= f.submit "Entrar", class: "login-button" %>
+    <% end %>
+  </div>
+  <div class="welcome-section">
+    <h1>Bem vindo ao Camaar</h1>
+  </div>
+</div>
