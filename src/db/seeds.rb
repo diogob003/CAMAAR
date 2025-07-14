@@ -8,7 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-
 Answer.delete_all
 Option.delete_all
 Question.delete_all
@@ -21,6 +20,7 @@ ClassProfessor.delete_all
 ClassGroup.delete_all
 Subject.delete_all
 User.delete_all
+
 
 puts "Seeding started..."
 
@@ -35,111 +35,153 @@ users = []
   )
 end
 
-professors = users.select { |u| u.role == "professor" }
-students = users.select { |u| u.role == "student" }
+teacher1 = User.create!(
+  name: "Alice Johnson",
+  registration: "T1001",
+  email: "alice.johnson@example.com",
+  role: "professor",
+  password: "passwordT1"
+)
+
+teacher2 = User.create!(
+  name: "Bob Smith",
+  registration: "T1002",
+  email: "bob.smith@example.com",
+  role: "professor",
+  password: "passwordT2"
+)
+
+student1 = User.create!(
+  name: "Charlie Brown",
+  registration: "S2001",
+  email: "charlie.brown@example.com",
+  role: "student",
+  password: "passwordS1"
+)
+
+student2 = User.create!(
+  name: "Diana Prince",
+  registration: "S2002",
+  email: "diana.prince@example.com",
+  role: "student",
+  password: "passwordS2"
+)
+
+teachers = [ teacher1, teacher2 ]
+students = [ student1, student2 ]
+
+subject_names = [
+  "Mathematics",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "History"
+]
 
 subjects = []
-5.times do |i|
-  subjects << Subject.create!(
-    name: "Subject #{i+1}",
-    code: "SUB#{i+1}00"
-  )
-end
-
 class_groups = []
-subjects.each_with_index do |subj, i|
-  2.times do |j|
-    class_groups << ClassGroup.create!(
-      subject: subj,
-      number: j+1,
-      semester: "2025.#{(i%2)+1}"
-    )
+
+subject_names.each_with_index do |name, i|
+  subject = Subject.create!(name: name, code: "SUB#{i+1}00")
+  subjects << subject
+  class_group = ClassGroup.create!(subject: subject, number: 1, semester: "2025.1")
+  class_groups << class_group
+
+  ClassProfessor.create!(professor: teachers[i % teachers.size], class_group: class_group)
+end
+
+class_groups.each do |cg|
+  students.each do |student|
+    ClassStudent.create!(student: student, class_group: cg)
   end
 end
 
-class_groups.each_with_index do |cg, i|
-  ClassProfessor.create!(
-    professor: professors[i % professors.size],
-    class_group: cg
-  )
-end
+template1 = Template.create!(title: "Template 1", creator: teacher1) # TODO: usar um admin
+template2 = Template.create!(title: "Template 2", creator: teacher2) # TODO: usar um admin
 
-class_groups.each_with_index do |cg, i|
-  student = students[i % students.size]
-  ClassStudent.create!(
-    student: student,
-    class_group: cg
-  )
-end
+q1 = Question.create!(template: template1, title: "How do you rate the class environment?", order: 1)
+q2 = Question.create!(template: template1, title: "Was the material clear?", order: 2)
+q3 = Question.create!(template: template1, title: "Any suggestions for improvement?", order: 3)
 
-templates = []
-professors.each_with_index do |prof, i|
-  templates << Template.create!(
-    creator: prof,
-    title: "Template #{i+1}",
-    description: "Description for template #{i+1}"
-  )
-end
+Option.create!([
+                 { question: q1, description: "Excellent", order: 1 },
+                 { question: q1, description: "Good", order: 2 },
+                 { question: q1, description: "Average", order: 3 },
+                 { question: q1, description: "Poor", order: 4 }
+               ])
 
-forms = []
-class_groups.each_with_index do |cg, i|
-  form = Form.create!(
-    publisher: professors[i % professors.size],
-    template: templates[i % templates.size],
-    open_date: Date.today,
-    close_date: Date.today + 10
-  )
+Option.create!([
+                 { question: q2, description: "Yes", order: 1 },
+                 { question: q2, description: "No", order: 2 }
+               ])
+
+q4 = Question.create!(template: template2, title: "How engaging was the teacher?", order: 1)
+q5 = Question.create!(template: template2, title: "Rate the difficulty of the subject.", order: 2)
+q6 = Question.create!(template: template2, title: "Comments about the class?", order: 3)
+
+Option.create!([
+                 { question: q4, description: "Very engaging", order: 1 },
+                 { question: q4, description: "Somewhat engaging", order: 2 },
+                 { question: q4, description: "Not engaging", order: 3 }
+               ])
+
+Option.create!([
+                 { question: q5, description: "Easy", order: 1 },
+                 { question: q5, description: "Moderate", order: 2 },
+                 { question: q5, description: "Hard", order: 3 }
+               ])
+
+form1 = Form.create!(template: template1, publisher: teacher1) # TODO: usar um admin
+form2 = Form.create!(template: template2, publisher: teacher2) # TODO: usar um admin
+
+class_groups.each_with_index do |cg, idx|
+  form = idx.even? ? form1 : form2
   ClassForm.create!(class_group: cg, form: form)
-  forms << form
 end
 
-questions = []
-forms.each_with_index do |form, i|
-  q = Question.create!(
-    template: form.template,
-    title: "Question #{i+1}",
-    description: "Description of question #{i+1}"
-  )
-  questions << q
+answered_form1 = AnsweredForm.create!(user: student1, form: form1)
+answered_form2 = AnsweredForm.create!(user: student2, form: form2)
 
-  if i.even?
-    3.times do |j|
-      Option.create!(
-        question: q,
-        description: "Option #{j+1} for Q#{i+1}",
-        order: j+1
-      )
-    end
-  end
-end
+Answer.create!(
+  answered_form: answered_form1,
+  question: q1,
+  option_id: q1.options.first.id,
+  justification: nil
+)
 
-students.each_with_index do |student, i|
-  form_ans = forms[i % forms.size]
-  AnsweredForm.create!(user: student, form: form_ans)
+Answer.create!(
+  answered_form: answered_form1,
+  question: q2,
+  option_id: nil,
+  justification: "The material was very clear and easy to follow."
+)
 
-  unanswered_forms = forms - [ form_ans ]
-  if unanswered_forms.any?
-    unans = unanswered_forms.sample
-    puts "#{student.name} has not answered Form #{unans.id}"
-  end
-end
+Answer.create!(
+  answered_form: answered_form1,
+  question: q3,
+  option_id: nil,
+  justification: "More group activities would be great."
+)
 
-AnsweredForm.all.each do |af|
-  form = af.form
-  form.template.questions.each do |q|
-    if q.options.any?
-      Answer.create!(
-        question: q,
-        option: q.options.first,
-        justification: "Selected option for question #{q.id}"
-      )
-    else
-      Answer.create!(
-        question: q,
-        justification: "Written answer for question #{q.id}"
-      )
-    end
-  end
-end
+Answer.create!(
+  answered_form: answered_form2,
+  question: q4,
+  option_id: q4.options.last.id,
+  justification: nil
+)
+
+Answer.create!(
+  answered_form: answered_form2,
+  question: q5,
+  option_id: q5.options[1].id,
+  justification: nil
+)
+
+Answer.create!(
+  answered_form: answered_form2,
+  question: q6,
+  option_id: nil,
+  justification: "The class was interesting, but could use more examples."
+)
 
 puts "Seeding completed successfully!"

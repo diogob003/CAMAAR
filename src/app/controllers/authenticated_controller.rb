@@ -19,7 +19,8 @@ class AuthenticatedController < ApplicationController
       next unless class_group
       professor = class_group.class_professors.first&.professor
       {
-        id: class_group.id,
+        id: form.id,
+        class_group_id: class_group.id,
         subject: class_group.subject&.name,
         semester: class_group.semester,
         professor: professor&.name,

@@ -12,4 +12,7 @@ Rails.application.routes.draw do
 
   get "authenticated/home", to: "authenticated#home"
   get "authenticated/admin", to: "authenticated#admin"
+  
+  get "answer_form", to: "form#answer_form"
+  post "submit_form", to: "form#submit_form"
 end
