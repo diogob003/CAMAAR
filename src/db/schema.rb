@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_11_152213) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_12_224401) do
   create_table "answered_forms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,6 +26,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_152213) do
     t.datetime "updated_at", null: false
     t.integer "question_id"
     t.integer "option_id"
+    t.integer "answered_form_id", null: false
+    t.index ["answered_form_id"], name: "index_answers_on_answered_form_id"
     t.index ["option_id"], name: "index_answers_on_option_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
@@ -92,6 +94,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_152213) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "template_id"
+    t.integer "order"
     t.index ["template_id"], name: "index_questions_on_template_id"
   end
 
@@ -124,6 +127,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_152213) do
 
   add_foreign_key "answered_forms", "forms"
   add_foreign_key "answered_forms", "users"
+  add_foreign_key "answers", "answered_forms"
   add_foreign_key "answers", "options"
   add_foreign_key "answers", "questions"
   add_foreign_key "class_forms", "class_groups"
