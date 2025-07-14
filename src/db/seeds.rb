@@ -28,11 +28,10 @@ users = []
 5.times do |i|
   users << User.create!(
     name: "User #{i+1}",
-    registration: "U#{1000+i}",
+    registration: "U#{1001+i}",
     email: "user#{i+1}@example.com",
     role: i < 3 ? "professor" : "student",
-    password_hash: "hash#{i}",
-    password_salt: "salt#{i}"
+    password: "password#{i+1}"
   )
 end
 
