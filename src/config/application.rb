@@ -20,8 +20,12 @@ module Camaar
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Set default timezone
+    config.time_zone = "Brasilia"
+
+    # Set location
+    config.i18n.default_locale = :"pt-BR"
   end
 end

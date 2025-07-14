@@ -21,47 +21,39 @@ ClassGroup.delete_all
 Subject.delete_all
 User.delete_all
 
+teachers = User.create!([
+  {
+    name: "Alice Johnson",
+    registration: "T1001",
+    email: "alice.johnson@example.com",
+    role: "professor",
+    password: "alice_jabberwock_password"
+  },
+  {
+    name: "Bob Smith",
+    registration: "T1002",
+    email: "bob.smith@example.com",
+    role: "professor",
+    password: "bob_horse_password"
+  }
+])
 
-puts "Seeding started..."
-
-teacher1 = User.create!(
-  name: "Alice Johnson",
-  registration: "T1001",
-  email: "alice.johnson@example.com",
-  role: "professor",
-  password_hash: "hash1",
-  password_salt: "salt1"
-)
-
-teacher2 = User.create!(
-  name: "Bob Smith",
-  registration: "T1002",
-  email: "bob.smith@example.com",
-  role: "professor",
-  password_hash: "hash2",
-  password_salt: "salt2"
-)
-
-student1 = User.create!(
-  name: "Charlie Brown",
-  registration: "S2001",
-  email: "charlie.brown@example.com",
-  role: "student",
-  password_hash: "hash3",
-  password_salt: "salt3"
-)
-
-student2 = User.create!(
-  name: "Diana Prince",
-  registration: "S2002",
-  email: "diana.prince@example.com",
-  role: "student",
-  password_hash: "hash4",
-  password_salt: "salt4"
-)
-
-teachers = [ teacher1, teacher2 ]
-students = [ student1, student2 ]
+students = User.create!([
+  {
+    name: "Charlie Brown",
+    registration: "S2001",
+    email: "charlie.brown@example.com",
+    role: "student",
+    password: "charlie_bettery_password"
+  },
+  {
+    name: "Diana Prince",
+    registration: "S2002",
+    email: "diana.prince@example.com",
+    role: "student",
+    password: "diana_scorpion_password"
+  }
+])
 
 subject_names = [
   "Mathematics",
@@ -89,8 +81,8 @@ class_groups.each do |cg|
   end
 end
 
-template1 = Template.create!(title: "Template 1", creator: teacher1) # TODO: usar um admin
-template2 = Template.create!(title: "Template 2", creator: teacher2) # TODO: usar um admin
+template1 = Template.create!(title: "Template 1", creator: teachers[0]) # TODO: usar um admin
+template2 = Template.create!(title: "Template 2", creator: teachers[1]) # TODO: usar um admin
 
 q1 = Question.create!(template: template1, title: "How do you rate the class environment?", order: 1)
 q2 = Question.create!(template: template1, title: "Was the material clear?", order: 2)
@@ -124,57 +116,57 @@ Option.create!([
                  { question: q5, description: "Hard", order: 3 }
                ])
 
-form1 = Form.create!(template: template1, publisher: teacher1) # TODO: usar um admin
-form2 = Form.create!(template: template2, publisher: teacher2) # TODO: usar um admin
+form1 = Form.create!(template: template1, publisher: teachers[0]) # TODO: usar um admin
+form2 = Form.create!(template: template2, publisher: teachers[1]) # TODO: usar um admin
 
 class_groups.each_with_index do |cg, idx|
   form = idx.even? ? form1 : form2
   ClassForm.create!(class_group: cg, form: form)
 end
 
-answered_form1 = AnsweredForm.create!(user: student1, form: form1)
-answered_form2 = AnsweredForm.create!(user: student2, form: form2)
+answered_form1 = AnsweredForm.create!(user: students[0], form: form1)
+answered_form2 = AnsweredForm.create!(user: students[1], form: form2)
 
-Answer.create!(
-  answered_form: answered_form1,
-  question: q1,
-  option_id: q1.options.first.id,
-  justification: nil
-)
+Answer.create!([
+  {
+    answered_form: answered_form1,
+    question: q1,
+    option_id: q1.options.first.id,
+    justification: nil
+  },
+  {
+    answered_form: answered_form1,
+    question: q2,
+    option_id: nil,
+    justification: "The material was very clear and easy to follow."
+  },
+  {
+    answered_form: answered_form1,
+    question: q3,
+    option_id: nil,
+    justification: "More group activities would be great."
+  }
+])
 
-Answer.create!(
-  answered_form: answered_form1,
-  question: q2,
-  option_id: nil,
-  justification: "The material was very clear and easy to follow."
-)
-
-Answer.create!(
-  answered_form: answered_form1,
-  question: q3,
-  option_id: nil,
-  justification: "More group activities would be great."
-)
-
-Answer.create!(
-  answered_form: answered_form2,
-  question: q4,
-  option_id: q4.options.last.id,
-  justification: nil
-)
-
-Answer.create!(
-  answered_form: answered_form2,
-  question: q5,
-  option_id: q5.options[1].id,
-  justification: nil
-)
-
-Answer.create!(
-  answered_form: answered_form2,
-  question: q6,
-  option_id: nil,
-  justification: "The class was interesting, but could use more examples."
-)
+Answer.create!([
+  {
+    answered_form: answered_form2,
+    question: q4,
+    option_id: q4.options.last.id,
+    justification: nil
+  },
+  {
+    answered_form: answered_form2,
+    question: q5,
+    option_id: q5.options[1].id,
+    justification: nil
+  },
+  {
+    answered_form: answered_form2,
+    question: q6,
+    option_id: nil,
+    justification: "The class was interesting, but could use more examples."
+  }
+])
 
 puts "Seeding completed successfully!"

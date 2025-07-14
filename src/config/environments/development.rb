@@ -3,6 +3,10 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # !!! DO NOT SET THIS ON PRODUCTION !!!
+  # Set db timezone to local
+  config.active_record.default_timezone = :local
+
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
