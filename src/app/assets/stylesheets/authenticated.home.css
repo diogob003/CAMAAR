@@ -124,6 +124,7 @@ body {
 
 .sidebar.open {
     width: 300px;
+    height: -webkit-fill-available;
 }
 
 .sidebar a {

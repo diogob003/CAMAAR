@@ -1,50 +1,45 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avaliações</title>
-  <%= stylesheet_link_tag "authenticated.home" %>
-</head>
+<%= stylesheet_link_tag "authenticated.home" %>
 
-<body>
-  <div class="header">
-    <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
-    <div class="header-title">Avaliações</div>
-    <div class="search-container">
-      <i class="search-icon fa fa-search"></i>
-      <input type="text" placeholder="">
-    </div>
-    <div class="user-icon-container">
-      <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
-      <div class="logout-dropdown" id="logoutDropdown">
-        <%= button_to "Logout", logout_path, method: :delete, class: "logout-btn" %>
-      </div>
+<div class="header">
+  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+  <div class="header-title">Avaliações</div>
+  <div class="search-container">
+    <i class="search-icon fa fa-search"></i>
+    <%= form_with url: authenticated_home_path, method: :get, local: true do %>
+      <input type="text" id="searchInput" name="query" placeholder="Pesquisar avaliações..." value="<%= params[:query] %>">
+    <% end %>
+  </div>
+  <div class="user-icon-container">
+    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+    <div class="logout-dropdown" id="logoutDropdown">
+      <%= button_to "Logout", logout_path, method: :delete, class: "logout-btn" %>
     </div>
   </div>
+</div>
 
-  <div class="main-content">
-    <div class="sidebar" id="mySidebar">
-      <a href="#" class="active">Avaliações</a>
-      <% if current_user && current_user.role == "professor" %>
-        <a href="admin">Gerenciamento</a>
-      <% end %>
-    </div>
-    <div class="content-area" id="formularioBoxesContainer">
-
-      <% @forms_data.each_with_index do |form, idx| %>
-        <a class="formulario_box <%= form[:answered] ? "respondido" : "" %>"
-           data-form-id="<%= form[:id] %>"
-           data-class-group-id="<%= form[:class_group_id] %>"
-           href="/answer_form/?form_id=<%= form[:id] %>&class_group_id=<%= form[:class_group_id] %>">
-        >
-          <h3 class="subject"><%= form[:subject] %></h3>
-          <p class="semester"><%= form[:semester] %></p>
-          <p class="professor-name"><%= form[:professor] %></p>
-          <p class="status"><%= form[:answered] ? "Respondido" : "Pendente" %></p>
-        </a>
-      <% end %>
-
-    </div>
+<div class="main-content">
+  <div class="sidebar" id="mySidebar">
+    <a href="#" class="active">Avaliações</a>
+    <% if current_user && current_user.role == "professor" %>
+      <a href="admin">Gerenciamento</a>
+    <% end %>
   </div>
-</body>
+  <div class="content-area" id="formularioBoxesContainer">
+
+    <% @forms_data.each_with_index do |form, idx| %>
+      <a class="formulario_box <%= form[:answered] ? "respondido" : "" %>"
+         data-form-id="<%= form[:id] %>"
+         data-class-group-id="<%= form[:class_group_id] %>"
+         href="/answer_form/?form_id=<%= form[:id] %>&class_group_id=<%= form[:class_group_id] %>"
+      >
+        <h3 class="subject"><%= form[:subject] %></h3>
+        <p class="semester"><%= form[:semester] %></p>
+        <p class="professor-name"><%= form[:professor] %></p>
+        <p class="status"><%= form[:answered] ? "Respondido" : "Pendente" %></p>
+      </a>
+    <% end %>
+
+  </div>
+</div>
 
 <%= javascript_include_tag("authenticated.home")%>

@@ -10,9 +10,17 @@ class AuthenticatedController < ApplicationController
     class_group_ids += user.class_professors.pluck(:class_group_id) if user.respond_to?(:class_professors)
     class_group_ids.uniq!
 
-    forms = Form.joins(:class_forms)
-                .where(class_forms: { class_group_id: class_group_ids })
-                .distinct
+    forms =
+      if params[:query].present?
+              Form.joins(class_forms: { class_group: :subject })
+                  .where(class_forms: { class_group_id: class_group_ids })
+                  .where("subjects.name LIKE ?", "%#{params[:query]}%")
+                  .distinct
+      else
+              Form.joins(:class_forms)
+                  .where(class_forms: { class_group_id: class_group_ids })
+                  .distinct
+      end
 
     @forms_data = forms.map do |form|
       class_group = form.class_forms.first&.class_group
