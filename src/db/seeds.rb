@@ -81,8 +81,8 @@ class_groups.each do |cg|
   end
 end
 
-template1 = Template.create!(title: "Template 1", creator: teachers[0]) # TODO: usar um admin
-template2 = Template.create!(title: "Template 2", creator: teachers[1]) # TODO: usar um admin
+template1 = Template.create!(title: "Template 1", description: "Desc template1", creator: teachers[0]) # TODO: usar um admin
+template2 = Template.create!(title: "Template 2", description: "Desc template2", creator: teachers[1]) # TODO: usar um admin
 
 q1 = Question.create!(template: template1, title: "How do you rate the class environment?", order: 1)
 q2 = Question.create!(template: template1, title: "Was the material clear?", order: 2)
