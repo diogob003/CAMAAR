@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "admin_templates/index"
+  get "admin_templates/list"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -19,4 +21,8 @@ Rails.application.routes.draw do
   if Rails.env.test?
     post "/test_login", to: "test_sessions#create"
   end
+
+  get "admin_templates/index", to: "admin_templates#index"
+  get "admin_templates/list", to: "admin_templates#list"
+
 end

@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag "admin_templates.list" %>
+
+<div class="header">
+  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+  <div class="header-title">Gerenciamento - Templates</div>
+  <div class="user-icon-container">
+    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+    <div class="logout-dropdown" id="logoutDropdown">
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="sidebar" id="mySidebar">
+    <%= link_to "Avaliações", authenticated_home_path %>
+    <% if current_user && current_user.role == "professor" %>
+      <a href="#" class="active">Gerenciamento</a>
+    <% end %>
+  </div>
+  <div class="content-area">
+
+    <% @templates.each_with_index do |template, idx| %>
+
+      <a class="template_box">
+        <div class="template-box" data-template-id="<%= template.id %>">
+          <h3 class="template-title"><%= template.title %></h3>
+          <p class="template-description"><%= template.description %></p>
+        </div>
+      </a>
+
+    <% end %>
+
+    <a class="template_box">
+      <div class="template-box plus-box">
+        <h3 class="template-title plus-sign"> + </h3>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<%= javascript_include_tag("authenticated.home") %>

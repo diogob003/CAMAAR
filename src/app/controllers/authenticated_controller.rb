@@ -38,5 +38,19 @@ class AuthenticatedController < ApplicationController
   end
 
   def admin
+
+    return head :unauthorized unless logged_in?
+    user = current_user
+
+    class_group_ids = []
+    class_group_ids += current_user.class_students.pluck(:class_group_id) if current_user.respond_to?(:class_students)
+    class_group_ids += current_user.class_professors.pluck(:class_group_id) if current_user.respond_to?(:class_professors)
+    class_group_ids.uniq!
+
+    @classrooms = ClassGroup.where(id: class_group_ids)
+
+    @templates = Template.where(creator_id: current_user.id)
+    @sent_forms = Form.where(publisher_id: current_user.id)
+
   end
 end

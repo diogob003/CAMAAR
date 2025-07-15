@@ -20,10 +20,27 @@
   </div>
   <div class="content-area">
     <div class="management-card">
-      <button id="importarDadosBtn" class="management-button green" onclick="handleButtonClick('importarDados')">Importar dados</button>
-      <button id="editarTemplatesBtn" class="management-button light-green" onclick="handleButtonClick('editarTemplates')">Editar Templates</button>
-      <button id="enviarFormulariosBtn" class="management-button light-green" onclick="handleButtonClick('enviarFormularios')">Enviar Formularios</button>
-      <button id="resultadosBtn" class="management-button light-green" onclick="handleButtonClick('resultados')">Resultados</button>
+
+      <button id="importarDadosBtn" class="management-button green">
+        Importar dados
+      </button>
+
+      <button id="editarTemplatesBtn"
+              class="management-button <%= @classrooms.any? ? 'green' : 'light-green' %>"
+              onclick="window.location='<%= url_for(admin_templates_list_path) %>'">
+        Editar Templates
+      </button>
+
+      <button id="enviarFormulariosBtn"
+              class="management-button <%= @templates.any? ? 'green' : 'light-green' %>">
+        Enviar Formularios
+      </button>
+
+      <button id="resultadosBtn"
+              class="management-button <%= @sent_forms.any? ? 'green' : 'light-green' %>">
+        Resultados
+      </button>
+
     </div>
   </div>
 </div>
