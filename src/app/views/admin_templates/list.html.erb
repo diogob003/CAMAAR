@@ -31,13 +31,13 @@
 
     <% end %>
 
-    <a class="template_box">
+    <%= link_to new_admin_template_path, class: "template_box" do %>
       <div class="template-box plus-box">
         <h3 class="template-title plus-sign"> + </h3>
       </div>
-    </a>
+    <% end %>
 
   </div>
 </div>
 
-<%= javascript_include_tag("authenticated.home") %>
+<%= javascript_include_tag("admin_templates.list") %>

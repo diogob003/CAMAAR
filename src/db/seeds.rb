@@ -84,9 +84,9 @@ end
 template1 = Template.create!(title: "Template 1", description: "Desc template1", creator: teachers[0]) # TODO: usar um admin
 template2 = Template.create!(title: "Template 2", description: "Desc template2", creator: teachers[1]) # TODO: usar um admin
 
-q1 = Question.create!(template: template1, title: "How do you rate the class environment?", order: 1)
-q2 = Question.create!(template: template1, title: "Was the material clear?", order: 2)
-q3 = Question.create!(template: template1, title: "Any suggestions for improvement?", order: 3)
+q1 = Question.create!(template: template1, title: "How do you rate the class environment?", answer_type: "options", order: 1)
+q2 = Question.create!(template: template1, title: "Was the material clear?", answer_type: "options", order: 2)
+q3 = Question.create!(template: template1, title: "Any suggestions for improvement?", answer_type: "text", order: 3)
 
 Option.create!([
                  { question: q1, description: "Excellent", order: 1 },
@@ -100,9 +100,9 @@ Option.create!([
                  { question: q2, description: "No", order: 2 }
                ])
 
-q4 = Question.create!(template: template2, title: "How engaging was the teacher?", order: 1)
-q5 = Question.create!(template: template2, title: "Rate the difficulty of the subject.", order: 2)
-q6 = Question.create!(template: template2, title: "Comments about the class?", order: 3)
+q4 = Question.create!(template: template2, title: "How engaging was the teacher?", answer_type: "options", order: 1)
+q5 = Question.create!(template: template2, title: "Rate the difficulty of the subject.", answer_type: "options", order: 2)
+q6 = Question.create!(template: template2, title: "Comments about the class?", answer_type: "text", order: 3)
 
 Option.create!([
                  { question: q4, description: "Very engaging", order: 1 },
