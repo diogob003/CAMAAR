@@ -3,6 +3,13 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Configure 'rails notes' to inspect Cucumber files
+  config.annotations.register_directories("features")
+  config.annotations.register_extensions("feature") { |tag| /#\s*(#{tag}):?\s*(.*)$/ }
+
+  # Cucumber disable push message
+  CUCUMBER_PUBLISH_ENABLED=false
+
   # !!! DO NOT SET THIS ON PRODUCTION !!!
   # Set db timezone to local
   config.active_record.default_timezone = :local

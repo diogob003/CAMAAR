@@ -15,4 +15,8 @@ Rails.application.routes.draw do
 
   get "answer_form", to: "form#answer_form"
   post "submit_form", to: "form#submit_form"
+
+  if Rails.env.test?
+    post "/test_login", to: "test_sessions#create"
+  end
 end

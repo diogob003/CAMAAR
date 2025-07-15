@@ -31,31 +31,6 @@ body {
     flex-grow: 1;
 }
 
-.search-container {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    padding: 8px 15px;
-    background-color: #f9f9f9;
-}
-
-.search-container input {
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 16px;
-    width: 200px;
-}
-
-.search-container .search-icon {
-    font-size: 18px;
-    color: #888;
-    margin-right: 8px;
-}
-
-
 .user-icon-container {
     position: relative;
 }
@@ -120,6 +95,7 @@ body {
 
 .sidebar.open {
     width: 300px;
+    height: -webkit-fill-available;
 }
 
 .sidebar a {
