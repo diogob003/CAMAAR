@@ -22,7 +22,17 @@ Rails.application.routes.draw do
     post "/test_login", to: "test_sessions#create"
   end
 
+=begin
   get "admin_templates/index", to: "admin_templates#index"
   get "admin_templates/list", to: "admin_templates#list"
+  get "admin_templates/new", to: "admin_templates#new"
+=end
+
+  resources :admin_templates do
+    collection do
+      get :list
+      get :new
+    end
+  end
 
 end

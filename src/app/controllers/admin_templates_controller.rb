@@ -3,11 +3,31 @@ class AdminTemplatesController < ApplicationController
   end
 
   def list
-
     return head :unauthorized unless logged_in?
     user = current_user
-
     @templates = Template.where(creator_id: current_user.id)
-
   end
+
+  def new
+    @template = Template.new
+    @template.questions.build
+  end
+
+  def create
+    @template = Template.new(template_params)
+    @template.creator_id = current_user.id
+    if @template.save
+      redirect_to admin_templates_list_path, notice: "Template created successfully."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def template_params
+    params.require(:template).permit(:title, :description,
+                                     questions_attributes: [:id, :title, :answer_type, :_destroy])
+  end
+
 end

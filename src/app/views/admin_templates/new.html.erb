@@ -1,0 +1,61 @@
+<%= stylesheet_link_tag "admin_templates.new" %>
+
+<div class="header">
+  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+  <div class="header-title">Gerenciamento - Template</div>
+  <div class="user-icon-container">
+    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+    <div class="logout-dropdown" id="logoutDropdown">
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+
+  <div class="sidebar" id="mySidebar">
+    <a href="#" class="active">Avaliações</a>
+    <% if current_user && current_user.role == "professor" %>
+      <a href="admin">Gerenciamento</a>
+    <% end %>
+  </div>
+
+  <div class="form-container">
+    <h2>New Template</h2>
+    <%= form_with model: @template, url: admin_templates_path, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :title, "Template Name" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description, "Description" %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+
+      <div id="questions-list">
+        <%= f.fields_for :questions do |qf| %>
+          <div class="question-fields">
+            <div class="form-group">
+              <%= qf.label :title, "Question Name" %>
+              <%= qf.text_field :title, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= qf.label :answer_type, "Answer Type" %>
+              <%= qf.select :answer_type, options_for_select([["Text", "text"], ["Radio", "radio"]], "text"), {}, class: "form-control answer-type-select" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="centered">
+        <button type="button" id="add-question-btn" class="add-question-btn">
+          <span class="plus-sign">+</span> Add Question
+        </button>
+      </div>
+
+      <%= f.submit "Create Template", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_include_tag("admin_templates.new") %>
