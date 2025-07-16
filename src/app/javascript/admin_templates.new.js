@@ -21,7 +21,7 @@ window.onclick = function(event) {
     }
 }
 
-document.addEventListener("turbo:load", function() {
+function addListeners() {
     const addBtn = document.getElementById("add-question-btn");
     const questionsList = document.getElementById("questions-list");
 
@@ -65,51 +65,58 @@ document.addEventListener("turbo:load", function() {
         `;
     }
 
-    let questionIndex = questionsList.children.length;
+    if(addBtn) {
+        let questionIndex = questionsList.children.length;
+        addBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            questionsList.insertAdjacentHTML("beforeend", buildQuestionFields(questionIndex));
+            questionIndex++;
+        });
+    }
 
-    addBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        questionsList.insertAdjacentHTML("beforeend", buildQuestionFields(questionIndex));
-        questionIndex++;
-    });
-
-    questionsList.addEventListener("change", function(e) {
-        if (e.target.classList.contains("answer-type-select")) {
-            const questionFields = e.target.closest(".question-fields");
-            const qIndex = questionFields.dataset.questionIndex;
-            let optionsArea = questionFields.querySelector(".options-area");
-            if (e.target.value === "radio") {
-                if (!optionsArea) {
-                    questionFields.insertAdjacentHTML("beforeend", buildOptionsArea(qIndex));
+    if(questionsList) {
+        questionsList.addEventListener("change", function(e) {
+            if (e.target.classList.contains("answer-type-select")) {
+                const questionFields = e.target.closest(".question-fields");
+                const qIndex = questionFields.dataset.questionIndex;
+                let optionsArea = questionFields.querySelector(".options-area");
+                if (e.target.value === "radio") {
+                    if (!optionsArea) {
+                        questionFields.insertAdjacentHTML("beforeend", buildOptionsArea(qIndex));
+                    }
+                } else {
+                    if (optionsArea) optionsArea.remove();
                 }
-            } else {
-                if (optionsArea) optionsArea.remove();
             }
-        }
-    });
+        });
 
-    questionsList.addEventListener("click", function(e) {
+        questionsList.addEventListener("click", function(e) {
 
-        if (e.target.classList.contains("delete-question-btn-x")) {
-            e.target.closest(".question-fields").remove();
-        }
+            if (e.target.classList.contains("delete-question-btn-x")) {
+                e.target.closest(".question-fields").remove();
+            }
 
-        if (e.target.classList.contains("add-option-btn")) {
-            const questionFields = e.target.closest(".question-fields");
-            const qIndex = questionFields.dataset.questionIndex;
-            const optionsList = questionFields.querySelector(".options-list");
-            const optionFields = optionsList.querySelectorAll(".option-field");
-            const oIndex = optionFields.length;
-            optionsList.insertAdjacentHTML("beforeend", buildOptionField(qIndex, oIndex));
-        }
+            if (e.target.classList.contains("add-option-btn")) {
+                const questionFields = e.target.closest(".question-fields");
+                const qIndex = questionFields.dataset.questionIndex;
+                const optionsList = questionFields.querySelector(".options-list");
+                const optionFields = optionsList.querySelectorAll(".option-field");
+                const oIndex = optionFields.length;
+                optionsList.insertAdjacentHTML("beforeend", buildOptionField(qIndex, oIndex));
+            }
 
-        if (e.target.classList.contains("delete-option-btn-x")) {
-            e.target.closest(".option-field").remove();
-        }
-    });
+            if (e.target.classList.contains("delete-option-btn-x")) {
+                e.target.closest(".option-field").remove();
+            }
+        });
+
+    }
 
     document.querySelectorAll(".answer-type-select").forEach(function(select) {
         select.dispatchEvent(new Event("change"));
     });
+}
 
-});
+// document.addEventListener("turbo:load", addListeners);
+// document.addEventListener("DOMContentLoaded", addListeners);
+addListeners();

@@ -26,8 +26,13 @@ class AdminTemplatesController < ApplicationController
   private
 
   def template_params
-    params.require(:template).permit(:title, :description,
-                                     questions_attributes: [:id, :title, :answer_type, :_destroy])
+    params.require(:template).permit(
+      :title, :description,
+      questions_attributes: [
+        :id, :title, :answer_type, :order, :_destroy,
+        options_attributes: [:id, :description, :order, :_destroy]
+      ]
+    )
   end
 
 end
