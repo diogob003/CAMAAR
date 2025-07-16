@@ -18,24 +18,41 @@
       <a href="#" class="active">Gerenciamento</a>
     <% end %>
   </div>
-  <div class="content-area">
 
-    <% @templates.each_with_index do |template, idx| %>
+  <div>
 
-      <a class="template_box">
-        <div class="template-box" data-template-id="<%= template.id %>">
-          <h3 class="template-title"><%= template.title %></h3>
-          <p class="template-description"><%= template.description %></p>
+    <div class="notice-box">
+      <% if notice %>
+        <div class="flash-message notice"><%= notice %></div>
+      <% elsif alert %>
+        <div class="flash-message alert"><%= alert %></div>
+      <% end %>
+    </div>
+
+    <div class="content-area">
+      <% @templates.each_with_index do |template, idx| %>
+        <div class="template_box" style="position:relative;">
+          <div class="template-box" data-template-id="<%= template.id %>">
+            <%= button_to "&times;".html_safe,
+                          admin_template_path(template),
+                          method: :delete,
+                          form: { "data-turbo-confirm": nil },
+                          class: "delete-template-btn-x",
+                          title: "Delete template",
+                          style: "position:absolute; top:8px; right:8px; z-index:2;" %>
+            <h3 class="template-title"><%= template.title %></h3>
+            <p class="template-description"><%= template.description %></p>
+          </div>
         </div>
-      </a>
+      <% end %>
 
-    <% end %>
+      <%= link_to new_admin_template_path, class: "template_box" do %>
+        <div class="template-box plus-box">
+          <h3 class="template-title plus-sign"> + </h3>
+        </div>
+      <% end %>
+    </div>
 
-    <%= link_to new_admin_template_path, class: "template_box" do %>
-      <div class="template-box plus-box">
-        <h3 class="template-title plus-sign"> + </h3>
-      </div>
-    <% end %>
 
   </div>
 </div>

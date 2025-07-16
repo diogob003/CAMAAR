@@ -172,6 +172,62 @@ body {
     text-align: center;
 }
 
+.delete-template-btn-x {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    color: #dc3545;
+    border: none;
+    border-radius: 0;
+    width: 28px;
+    height: 28px;
+    font-size: 22px;
+    line-height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s;
+    z-index: 2;
+}
+
+.delete-template-btn-x:hover {
+    color: #a71d2a;
+}
+
+.notice-box {
+    display: flex;
+    padding-top: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.flash-message {
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.flash-message.notice {
+    background: #e6f7e6;
+    color: #207520;
+    border: 1px solid #b6e2b6;
+}
+
+.flash-message.alert {
+    background: #fff0f0;
+    color: #b30000;
+    border: 1px solid #f5bcbc;
+}
+
 .fa {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;

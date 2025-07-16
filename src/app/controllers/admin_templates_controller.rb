@@ -23,6 +23,16 @@ class AdminTemplatesController < ApplicationController
     end
   end
 
+  def destroy
+    template = Template.find(params[:id])
+    if template.forms.exists?
+      redirect_to admin_templates_list_path, alert: "Cannot delete: template has associated forms."
+    else
+      template.destroy
+      redirect_to admin_templates_list_path, notice: "Template deleted successfully."
+    end
+  end
+
   private
 
   def template_params
