@@ -1,12 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 .header {
     display: flex;
     align-items: center;
@@ -19,74 +10,11 @@ body {
     box-sizing: border-box;
 }
 
-.menu-icon {
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 20px;
-    color: #333;
-}
-
 .header-title {
     font-size: 20px;
     font-weight: bold;
     color: #333;
     flex-grow: 1;
-}
-
-.user-icon-container {
-    position: relative;
-}
-
-.user-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #6a008a;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    cursor: pointer;
-    font-weight: bold;
-    line-height: 1;
-}
-
-.logout-dropdown {
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: none; /* Hidden by default */
-    min-width: 120px;
-    z-index: 10;
-}
-
-.logout-dropdown button {
-    background: none;
-    border: none;
-    width: 100%;
-    padding: 10px 15px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-}
-
-.logout-dropdown button:hover {
-    background-color: #f0f0f0;
-}
-
-.main-content {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align content to the top */
-    position: relative; /* For the floating button */
-    overflow-y: auto; /* Enable scrolling for content if it overflows */
 }
 
 .form-container {

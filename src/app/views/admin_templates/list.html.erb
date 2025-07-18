@@ -12,6 +12,7 @@
 </div>
 
 <div class="main-content">
+
   <div class="sidebar" id="mySidebar">
     <%= link_to "Avaliações", authenticated_home_path %>
     <% if current_user && current_user.role == "professor" %>
@@ -19,8 +20,7 @@
     <% end %>
   </div>
 
-  <div>
-
+  <div style="flex-grow: 1">
     <div class="notice-box">
       <% if notice %>
         <div class="flash-message notice"><%= notice %></div>
@@ -28,7 +28,6 @@
         <div class="flash-message alert"><%= alert %></div>
       <% end %>
     </div>
-
 
     <div class="content-area">
       <% @templates.each_with_index do |template, idx| %>
@@ -59,6 +58,8 @@
         </div>
       <% end %>
     </div>
+  </div>
+
 
 </div>
 
