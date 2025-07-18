@@ -22,16 +22,6 @@
     margin-right: 8px;
 }
 
-.content-area {
-    flex-grow: 1;
-    padding: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-content: flex-start;
-    overflow-y: auto;
-}
-
 .formulario_box {
     background-color: #fff;
     border-radius: 8px;
