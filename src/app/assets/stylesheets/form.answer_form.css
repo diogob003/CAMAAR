@@ -77,15 +77,3 @@
     background-color: #5a007a; /* Darker purple on hover */
     transform: translateY(-3px);
 }
-
-/* Basic Font Awesome icons */
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.fa-bars:before { content: "\f0c9"; }
-.fa-paper-plane:before { content: "\f1d8"; } /* Font Awesome send icon */

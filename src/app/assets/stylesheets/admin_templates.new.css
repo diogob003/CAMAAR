@@ -6,6 +6,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
+
 .form-group {
     margin-bottom: 18px;
 }
@@ -135,18 +136,6 @@
 .delete-question-btn-x:hover, delete-option-btn-x:hover {
     color: #a71d2a;
 }
-
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.fa-bars:before { content: "\f0c9"; }
-.fa-search:before { content: "\f002"; }
-
 
 .deleted-question-field, .deleted-option-field {
     display: none;

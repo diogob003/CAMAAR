@@ -9,6 +9,50 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+/* General Styles */
+
+body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 100;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    flex-grow: 1;
+}
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logout */
+
 .menu-icon {
     font-size: 24px;
     cursor: pointer;
@@ -63,8 +107,7 @@
     line-height: 1;
 }
 
-
-
+/* Sidebar */
 
 .sidebar {
     width: 0;
@@ -98,45 +141,51 @@
     color: #fff;
 }
 
+/* Notice Box */
 
-
-
-body {
-    font-family: Roboto, sans-serif;
-    margin: 0;
-    background-color: #f0f0f0;
+.notice-box {
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 100;
-}
-
-.header-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    flex-grow: 1;
-}
-
-.main-content {
-    display: flex;
-    flex-grow: 1;
-}
-
-.content-area {
-    flex-grow: 1;
-    padding: 30px;
-    display: flex;
-    gap: 20px;
+    padding-top: 10px;
     justify-content: center;
-    align-items: center;
+    width: 100%;
 }
+
+.flash-message {
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.flash-message.notice {
+    background: #e6f7e6;
+    color: #207520;
+    border: 1px solid #b6e2b6;
+}
+
+.flash-message.alert {
+    background: #fff0f0;
+    color: #b30000;
+    border: 1px solid #f5bcbc;
+}
+
+/* Font Awesome */
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.fa-bars:before { content: "\f0c9"; }
+.fa-paper-plane:before { content: "\f1d8"; }
+.fa-search:before { content: "\f002"; }
+.fa-user:before { content: "\f007"; }
+.fa-pencil:before { content: "\f040"; }
