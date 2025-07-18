@@ -6,9 +6,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Space between buttons */
+    gap: 20px;
     width: 100%;
-    max-width: 400px; /* Adjust card width as needed */
+    max-width: 400px;
 }
 
 .management-button {
@@ -41,15 +41,3 @@
     cursor: not-allowed;
     opacity: 0.7;
 }
-
-
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.fa-bars:before { content: "\f0c9"; }
-.fa-search:before { content: "\f002"; } /* Added search icon as per previous examples */
