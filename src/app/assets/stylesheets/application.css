@@ -126,3 +126,17 @@ body {
     color: #333;
     flex-grow: 1;
 }
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}

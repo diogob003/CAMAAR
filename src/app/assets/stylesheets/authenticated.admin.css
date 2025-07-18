@@ -1,12 +1,3 @@
-
-.content-area {
-    flex-grow: 1;
-    padding: 30px;
-    display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-}
-
 .management-card {
     background-color: #fff;
     border-radius: 8px;
