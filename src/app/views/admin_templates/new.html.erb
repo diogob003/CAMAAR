@@ -12,9 +12,8 @@
 </div>
 
 <div class="main-content">
-
   <div class="sidebar" id="mySidebar">
-    <a href="/authenticated/home">Avaliações</a>
+    <%= link_to "Avaliações", authenticated_home_path %>
     <% if current_user && current_user.role == "professor" %>
       <a href="#" class="active">Gerenciamento</a>
     <% end %>
