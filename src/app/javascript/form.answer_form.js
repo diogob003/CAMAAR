@@ -1,5 +1,6 @@
 function toggleSidebar() {
-    console.log("Toggle sidebar clicked! (No sidebar visible on this page)");
+    const sidebar = document.getElementById('mySidebar');
+    sidebar.classList.toggle('open');
 }
 
 function toggleLogoutDropdown() {
@@ -9,10 +10,13 @@ function toggleLogoutDropdown() {
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
-    if (!event.target.closest('.user-icon-container') && !event.target.closest('#logoutDropdown')) {
-        const dropdown = document.getElementById("logoutDropdown");
-        if (dropdown && dropdown.style.display === 'block') {
-            dropdown.style.display = 'none';
+    if (!event.target.matches('.user-icon') && !event.target.matches('.user-icon *')) {
+        const dropdowns = document.getElementsByClassName("logout-dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
         }
     }
 }
