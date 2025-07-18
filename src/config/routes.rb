@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get "admin_templates/new", to: "admin_templates#new"
 =end
 
-  resources :admin_templates, only: [:index, :new, :create, :destroy] do
+  resources :admin_templates, only: [:index, :new, :create, :edit, :update, :destroy] do
     collection do
       get :list
       get :new

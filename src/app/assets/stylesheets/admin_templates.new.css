@@ -262,3 +262,8 @@ body {
 }
 .fa-bars:before { content: "\f0c9"; }
 .fa-search:before { content: "\f002"; }
+
+
+.deleted-question-field, .deleted-option-field {
+    display: none;
+}
