@@ -29,18 +29,25 @@
       <% end %>
     </div>
 
+
     <div class="content-area">
       <% @templates.each_with_index do |template, idx| %>
-        <div class="template_box" style="position:relative;">
+        <div class="template_box">
           <div class="template-box" data-template-id="<%= template.id %>">
-            <%= button_to "&times;".html_safe,
-                          admin_template_path(template),
-                          method: :delete,
-                          form: { "data-turbo-confirm": nil },
-                          class: "delete-template-btn-x",
-                          title: "Delete template",
-                          style: "position:absolute; top:8px; right:8px; z-index:2;" %>
-            <h3 class="template-title"><%= template.title %></h3>
+            <div class="template-header-row">
+              <h3 class="template-title"><%= template.title %></h3>
+              <div class="template-actions-row">
+                <%= link_to edit_admin_template_path(template), class: "edit-template-btn", title: "Edit template" do %>
+                  <i class="fa fa-pencil"></i>
+                <% end %>
+                <%= button_to "&times;".html_safe,
+                              admin_template_path(template),
+                              method: :delete,
+                              form: { "data-turbo-confirm": nil },
+                              class: "delete-template-btn-x",
+                              title: "Delete template" %>
+              </div>
+            </div>
             <p class="template-description"><%= template.description %></p>
           </div>
         </div>
@@ -53,8 +60,6 @@
       <% end %>
     </div>
 
-
-  </div>
 </div>
 
 <%= javascript_include_tag("admin_templates.list") %>

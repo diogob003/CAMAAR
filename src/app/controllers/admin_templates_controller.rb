@@ -23,6 +23,27 @@ class AdminTemplatesController < ApplicationController
     end
   end
 
+  def edit
+    @template = Template.find(params[:id])
+    if @template.creator_id != current_user.id
+      redirect_to admin_templates_list_path, alert: "You are not authorized to edit this template."
+    else
+      @template.questions.build if @template.questions.empty?
+      render :edit
+    end
+  end
+
+  def update
+    @template = Template.find(params[:id])
+    if @template.creator_id != current_user.id
+      redirect_to admin_templates_list_path, alert: "You are not authorized to edit this template."
+    elsif @template.update(template_params)
+      redirect_to admin_templates_list_path, notice: "Template updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     template = Template.find(params[:id])
     if template.forms.exists?
