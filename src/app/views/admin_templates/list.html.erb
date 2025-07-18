@@ -31,25 +31,24 @@
 
     <div class="content-area">
       <% @templates.each_with_index do |template, idx| %>
-        <div class="template_box">
-          <div class="template-box" data-template-id="<%= template.id %>">
-            <div class="template-header-row">
-              <h3 class="template-title"><%= template.title %></h3>
-              <div class="template-actions-row">
-                <%= link_to edit_admin_template_path(template), class: "edit-template-btn", title: "Edit template" do %>
-                  <i class="fa fa-pencil"></i>
-                <% end %>
-                <%= button_to "&times;".html_safe,
-                              admin_template_path(template),
-                              method: :delete,
-                              form: { "data-turbo-confirm": nil },
-                              class: "delete-template-btn-x",
-                              title: "Delete template" %>
-              </div>
+        <a class="template_box" href="<%= edit_admin_template_path(template) %>"
+           data-template-id="<%= template.id %>">
+
+          <div class="template-header-row">
+            <h3 class="template-title"><%= template.title %></h3>
+            <div class="template-actions-row">
+              <%= button_to "&times;".html_safe,
+                            admin_template_path(template),
+                            method: :delete,
+                            form: { "data-turbo-confirm": nil },
+                            class: "delete-template-btn-x",
+                            title: "Delete template",
+                            onclick: "event.stopPropagation();"
+              %>
             </div>
-            <p class="template-description"><%= template.description %></p>
           </div>
-        </div>
+          <p class="template-description"><%= template.description %></p>
+        </a>
       <% end %>
 
       <%= link_to new_admin_template_path, class: "template_box" do %>
