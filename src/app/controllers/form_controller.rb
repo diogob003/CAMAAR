@@ -51,6 +51,9 @@ class FormController < ApplicationController
         )
       end
     end
+
+    flash[:notice] = "Formulário enviado com sucesso!"
+
     redirect_to authenticated_home_path
   end
 end
