@@ -22,56 +22,13 @@
     margin-right: 8px;
 }
 
-.formulario_box {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: calc((100% - 40px) / 3); /* (total_width - (gap_count * gap_size)) / items_per_row */
-    box-sizing: border-box;
-    min-width: 250px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-@media (max-width: 900px) {
-    .formulario_box {
-        width: calc((100% - 20px) / 2); /* 2 per row */
-    }
-}
-
-@media (max-width: 600px) {
-    .formulario_box {
-        width: 100%; /* 1 per row */
-    }
-}
-
-
-.formulario_box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.formulario_box h3 {
-    margin-top: 0;
-    margin-bottom: 5px;
-    color: #333;
-    font-size: 1.2em;
-}
-
-.formulario_box p {
-    margin-bottom: 5px;
-    color: #666;
-    font-size: 0.9em;
-}
-
-.formulario_box .professor-name {
+.template_box .professor-name {
     font-weight: bold;
     color: #444;
     margin-top: 10px;
 }
 
-.formulario_box.respondido {
+.template_box.respondido {
     opacity: 0.6;
     pointer-events: none;
     cursor: not-allowed;
