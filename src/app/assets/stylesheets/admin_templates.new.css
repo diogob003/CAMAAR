@@ -65,7 +65,6 @@
     background: #faf8ff;
 }
 
-
 .delete-question-btn {
     background: #dc3545;
     color: #fff;
@@ -85,7 +84,16 @@
 .option-field {
     display: flex;
     align-items: center;
+    gap: 8px;
     margin-bottom: 8px;
+}
+
+.options-area {
+    margin-top: 10px;
+}
+
+.options-list {
+    margin-top: 8px;
 }
 
 .add-option-btn, .delete-option-btn {
@@ -133,7 +141,13 @@
     z-index: 2;
 }
 
-.delete-question-btn-x:hover, delete-option-btn-x:hover {
+.delete-option-btn-x {
+    position: static;
+    top: auto;
+    right: auto;
+}
+
+.delete-question-btn-x:hover, .delete-option-btn-x:hover {
     color: #a71d2a;
 }
 

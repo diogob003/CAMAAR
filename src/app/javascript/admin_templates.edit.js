@@ -17,18 +17,18 @@ function addListeners() {
 
     function buildOptionField(qIndex, oIndex) {
         return `
-        <div class="option-field" data-option-index="${oIndex}" style="display:flex;align-items:center;gap:8px;">
-            <input class="form-control" type="text" style="flex:1 1 0; max-width: 220px;" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][description]" placeholder="Option name" />
-            <button type="button" class="delete-option-btn-x" title="Delete option" style="position:static;">&times;</button>
+        <div class="option-field" data-option-index="${oIndex}">
+            <input class="form-control" type="text" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][description]" placeholder="Option name" />
+            <button type="button" class="delete-option-btn-x" title="Delete option">&times;</button>
         </div>
         `;
     }
 
     function buildOptionsArea(qIndex) {
         return `
-        <div class="options-area" style="margin-top:10px;">
+        <div class="options-area">
             <label>Options</label>
-            <div class="options-list" style="margin-top:8px;">
+            <div class="options-list">
                 ${buildOptionField(qIndex, 0)}
             </div>
             <button type="button" class="add-option-btn" data-question-index="${qIndex}" style="margin-top:8px;">Add Option</button>
@@ -38,7 +38,7 @@ function addListeners() {
 
     function buildQuestionFields(index) {
         return `
-        <div class="question-fields" data-question-index="${index}" style="position:relative;">
+        <div class="question-fields" data-question-index="${index}">
             <button type="button" class="delete-question-btn-x" title="Delete question">&times;</button>
             <div class="form-group">
                 <label for="template_questions_attributes_${index}_title">Question Name</label>
