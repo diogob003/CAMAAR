@@ -28,7 +28,7 @@
       </div>
       <div class="form-group">
         <%= f.label :description, "Description" %>
-        <%= f.text_area :description, class: "form-control" %>
+        <%= f.text_field :description, class: "form-control" %>
       </div>
 
       <div id="questions-list">
@@ -51,7 +51,7 @@
                 <label>Options</label>
                 <div class="options-list">
                   <%= qf.fields_for :options do |of| %>
-                    <div class="option-field" style="position:relative;">
+                    <div class="option-field">
                       <%= of.text_field :description, class: "form-control", placeholder: "Option name" %>
                       <%= of.hidden_field :order, value: of.index %>
                       <%= of.hidden_field :id if of.object.persisted? %>
