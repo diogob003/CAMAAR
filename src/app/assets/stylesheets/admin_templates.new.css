@@ -58,11 +58,21 @@
 }
 
 .question-fields {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     border: 1px solid #eee;
     border-radius: 6px;
     padding: 16px;
     margin-bottom: 16px;
     background: #faf8ff;
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
 }
 
 .delete-question-btn {
@@ -120,7 +130,19 @@
     background: #a71d2a;
 }
 
-.delete-question-btn-x, .delete-option-btn-x {
+.delete-question-btn-x {
+    position: static;
+    color: #dc3545;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    align-self: flex-start;
+}
+
+.delete-option-btn-x {
     position: absolute;
     top: 8px;
     right: 8px;
