@@ -13,6 +13,8 @@ class FormController < ApplicationController
 
     @template = @form.template
 
+    @template.questions = @template.questions.sort_by(&:order)
+
     @questions = @template.questions.includes(:options).map do |question|
       question.options = question.options.sort_by(&:order)
       question

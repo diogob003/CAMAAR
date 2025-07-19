@@ -28,6 +28,10 @@ class AdminTemplatesController < ApplicationController
     if @template.creator_id != current_user.id
       redirect_to admin_templates_list_path, alert: "You are not authorized to edit this template."
     else
+      @template.questions = @template.questions.sort_by(&:order)
+      @template.questions.each do |q|
+        q.options = q.options.sort_by(&:order)
+      end
       @template.questions.build if @template.questions.empty?
       render :edit
     end

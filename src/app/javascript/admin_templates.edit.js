@@ -18,12 +18,13 @@ function addListeners() {
 
     function buildOptionField(qIndex, oIndex) {
         return `
-            <div class="option-field" data-option-index="${oIndex}">
-                <input class="form-control" type="text" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][description]" placeholder="Option name" />
-                <input type="hidden" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][_destroy]" class="destroy-option-field" value="false">
-                <button type="button" class="delete-option-btn-x" title="Delete option">&times;</button>
-            </div>
-        `;
+        <div class="option-field" data-option-index="${oIndex}">
+            <input class="form-control" type="text" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][description]" placeholder="Option name" />
+            <input type="hidden" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][order]" value="${oIndex}">
+            <input type="hidden" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][_destroy]" class="destroy-option-field" value="false">
+            <button type="button" class="delete-option-btn-x" title="Delete option">&times;</button>
+        </div>
+    `;
     }
 
     function buildOptionsArea(qIndex) {
