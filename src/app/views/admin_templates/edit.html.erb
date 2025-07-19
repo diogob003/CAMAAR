@@ -33,18 +33,20 @@
 
       <div id="questions-list">
         <%= f.fields_for :questions do |qf| %>
-          <div class="question-fields" data-question-index="<%= qf.index %>" style="position:relative;">
+          <div class="question-fields" data-question-index="<%= qf.index %>">
             <%= qf.hidden_field :order, value: qf.index %>
             <%= qf.hidden_field :id if qf.object.persisted? %>
             <%= qf.hidden_field :_destroy, class: "destroy-question-field" %>
-            <button type="button" class="delete-question-btn-x" title="Delete question" onclick="deleteQuestion(this)">&times;</button>
             <div class="form-group">
-              <%= qf.label :title, "Question Name" %>
+              <div class="question-header">
+                <%= qf.label :title, "Question Name" %>
+                <button type="button" class="delete-question-btn-x" title="Delete question" onclick="deleteQuestion(this)">&times;</button>
+              </div>
               <%= qf.text_field :title, class: "form-control" %>
             </div>
             <div class="form-group">
               <%= qf.label :answer_type, "Answer Type" %>
-              <%= qf.select :answer_type, options_for_select([["Text", "text"], ["Radio", "radio"]], qf.object.answer_type || "text"), {}, class: "form-control answer-type-select" %>
+              <%= qf.select :answer_type, options_for_select([%w[Text text], %w[Radio radio]], qf.object.answer_type || "text"), {}, class: "form-control answer-type-select" %>
             </div>
             <% if qf.object.answer_type == "radio" || qf.object.options.any? %>
               <div class="options-area">

@@ -28,15 +28,19 @@
       </div>
       <div class="form-group">
         <%= f.label :description, "Description" %>
-        <%= f.text_area :description, class: "form-control" %>
+        <%= f.text_field :description, class: "form-control" %>
       </div>
 
       <div id="questions-list">
         <%= f.fields_for :questions do |qf| %>
           <div class="question-fields" data-question-index="<%= qf.index %>">
             <%= qf.hidden_field :order, value: qf.index %>
+            <%= qf.hidden_field :_destroy, class: "destroy-question-field" %>
             <div class="form-group">
-              <%= qf.label :title, "Question Name" %>
+              <div class="question-header">
+                <%= qf.label :title, "Question Name" %>
+                <button type="button" class="delete-question-btn-x" title="Delete question">&times;</button>
+              </div>
               <%= qf.text_field :title, class: "form-control" %>
             </div>
             <div class="form-group">
@@ -51,7 +55,8 @@
                     <div class="option-field">
                       <%= of.text_field :description, class: "form-control", placeholder: "Option name" %>
                       <%= of.hidden_field :order, value: of.index %>
-                      <button type="button" class="delete-option-btn-x" title="Delete option">&times;</button>
+                      <%= of.hidden_field :_destroy, class: "destroy-option-field" %>
+                      <button type="button" class="delete-option-btn-x" title="Delete option" onclick="deleteOption(this)">&times;</button>
                     </div>
                   <% end %>
                 </div>

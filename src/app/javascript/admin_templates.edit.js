@@ -4,6 +4,7 @@ function deleteQuestion(btn) {
     destroy.value = '1';
     field.classList.add('deleted-question-field');
 }
+
 function deleteOption(btn) {
     const field = btn.closest('.option-field');
     const destroy = field.querySelector('.destroy-option-field');
@@ -17,10 +18,11 @@ function addListeners() {
 
     function buildOptionField(qIndex, oIndex) {
         return `
-        <div class="option-field" data-option-index="${oIndex}">
-            <input class="form-control" type="text" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][description]" placeholder="Option name" />
-            <button type="button" class="delete-option-btn-x" title="Delete option">&times;</button>
-        </div>
+            <div class="option-field" data-option-index="${oIndex}">
+                <input class="form-control" type="text" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][description]" placeholder="Option name" />
+                <input type="hidden" name="template[questions_attributes][${qIndex}][options_attributes][${oIndex}][_destroy]" class="destroy-option-field" value="false">
+                <button type="button" class="delete-option-btn-x" title="Delete option">&times;</button>
+            </div>
         `;
     }
 
@@ -39,9 +41,13 @@ function addListeners() {
     function buildQuestionFields(index) {
         return `
         <div class="question-fields" data-question-index="${index}">
-            <button type="button" class="delete-question-btn-x" title="Delete question">&times;</button>
+            <input type="hidden" name="template[questions_attributes][${index}][order]" value="${index}">
+            <input type="hidden" name="template[questions_attributes][${index}][_destroy]" class="destroy-question-field" value="false">
             <div class="form-group">
-                <label for="template_questions_attributes_${index}_title">Question Name</label>
+                <div class="question-header">
+                    <label for="template_questions_attributes_${index}_title">Question Name</label>
+                    <button type="button" class="delete-question-btn-x" title="Delete question" onclick="deleteQuestion(this)">&times;</button>
+                </div>
                 <input class="form-control" type="text" name="template[questions_attributes][${index}][title]" id="template_questions_attributes_${index}_title" />
             </div>
             <div class="form-group">
@@ -83,7 +89,9 @@ function addListeners() {
         questionsList.addEventListener("click", function(e) {
 
             if (e.target.classList.contains("delete-question-btn-x")) {
-                e.target.closest(".question-fields").remove().classList.add('display-none');
+                if (e.target.classList.contains("delete-question-btn-x")) {
+                    deleteQuestion(e.target);
+                }
             }
 
             if (e.target.classList.contains("add-option-btn")) {
@@ -96,7 +104,7 @@ function addListeners() {
             }
 
             if (e.target.classList.contains("delete-option-btn-x")) {
-                e.target.closest(".option-field").classList.add('display-none');
+                deleteOption(e.target);
             }
         });
 
