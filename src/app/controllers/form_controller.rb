@@ -186,5 +186,4 @@ class FormController < ApplicationController
       redirect_to list_forms_path, notice: "Form deleted successfully."
     end
   end
-
 end

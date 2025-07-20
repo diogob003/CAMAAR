@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 Dado("estou na página \"Gerenciamento\" de templates") do
   visit admin_templates_list_path

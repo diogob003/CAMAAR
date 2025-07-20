@@ -14,7 +14,6 @@ class AdminTemplatesController < ApplicationController
   end
 
   def create
-
     if template_params[:title].blank?
       redirect_to admin_templates_list_path, alert: "Template name can't be blank."
       return
@@ -72,9 +71,8 @@ class AdminTemplatesController < ApplicationController
       :title, :description,
       questions_attributes: [
         :id, :title, :answer_type, :order, :_destroy,
-        options_attributes: [:id, :description, :order, :_destroy]
+        options_attributes: [ :id, :description, :order, :_destroy ]
       ]
     )
   end
-
 end

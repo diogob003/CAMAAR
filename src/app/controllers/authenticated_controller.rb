@@ -38,7 +38,6 @@ class AuthenticatedController < ApplicationController
   end
 
   def admin
-
     return head :unauthorized unless logged_in?
     user = current_user
 
@@ -51,6 +50,5 @@ class AuthenticatedController < ApplicationController
 
     @templates = Template.where(creator_id: current_user.id)
     @sent_forms = Form.where(publisher_id: current_user.id)
-
   end
 end

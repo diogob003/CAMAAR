@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   post "download_result", to: "form#download_result"
 
-  resources :admin_templates, only: [:index, :new, :create, :edit, :update, :destroy] do
+  resources :admin_templates, only: [ :index, :new, :create, :edit, :update, :destroy ] do
     collection do
       get :list
       get :new
@@ -37,5 +37,4 @@ Rails.application.routes.draw do
   if Rails.env.test?
     post "/test_login", to: "test_sessions#create"
   end
-
 end
