@@ -1,19 +1,36 @@
-Dado("existem formulários previamente criados no sistema") do
-  puts "Existem formulários previamente criados no sistema"
+Dado("estou na página \"Gerenciamento\"") do
+  visit authenticated_admin_path
+  expect(page).to have_current_path(authenticated_admin_path)
 end
 
-Dado("estou na página \"Gerenciamento\"") do
-  puts "Acessando a página \"Gerenciamento\""
+Dado("eu criei um formulario para uma de minhas turmas") do
+  @class_group = FactoryBot.create(:class_group)
+
+  template = FactoryBot.create(:template, creator: @user)
+  FactoryBot.create(:question, template: template)
+  @form = FactoryBot.create(:form, publisher: @user, template: template)
+  ClassForm.create!(class_group: @class_group, form: @form)
+end
+
+Dado("nao criei nenhum formulario") do
+  # precisa fazer nada
 end
 
 Quando("clicar em \"Resultados\"") do
-  puts "Clicando no botão \"Resultados\""
+  find("#resultadosBtn").click
 end
 
-Então("devo ver uma grade com todos os formulários disponíveis") do
-  puts "Visualizando grade com todos os formulários disponíveis"
+Quando("estiver na página de resultados") do
+  expect(page).to have_current_path(form_results_path)
 end
 
-Então("o botão deve estar desabilitado e nada deve acontecer") do
-  puts "Verificando que o botão \"Resultados\" está desabilitado e nenhuma ação foi tomada"
+Então("devo ver uma grade com o formulário disponível") do
+  expect(page).to have_css("a.template_box")
+  expect(page).to have_content(@form.class_groups.first.subject.name)
+  expect(page).to have_content(@form.class_groups.first.subject.code)
+  expect(page).to have_content(@form.class_groups.first.semester)
+end
+
+Entao("a grade de resultados deve estar vazia") do
+  expect(page).to have_css("a.template_box", count: 0)
 end

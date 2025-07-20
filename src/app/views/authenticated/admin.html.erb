@@ -21,27 +21,18 @@
   <div class="content-area">
     <div class="management-card">
 
-      <button id="importarDadosBtn" class="management-button green">
-        Importar dados
-      </button>
+      <%= button_to "Importar dados", admin_templates_list_path, method: :get,
+                    id: "importarDadosBtn", class: "management-button green" %>
 
-      <button id="editarTemplatesBtn"
-              class="management-button <%= @classrooms.any? ? 'green' : 'light-green' %>"
-              onclick="window.location='<%= url_for(admin_templates_list_path) %>'">
-        Editar Templates
-      </button>
+      <%= button_to "Editar Templates", admin_templates_list_path, method: :get,
+                    id: "editarTemplatesBtn", class: "management-button #{@classrooms.any? ? 'green' : 'light-green'}" %>
 
-      <button id="enviarFormulariosBtn"
-              class="management-button <%= @templates.any? ? 'green' : 'light-green' %>"
-              onclick="window.location='<%= url_for(list_forms_path) %>'">
-        Enviar Formularios
-      </button>
+      <%= button_to "Enviar Formularios", list_forms_path, method: :get,
+                    id: "enviarFormulariosBtn", class: "management-button #{@templates.any? ? 'green' : 'light-green'}" %>
 
-      <button id="resultadosBtn"
-              class="management-button <%= @sent_forms.any? ? 'green' : 'light-green' %>"
-              onclick="window.location='<%= url_for(form_results_path) %>'">
-      Resultados
-      </button>
+      <%= button_to "Resultados", form_results_path, method: :get,
+                    id: "resultadosBtn", class: "management-button #{@sent_forms.any? ? 'green' : 'light-green'}" %>
+
 
     </div>
   </div>

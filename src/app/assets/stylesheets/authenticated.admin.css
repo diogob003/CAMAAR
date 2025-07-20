@@ -1,3 +1,8 @@
+form.button_to {
+    width: 100%;
+    display: block;
+}
+
 .management-card {
     background-color: #fff;
     border-radius: 8px;

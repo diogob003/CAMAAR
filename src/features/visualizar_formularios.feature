@@ -1,6 +1,5 @@
 # language: pt
 
-@ignore
 Funcionalidade: Visualização do resultado de formulários
 
   Como Administrador
@@ -9,13 +8,15 @@ Funcionalidade: Visualização do resultado de formulários
 
   Cenário: Listando formulários criados para baixar os resultados
     Dado que estou logado como administrador
-    E existem formulários previamente criados no sistema
+    E eu criei um formulario para uma de minhas turmas
     E estou na página "Gerenciamento"
     Quando clicar em "Resultados"
-    Então devo ver uma grade com todos os formulários disponíveis
+    E estiver na página de resultados
+    Então devo ver uma grade com o formulário disponível
 
   Cenário: Zero formulários na página de resultados
     Dado que estou logado como administrador
+    E nao criei nenhum formulario
     E estou na página "Gerenciamento"
     Quando clicar em "Resultados"
-    Então o botão deve estar desabilitado e nada deve acontecer
+    Então a grade de resultados deve estar vazia
