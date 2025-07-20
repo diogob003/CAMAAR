@@ -1,27 +1,13 @@
-Dado("existem templates criados por mim") do
-  puts "Existem templates criados pelo administrador"
-end
-
-Quando("clicar em \"Editar templates\"") do
-  puts "Clicando em \"Editar templates\""
-end
-
 Então("devo ver uma grade com todos os templates criados") do
-  puts "Visualizando grade com todos os templates criados"
-end
-
-Então("cada template deve conter título, descrição, ícone de editar ou deletar") do
-  puts "Verificando que cada template tem título, descrição e ícones de editar/deletar"
+  expect(page).to have_css("a.template_box[data-template-id='#{@template.id}']")
 end
 
 Quando("clicar em deletar template") do
-  puts "Clicando para deletar o template selecionado"
-end
-
-Então("o template selecionado deve ser apagado") do
-  puts "Verificando que o template foi apagado"
+  find("form.button_to button.delete-template-btn-x", match: :first).click
 end
 
 Então("a tela deverá atualizar para não mostrar ele") do
-  puts "Verificando que a tela foi atualizada e não mostra o template apagado"
+  expect(page).to have_current_path(admin_templates_list_path)
+  expect(page).to have_content("Template deleted successfully.")
+  expect(page).to have_css("a.template_box", count: 1) # botao de '+' para adicionar mais
 end

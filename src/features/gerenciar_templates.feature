@@ -15,9 +15,6 @@ Funcionalidade: Gerenciamento de templates de formulários
     E clico em editar
     Então o template deve ter o nome alterado
 
-    #Então devo modificar o nome, a descrição ou as perguntas do template
-    #E ao salvar, as mudanças não devem afetar formulários já criados com esse template
-
   Cenário: Deletar um template existente
     Dado que estou logado como administrador
     E tenho templates de formulários disponíveis
