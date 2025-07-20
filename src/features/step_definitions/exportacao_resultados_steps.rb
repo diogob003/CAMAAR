@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-Dado("que estou logado como administrador") do
-  puts "Logado como administrador"
-end
-
 Dado("entrei na página \"Gerenciamento\"") do
   puts "Acessando página Gerenciamento"
 end

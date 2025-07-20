@@ -6,6 +6,7 @@ end
 Dado("estou matriculado em uma turma") do
   @class_group = FactoryBot.create(:class_group)
   @class_group.students << @user
+  puts "DEBUG: Usuario #{@user.id} (#{@user.role}) matriculado na turma #{@class_group.id} com nome #{@class_group.subject&.name.inspect}"
 end
 
 Dado("existe um formulário de avaliação para essa turma") do

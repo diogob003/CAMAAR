@@ -1,9 +1,3 @@
-# frozen_string_literal: true
-
-Dado("que estou logado como administrador") do
-  puts "Simulando login como administrador"
-end
-
 Dado("existem formulários previamente criados no sistema") do
   puts "Existem formulários previamente criados no sistema"
 end

@@ -1,9 +1,3 @@
-# frozen_string_literal: true
-
-Dado("que estou logado como administrador") do
-  puts "Simulando login como administrador"
-end
-
 Dado("estou na página \"Gerenciamento\" de templates") do
   puts "Acessando a página de gerenciamento de templates"
 end

@@ -103,6 +103,15 @@ class FormController < ApplicationController
     class_group_id = params[:class_group_id]
     template_id = params[:template_id]
 
+    existing_form = Form.joins(:class_forms)
+      .where(publisher_id: user_id, template_id: template_id, class_forms: { class_group_id: class_group_id })
+      .first
+
+    if existing_form
+      redirect_to list_forms_path, alert: "Already exists an form for this class with the same template."
+      return
+    end
+
     @form = Form.new(
       publisher_id: user_id,
       template_id: template_id,

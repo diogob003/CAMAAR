@@ -1,7 +1,3 @@
-Dado("que estou logado como administrador") do
-  puts "Simulando login do administrador"
-end
-
 Dado("tenho algum template criado") do
   puts "Template criado"
 end
