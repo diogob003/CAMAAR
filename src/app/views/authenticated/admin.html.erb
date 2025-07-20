@@ -38,8 +38,9 @@
       </button>
 
       <button id="resultadosBtn"
-              class="management-button <%= @sent_forms.any? ? 'green' : 'light-green' %>">
-        Resultados
+              class="management-button <%= @sent_forms.any? ? 'green' : 'light-green' %>"
+              onclick="window.location='<%= url_for(form_results_path) %>'">
+      Resultados
       </button>
 
     </div>

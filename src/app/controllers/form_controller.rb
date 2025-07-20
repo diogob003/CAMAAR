@@ -1,3 +1,5 @@
+require "csv"
+
 class FormController < ApplicationController
   def index
   end
@@ -116,6 +118,51 @@ class FormController < ApplicationController
     else
       redirect_to new_form_path, alert: "Error creating form"
     end
+  end
+
+  def results # same code as 'list'
+    user_id = session[:user_id]
+    return head :unauthorized unless user_id
+
+    user = User.find(user_id)
+
+    @forms = Form
+               .where(publisher_id: user.id)
+               .includes(:template, class_groups: :subject)
+
+    @forms.each do |form|
+      form.class_groups.each do |class_group|
+        class_group.subject = Subject.find(class_group.subject_id)
+        subject_name = class_group.subject.name
+        subject_code = class_group.subject.code
+      end
+    end
+  end
+
+  def download_result
+    form = Form.includes(:answered_forms, template: :questions).find(params[:form_id])
+    questions = form.template.questions.order(:order)
+    answered_forms = form.answered_forms.includes(:answers)
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << questions.map(&:title)
+
+      answered_forms.each do |answered_form|
+        row = questions.map do |question|
+          answer = answered_form.answers.find { |a| a.question_id == question.id }
+          if question.options.any?
+            answer&.option&.description
+          else
+            answer&.justification
+          end
+        end
+        csv << row
+      end
+    end
+
+    send_data csv_data,
+              filename: "form_#{form.id}_results.csv",
+              type: "text/csv"
   end
 
   def destroy

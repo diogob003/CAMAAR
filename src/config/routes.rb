@@ -21,8 +21,11 @@ Rails.application.routes.draw do
   get "list_forms", to: "form#list"
   get "edit_form", to: "form#edit_form"
   get "new_form", to: "form#new_form"
+  get "form_results", to: "form#results"
   post "send_form", to: "form#send_form"
   delete "delete_form", to: "form#destroy"
+
+  post "download_result", to: "form#download_result"
 
   resources :admin_templates, only: [:index, :new, :create, :edit, :update, :destroy] do
     collection do
