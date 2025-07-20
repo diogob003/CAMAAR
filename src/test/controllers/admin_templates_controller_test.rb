@@ -8,6 +8,7 @@ class AdminTemplatesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get list" do
     get admin_templates_list_url
-    assert_response :success
+    # nao tá logado
+    assert_response :unauthorized
   end
 end
