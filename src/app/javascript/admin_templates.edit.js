@@ -90,9 +90,7 @@ function addListeners() {
         questionsList.addEventListener("click", function(e) {
 
             if (e.target.classList.contains("delete-question-btn-x")) {
-                if (e.target.classList.contains("delete-question-btn-x")) {
-                    deleteQuestion(e.target);
-                }
+                deleteQuestion(e.target);
             }
 
             if (e.target.classList.contains("add-option-btn")) {

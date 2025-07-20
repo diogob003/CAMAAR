@@ -13,7 +13,8 @@ Dado("eu criei um formulario para uma de minhas turmas") do
 end
 
 Dado("nao criei nenhum formulario") do
-  # precisa fazer nada
+  # é só nao criar um formulário,
+  # ou seja, nesse caso basta nao fazer nada
 end
 
 Quando("clicar em \"Resultados\"") do

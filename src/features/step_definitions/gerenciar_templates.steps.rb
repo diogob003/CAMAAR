@@ -32,7 +32,6 @@ Então("os formulários que já foram criados com base nesse template devem perm
 end
 
 Então("devo estar na pagina de edição do template") do
-  save_and_open_page
   expect(page).to have_current_path(edit_admin_template_path(@template))
 end
 
