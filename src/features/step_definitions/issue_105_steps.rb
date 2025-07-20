@@ -16,10 +16,6 @@ Quando("clicar em \"Alterar senha\"") do
   puts "Clicando em Alterar senha"
 end
 
-Então("devo ser redirecionado para a página inicial") do
-  puts "Redirecionado para a página inicial"
-end
-
 Então("uma mensagem de sucesso ser mostrada") do
   puts "Mensagem de sucesso exibida"
 end

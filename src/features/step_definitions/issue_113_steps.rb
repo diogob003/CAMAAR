@@ -6,10 +6,6 @@ Dado("não possuo templates criados") do
   puts "Nenhum template criado"
 end
 
-Quando("clico em {string}") do |botao|
-  puts "Clicando no botão #{botao}"
-end
-
 Quando("escolho um template") do
   puts "Selecionando um template"
 end

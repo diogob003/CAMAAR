@@ -1,45 +1,56 @@
-# frozen_string_literal: true
+Dado("que existe um aluno cadastrado") do
+  @user = FactoryBot.create(:user, email: "teste_123@gmail.com", registration: "teste123", password: "senha123", role: "aluno")
+end
+
+Dado("que existe um administrador cadastrado") do
+  @user = FactoryBot.create(:user, email: "adm@gmail.com", registration: "ADM", password: "admin", role: "professor")
+end
 
 Dado("que estou na página de login") do
-  puts "Acessando página de login"
+  visit login_path
+  expect(page).to have_current_path(login_path)
 end
 
-Dado("preenchi um e-mail e senha válidos") do
-  puts "Preenchendo e-mail e senha válidos"
+Dado("preenchi com email e senha válidos") do
+  fill_in "Email ou matrícula", with: "teste_123@gmail.com"
+  fill_in "Senha", with: "senha123"
 end
 
-Dado("preenchi uma matrícula e a senha válidas") do
-  puts "Preenchendo matrícula e senha válidas"
-end
-
-Dado("sou um usuário com perfil de administrador") do
-  puts "Usuário com perfil de administrador"
+Dado("preenchi com matrícula e senha válidos") do
+  fill_in "Email ou matrícula", with: "teste123"
+  fill_in "Senha", with: "senha123"
 end
 
 Dado("preenchi um e-mail, matrícula ou senha incorretos") do
-  puts "Preenchendo dados incorretos para login"
+  fill_in "Email ou matrícula", with: "email_invalido@gmail.com"
+  fill_in "Senha", with: "senha123345"
 end
 
 Quando("clico em \"Entrar\"") do
-  puts "Clicando em Entrar"
+  click_button "Entrar"
 end
 
-Quando("faço login com credenciais válidas") do
-  puts "Fazendo login com credenciais válidas"
+Quando("coloco as credenciais de administrador") do
+  fill_in "Email ou matrícula", with: "adm@gmail.com"
+  fill_in "Senha", with: "admin"
 end
 
-Então("devo ser autenticado com sucesso") do
-  puts "Usuário autenticado com sucesso"
+Então("devo ser redirecionado para a página inicial") do
+  expect(page).to have_current_path(authenticated_home_path)
 end
 
-Então("redirecionado para a página inicial") do
-  puts "Redirecionado para a página inicial"
+Então("ver um aviso de sucesso de login") do
+  expect(page).to have_content("Logged in!")
 end
 
 Então("devo ver a opção de gerenciamento no menu lateral") do
-  puts "Exibindo opção de gerenciamento no menu lateral"
+  expect(page).to have_link("Gerenciamento", href: authenticated_admin_path)
 end
 
-Então("devo ver uma mensagem de erro informando que as credenciais são inválidas") do
-  puts "Exibindo mensagem de erro de credenciais inválidas"
+Então("nao ter acesso ao menu de gerenciamento") do
+  expect(page).not_to have_link("Gerenciamento", href: authenticated_admin_path)
+end
+
+Então("devo ver uma mensagem de credenciais inválidas") do
+  expect(page).to have_content("Senha ou email inválido")
 end
