@@ -33,7 +33,7 @@ class AdminTemplatesController < ApplicationController
         q.options = q.options.sort_by(&:order)
       end
       @template.questions.build if @template.questions.empty?
-      render :edit
+      render :edit, notice: "Edit successfully"
     end
   end
 
