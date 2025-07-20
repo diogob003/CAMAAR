@@ -14,8 +14,15 @@ class AdminTemplatesController < ApplicationController
   end
 
   def create
+
+    if template_params[:title].blank?
+      redirect_to admin_templates_list_path, alert: "Template name can't be blank."
+      return
+    end
+
     @template = Template.new(template_params)
     @template.creator_id = current_user.id
+
     if @template.save
       redirect_to admin_templates_list_path, notice: "Template created successfully."
     else

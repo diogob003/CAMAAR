@@ -1,7 +1,3 @@
-Dado("estou na página \"Gerenciamento\" de templates") do
-  puts "Acessando a página de gerenciamento de templates"
-end
-
 Dado("existem templates criados por mim") do
   puts "Existem templates criados pelo administrador"
 end

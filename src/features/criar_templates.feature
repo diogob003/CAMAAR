@@ -1,26 +1,24 @@
 # language: pt
 
-@ignore
 Funcionalidade: Criação de templates
 
   Como administrador
   Quero criar novos templates
   Para gerar formulários de avaliação
 
-  Cenário: Criação de template novo com sucesso
-    Dado que estou autenticado como administrador
+  Cenário: Criação de novo template
+    Dado que estou logado como administrador
     E estou na página "Gerenciamento" de templates
-    E já importei dados da turma
     E cliquei em "+" para criar template
-    E adicionei novas questões
+    E fui para a página de criação de template
+    E adicionei uma nova questão
     Quando clicar em "Criar"
-    Então o popup de edição deve sumir
-    E um novo template deve aparecer na grade como disponível
+    Então o template será criado com sucesso
 
   Cenário: Criação de template em branco
-    Dado que estou autenticado como administrador
+    Dado que estou logado como administrador
     E estou na página "Gerenciamento" de templates
-    E já importei dados da turma
     E cliquei em "+" para criar template
+    E fui para a página de criação de template
     Quando clicar em "Criar"
-    Então deverá aparecer uma mensagem de erro avisando que não é possível criar um template em branco
+    Então deverá aparecer uma mensagem de erro
