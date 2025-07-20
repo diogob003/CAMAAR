@@ -32,7 +32,8 @@
       </button>
 
       <button id="enviarFormulariosBtn"
-              class="management-button <%= @templates.any? ? 'green' : 'light-green' %>">
+              class="management-button <%= @templates.any? ? 'green' : 'light-green' %>"
+              onclick="window.location='<%= url_for(list_forms_path) %>'">
         Enviar Formularios
       </button>
 

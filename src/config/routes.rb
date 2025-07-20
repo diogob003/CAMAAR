@@ -18,21 +18,21 @@ Rails.application.routes.draw do
   get "answer_form", to: "form#answer_form"
   post "submit_form", to: "form#submit_form"
 
-  if Rails.env.test?
-    post "/test_login", to: "test_sessions#create"
-  end
-
-=begin
-  get "admin_templates/index", to: "admin_templates#index"
-  get "admin_templates/list", to: "admin_templates#list"
-  get "admin_templates/new", to: "admin_templates#new"
-=end
+  get "list_forms", to: "form#list"
+  get "edit_form", to: "form#edit_form"
+  get "new_form", to: "form#new_form"
+  post "send_form", to: "form#send_form"
+  delete "delete_form", to: "form#destroy"
 
   resources :admin_templates, only: [:index, :new, :create, :edit, :update, :destroy] do
     collection do
       get :list
       get :new
     end
+  end
+
+  if Rails.env.test?
+    post "/test_login", to: "test_sessions#create"
   end
 
 end
