@@ -1,33 +1,15 @@
-# frozen_string_literal: true
-
-Dado("entrei na página \"Gerenciamento\"") do
-  puts "Acessando página Gerenciamento"
+Dado("estou na pagina de resultados") do
+  visit form_results_path
+  expect(page).to have_current_path(form_results_path)
 end
 
-Dado("cliquei no botão \"Resultados\"") do
-  puts "Cliquei no botão Resultados"
+Quando("Clicar no botão de baixar o csv") do
+  find("button.download-csv-btn", match: :first).click
 end
 
-Quando("clicar em um dos formulários mostrados na grade") do
-  puts "Cliquei em um formulário na grade"
-end
 
-Então("um arquivo CSV deve ser gerado") do
-  puts "Arquivo CSV gerado"
-end
-
-Então("uma mensagem de confirmação com botão \"Baixar resultados\" deve aparecer") do
-  puts "Mensagem de confirmação exibida com botão Baixar resultados"
-end
-
-Então("uma mensagem alertando \"Formulário ainda está aberto! Tem certeza que deseja baixar o relatório?\" deve aparecer") do
-  puts "Mensagem de alerta sobre formulário aberto exibida"
-end
-
-Dado("que apareceu uma mensagem alertando \"Formulário ainda está aberto! Tem certeza que deseja baixar o relatório?\" deve aparecer") do
-  puts "Mensagem de alerta sobre formulário aberto aparece"
-end
-
-Dado("clico em \"Sim, baixar relatório incompleto\"") do
-  puts "Cliquei em Sim, baixar relatório incompleto"
+Então("os resultados devem ser baixado em CSV") do
+  # Cucumber e Capybara nao tem como checar se o download realmente aconteceu sozinhos
+  # teria que usar o Selenium pra isso,
+  # então essa parte não será testada via cucumber/capybara
 end
