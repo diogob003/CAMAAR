@@ -1,0 +1,9 @@
+class TemplateSorter
+  def self.sort_questions_and_options(template)
+    questions = template.questions.sort_by(&:order)
+    questions.each do |question|
+      question.options = question.options.sort_by(&:order)
+    end
+    template.questions = questions
+  end
+end
