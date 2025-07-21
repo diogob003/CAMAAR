@@ -1,5 +1,8 @@
+# Classe utilizada para construir templates de questionários
+# É um utilitário
 class TemplateBuilder
   def self.build_question_if_empty(template)
-    template.questions.build if template.questions.none?
+    questions = template.questions
+    questions.build if questions.none?
   end
 end

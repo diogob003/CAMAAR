@@ -1,3 +1,5 @@
+# É a entidade do sistema que coleciona as questoes e
+# que pode ser usada para criar formulários
 class Template < ApplicationRecord
   belongs_to :creator, class_name: "User"
   has_many :forms

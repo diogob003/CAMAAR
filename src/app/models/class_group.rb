@@ -1,3 +1,5 @@
+# Entidade responsavel por representar uma turma de uma disciplina
+# relacionada a professores, alunos, formularios e etc
 class ClassGroup < ApplicationRecord
   belongs_to :subject
 

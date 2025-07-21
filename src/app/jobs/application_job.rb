@@ -1,3 +1,4 @@
+# Classe padrao do Rails usada para definir jobs
 class ApplicationJob < ActiveJob::Base
   # Automatically retry jobs that encountered a deadlock
   # retry_on ActiveRecord::Deadlocked

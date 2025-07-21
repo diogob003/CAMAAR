@@ -1,3 +1,6 @@
+# Representa um usuário do sistema
+# pode ser aluno ou professor
+# e está associado a várias turmas
 class User < ApplicationRecord
   has_secure_password
 

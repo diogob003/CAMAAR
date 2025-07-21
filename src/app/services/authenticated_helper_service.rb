@@ -1,3 +1,5 @@
+# Classe responsavel nas queries do banco relacionadas a formularios do usuario logado
+# Usada principalmente AuthenticatedController
 class AuthenticatedHelperService
   def self.fetch_class_group_ids(user)
     (class_student_ids(user) + class_professor_ids(user)).uniq

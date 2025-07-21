@@ -1,3 +1,4 @@
+# Responsavel por ordenar as questoes (e as opcoes) de um dado template
 class TemplateSorter
   def self.sort_questions_and_options(template)
     questions = template.questions.sort_by(&:order)
