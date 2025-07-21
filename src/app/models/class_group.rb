@@ -11,4 +11,9 @@ class ClassGroup < ApplicationRecord
 
   has_many :class_forms
   has_many :forms, through: :class_forms
+
+  def first_professor_name
+    class_professors.first&.professor&.name
+  end
+
 end

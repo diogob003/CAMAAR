@@ -17,4 +17,18 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :registration, presence: true, uniqueness: true
+
+  def class_groups
+    ids = respond_to?(:class_professors) ? class_professors.pluck(:class_group_id).uniq : []
+    ClassGroup.where(id: ids)
+  end
+
+  def templates
+    Template.where(creator_id: id)
+  end
+
+  def subject_ids
+    class_groups.map(&:subject_id)
+  end
+
 end

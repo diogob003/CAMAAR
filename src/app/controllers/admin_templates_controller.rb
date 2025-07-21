@@ -1,3 +1,5 @@
+# Controller responsavel por gerenciar as rotas de templates
+# criação, edição, listagem e exclusão
 class AdminTemplatesController < ApplicationController
   before_action :require_login, only: [:list, :create, :edit, :update, :destroy]
   before_action :set_template, only: [:edit, :update, :destroy]
@@ -6,37 +8,32 @@ class AdminTemplatesController < ApplicationController
   def index; end
 
   def list
-    @templates = Template.where(creator_id: current_user.id)
+    @templates = TemplateService.list_for_user(current_user)
   end
 
   def new
-    @template = Template.new
-    @template.questions.build
+    @template = TemplateService.new_template
   end
 
   def create
-    if template_params[:title].blank?
-      redirect_to admin_templates_list_path, alert: "Template name can't be blank." and return
-    end
-
-    template = build_template_with_creator
-
-    if template.save
+    result = TemplateService.create_template(template_params, current_user)
+    error = result[:error]
+    if result[:success]
       redirect_to admin_templates_list_path, notice: "Template created successfully."
+    elsif error
+      redirect_to admin_templates_list_path, alert: error
     else
-      @template = template
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    TemplateSorter.sort_questions_and_options(@template)
-    TemplateBuilder.build_question_if_empty(@template)
+    @template = TemplateService.prepare_for_edit(@template)
     render :edit, notice: "Edit successfully"
   end
 
   def update
-    if @template.update(template_params)
+    if TemplateService.update_template(@template, template_params)
       redirect_to admin_templates_list_path, notice: "Template updated successfully."
     else
       render :edit, status: :unprocessable_entity
@@ -44,12 +41,8 @@ class AdminTemplatesController < ApplicationController
   end
 
   def destroy
-    if @template.forms.exists?
-      redirect_to admin_templates_list_path, alert: "Cannot delete: template has associated forms."
-    else
-      @template.destroy
-      redirect_to admin_templates_list_path, notice: "Template deleted successfully."
-    end
+    result = TemplateService.destroy_template(@template)
+    redirect_to admin_templates_list_path, notice: result[:notice], alert: result[:alert]
   end
 
   private
@@ -66,19 +59,7 @@ class AdminTemplatesController < ApplicationController
     redirect_to admin_templates_list_path, alert: "You are not authorized to edit this template." unless @template.creator_id == current_user.id
   end
 
-  def build_template_with_creator
-    template = Template.new(template_params)
-    template.creator_id = current_user.id
-    template
-  end
-
   def template_params
-    params.require(:template).permit(
-      :title, :description,
-      questions_attributes: [
-        :id, :title, :answer_type, :order, :_destroy,
-        options_attributes: [:id, :description, :order, :_destroy]
-      ]
-    )
+    AdminTemplateParams.permit(params)
   end
 end

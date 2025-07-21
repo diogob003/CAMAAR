@@ -5,4 +5,12 @@ class Template < ApplicationRecord
   has_many :forms
   has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions, allow_destroy: true
+
+  def sorted_questions_with_options
+    questions.order(:order).map do |question|
+      question.options = question.options.order(:order)
+      question
+    end
+  end
+
 end
