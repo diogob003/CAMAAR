@@ -74,7 +74,8 @@ RSpec.describe AuthenticatedHelperService do
     end
 
     it 'returns nil if no professor' do
-      empty_group = ClassGroup.create!(number: 99, semester: '2025.1', subject_id: Subject.first.id)
+      subject = Subject.first || Subject.create!(name: 'Math', code: 'MATH101')
+      empty_group = ClassGroup.create!(number: 99, semester: '2025.1', subject_id: subject.id)
       expect(described_class.first_professor_name(empty_group)).to be_nil
     end
   end
