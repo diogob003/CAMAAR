@@ -12,6 +12,9 @@ class ClassGroup < ApplicationRecord
   has_many :class_forms
   has_many :forms, through: :class_forms
 
+  # Retorna o nome do primeiro professor da turma.
+  # Sem parâmetros.
+  # @return [String, nil] nome do professor ou nil se não houver
   def first_professor_name
     class_professors.first&.professor&.name
   end
