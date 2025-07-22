@@ -47,6 +47,10 @@ Nessa sprint trabalhamos na finalização da implmentação das features e teste
 - Criação e deleção de formulários (Maxwell)
 - Geração de CSV com resultados de um formulário (Maxwell)
 
+A seguir listaremos diversos detalhes de partes importantes do projeto.
+
+## Testes
+
 Para todas as issues citadas, há testes implementados usando a ferramenta Cucumber e Capybara. Temos 20 cenários e 125 passos implementados e funcionando. Dentre os cenários citados, há tanto casos de "happy path" quanto de "sad path". 
 
 Para rodar esses testes, basta executar o seguinte comando estando na pasta /src do projeto.
@@ -57,7 +61,23 @@ O resultado será como na imagem a seguir.
 
 <img src="./images/testes_cucumber.png" width="500"/>
 
-Além dos testes via cucumber, nessa sprint instalamos a gema rubycritic para analise de código. Assim, para melhorar as métricas dadas, houve uma grande refatoração em praticamente todos os controllers e métodos. Atualmente, o rubycritic está gerando excelentes resultados que comentaremos a seguir.
+Além dos testes citados, ainda temos a implementação de testes usando o rspec. Nele, também possuímos um resultado visual, onde é possível ver a cobertura de testes para cada arquivo, além do total geral do projeto. 
+
+O projeto obteve avaliação de 97.32% de cobertura de testes, como pode ser verificado a seguir.
+
+<img src="./images/coverage.png" width="500"/>
+
+Para a geração dessa página, foi utilizado o seguinte comando, que deve ser executado na pasta src do projeto.
+
+> bundle exec rspec
+
+Ao executar o comando, a saída será semelhante a imagem a seguir.
+
+<img src="./images/run_rspec.png" width="500"/>
+
+# Métricas
+
+Utilizamos também a gema rubycritic para analise de código. Assim, para melhorar as métricas dadas, houve uma grande refatoração em praticamente todos os controllers e métodos. Atualmente, o rubycritic está gerando excelentes resultados que comentaremos a seguir.
 
 O gráfico gerado pela ferramenta dá uma pontuação de 97.06 pontos para o código do projeto, podendo ser confirmada com o seguinte gráfico.
 
@@ -77,6 +97,8 @@ Para gerar esses resultados com o rubycritic, recomenda-se rodar o seguinte coma
 
 > bundle exec rubycritic app
 
+## Documentação
+
 Após a criação de testes e geração das métricas, o foco se tornou preparar a documentação do projeto. Assim, adicionamos uma explicação para cada método sobre o que ele é, o que faz, os parametros que recebe, efeito colateral e etc. Com o auxilio da ferramenta rdoc, uma página html foi gerada e é possível acessá-la para conferir estes resultados.
 
 Ao acessar a página 
@@ -86,7 +108,6 @@ Ao acessar a página
 O comando para gerar esses docs foi o seguinte, sendo executado na pasta src do projeto.
 
 > rdoc app
-
 
 ## Como usar o sistema:
 
