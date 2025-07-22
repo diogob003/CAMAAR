@@ -1,7 +1,6 @@
 # Classe responsavel nas queries do banco relacionadas a formularios do usuario logado
 # Usada principalmente AuthenticatedController
 class AuthenticatedHelperService
-
   # Busca todos os IDs de grupos de turma onde o usuário é aluno ou professor.
   # @param user [User] usuário logado
   # @return [Array<Integer>] lista única de IDs das turmas
@@ -75,5 +74,4 @@ class AuthenticatedHelperService
   def self.first_professor_name(class_group)
     class_group.class_professors.first&.professor&.name
   end
-
 end

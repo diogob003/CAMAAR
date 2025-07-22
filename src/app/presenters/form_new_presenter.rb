@@ -1,6 +1,5 @@
 # Organiza os dados para a view de criação de um novo formulário
 class FormNewPresenter
-
   # Inicializa o presenter com o ID do usuário.
   # @param user_id [Integer] ID do usuário
   # @return [void]

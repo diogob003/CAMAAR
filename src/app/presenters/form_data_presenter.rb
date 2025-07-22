@@ -1,6 +1,5 @@
 # Classe usada apenas para agrupar as informações de um formulário
 class FormDataPresenter
-
   # Inicializa o presenter com o formulário e o usuário.
   # @param form [Form] formulário a ser apresentado
   # @param user [User] usuário logado

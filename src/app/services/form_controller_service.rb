@@ -1,6 +1,5 @@
 # Serviço para simplificar a logica do form_controller
 class FormControllerService
-
   # Prepara variáveis para exibir o formulário.
   # @param params [Hash] parâmetros recebidos
   # @return [Hash] dados para apresentação

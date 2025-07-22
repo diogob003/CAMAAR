@@ -3,7 +3,6 @@
 # Usa FormControllerService e FormListPresenter
 
 class FormController < ApplicationController
-
   # Exibe a página inicial de formulários.
   # Sem parâmetros. Sem retorno.
   def index; end

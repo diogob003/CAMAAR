@@ -1,6 +1,5 @@
 # Serviço para gerenciar templates de formulários
 class TemplateService
-
   # Lista templates criados pelo usuário.
   # @param user [User] usuário atual
   # @return [ActiveRecord::Relation] templates do usuário

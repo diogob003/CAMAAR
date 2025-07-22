@@ -1,7 +1,6 @@
 # Classe utilitaria para encapsular a logica
 # de representar os dados do admin
 class AdminDashboardPresenter
-
   # Inicializa o presenter com usuário e filtro de busca.
   # @param user [User] usuário logado
   # @param query [String] texto de busca

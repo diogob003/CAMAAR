@@ -1,7 +1,6 @@
 # Classe simples pra organizar os dados que
 # serao apresentados
 class FormAnswerPresenter
-
   # Inicializa o presenter com os parâmetros recebidos.
   # @param params [Hash] parâmetros da requisição, incluindo :form_id
   def initialize(params)

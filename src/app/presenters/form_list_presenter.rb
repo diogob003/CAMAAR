@@ -1,7 +1,6 @@
 # Classe para organizar os dados que serao mostrados
 # na lista de formulários
 class FormListPresenter
-
   # Inicializa com o ID do usuário.
   # @param user_id [Integer] ID do usuário
   def initialize(user_id)

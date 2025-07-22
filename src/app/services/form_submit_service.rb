@@ -1,6 +1,5 @@
 # Serviço para lidar com a submissao de formulários
 class FormSubmitService
-
   # Submete respostas de um formulário.
   # @param params [Hash] parâmetros do formulário e respostas
   # @param user_id [Integer] id do usuário

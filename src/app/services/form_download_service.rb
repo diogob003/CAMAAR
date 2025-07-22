@@ -1,6 +1,5 @@
 # Serviço para lidar com a geração de resultados de formulários (CSV)
 class FormDownloadService
-
   # Gera o CSV dos resultados do formulário.
   # @param form_id [Integer] id do formulário
   # @return [Hash] contém :data (CSV) e :filename

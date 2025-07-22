@@ -1,6 +1,5 @@
 # Serviço para lidar com a submissao de novos formulários
 class FormSendService
-
   # Envia um novo formulário.
   # @param params [Hash] parâmetros do formulário
   # @param user_id [Integer] id do usuário
