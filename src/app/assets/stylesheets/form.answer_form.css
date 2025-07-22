@@ -75,6 +75,6 @@
 }
 
 .send-button:hover {
-    background-color: var(--secondary-puple);
+    background-color: var(--secondary-purple);
     transform: translateY(-3px);
 }

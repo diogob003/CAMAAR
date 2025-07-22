@@ -12,5 +12,4 @@ class Template < ApplicationRecord
       question
     end
   end
-
 end

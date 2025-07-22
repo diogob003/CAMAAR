@@ -1,9 +1,9 @@
 # Controller responsavel por gerenciar as rotas de templates
 # criação, edição, listagem e exclusão
 class AdminTemplatesController < ApplicationController
-  before_action :require_login, only: [:list, :create, :edit, :update, :destroy]
-  before_action :set_template, only: [:edit, :update, :destroy]
-  before_action :authorize_template, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [ :list, :create, :edit, :update, :destroy ]
+  before_action :set_template, only: [ :edit, :update, :destroy ]
+  before_action :authorize_template, only: [ :edit, :update, :destroy ]
 
   def index; end
 

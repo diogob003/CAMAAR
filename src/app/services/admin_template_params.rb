@@ -6,7 +6,7 @@ class AdminTemplateParams
       :title, :description,
       questions_attributes: [
         :id, :title, :answer_type, :order, :_destroy,
-        options_attributes: [:id, :description, :order, :_destroy]
+        options_attributes: [ :id, :description, :order, :_destroy ]
       ]
     )
   end

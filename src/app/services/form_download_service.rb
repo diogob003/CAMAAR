@@ -28,7 +28,7 @@ class FormDownloadService
   end
 
   def self.generate_csv(questions, answered_forms)
-    rows = [questions.map(&:title)] +
+    rows = [ questions.map(&:title) ] +
            answered_forms.map { |af| csv_row(af, questions) }
     CSV.generate(headers: true) { |csv| write_rows(csv, rows) }
   end

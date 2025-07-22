@@ -9,7 +9,7 @@ class FormAnswerPresenter
     form = find_form
     class_group, subject, template = form.first_class_group, form.subject, form.template
     questions = template.sorted_questions_with_options
-    [form, class_group, subject, template, questions]
+    [ form, class_group, subject, template, questions ]
   end
 
   private

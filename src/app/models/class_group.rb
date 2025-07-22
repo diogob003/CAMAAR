@@ -15,5 +15,4 @@ class ClassGroup < ApplicationRecord
   def first_professor_name
     class_professors.first&.professor&.name
   end
-
 end

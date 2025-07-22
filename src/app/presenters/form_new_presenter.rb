@@ -6,8 +6,8 @@ class FormNewPresenter
   end
 
   def present
-    return [nil, [], [], [], Form.new] unless @user_id
+    return [ nil, [], [], [], Form.new ] unless @user_id
     user = @user
-    [user, user.class_groups, user.templates, user.subject_ids, Form.new]
+    [ user, user.class_groups, user.templates, user.subject_ids, Form.new ]
   end
 end

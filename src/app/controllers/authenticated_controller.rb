@@ -1,6 +1,6 @@
 # Handles authenticated user actions such as home and admin dashboards.
 class AuthenticatedController < ApplicationController
-  before_action :authorized, only: [:home, :admin]
+  before_action :authorized, only: [ :home, :admin ]
 
   def home
     return head :unauthorized unless logged_in?

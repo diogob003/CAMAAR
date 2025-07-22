@@ -25,7 +25,7 @@ class FormSendService
   def self.build_form_and_class_form(user_id, params)
     form = Form.new(publisher_id: user_id, template_id: params[:template_id])
     class_form = ClassForm.new(class_group_id: params[:class_group_id], form: form)
-    [form, class_form]
+    [ form, class_form ]
   end
 
   def self.success_result

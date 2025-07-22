@@ -30,5 +30,4 @@ class User < ApplicationRecord
   def subject_ids
     class_groups.map(&:subject_id)
   end
-
 end

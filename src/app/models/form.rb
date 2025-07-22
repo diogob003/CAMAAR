@@ -31,5 +31,4 @@ class Form < ApplicationRecord
       class_group.subject = Subject.find(class_group.subject_id)
     end
   end
-
 end

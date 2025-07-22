@@ -1,6 +1,5 @@
 # Serviço para lidar com a submissao de formulários
 class FormSubmitService
-
   def self.call(params, user_id)
     return unauthorized unless user_id
     user = find_user(user_id)
