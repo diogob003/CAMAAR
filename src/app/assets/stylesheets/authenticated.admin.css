@@ -4,7 +4,7 @@ form.button_to {
 }
 
 .management-card {
-    background-color: #fff;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 40px;
@@ -30,11 +30,11 @@ form.button_to {
 }
 
 .management-button.green {
-    background-color: #28a745; /* Darker green */
+    background-color: var(--secondary-green);
 }
 
 .management-button.light-green {
-    background-color: #6cda85; /* Lighter green */
+    background-color: var(--primary-green);
 }
 
 .management-button:hover:not(:disabled) {
@@ -42,7 +42,7 @@ form.button_to {
 }
 
 .management-button:disabled {
-    background-color: #cccccc;
+    background-color: var(--disabled-green);
     cursor: not-allowed;
     opacity: 0.7;
 }

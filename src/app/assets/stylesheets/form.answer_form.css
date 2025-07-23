@@ -1,5 +1,5 @@
 .form-container {
-    background-color: #fff;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -11,7 +11,7 @@
 }
 
 .question-section {
-    background-color: #f9f9f9;
+    background-color: var(--lightgray2);
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
@@ -52,7 +52,7 @@
 }
 
 .text-input-group input[type="text"]:focus {
-    border-bottom-color: #6a008a; /* Highlight on focus */
+    border-bottom-color: var(--primary-purple); /* Highlight on focus */
 }
 
 .send-button {
@@ -61,7 +61,7 @@
     right: 30px;
     width: 60px;
     height: 60px;
-    background-color: #6a008a; /* Purple color */
+    background-color: var(--primary-purple);
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -71,10 +71,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none; /* Remove button border */
+    border: none;
 }
 
 .send-button:hover {
-    background-color: #5a007a; /* Darker purple on hover */
+    background-color: var(--secondary-puple);
     transform: translateY(-3px);
 }

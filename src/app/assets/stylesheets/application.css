@@ -10,11 +10,26 @@
  */
 
 /* General Styles */
+:root {
+    --primary-green: #22c55e;
+    --secondary-green: #218838;
+    --disabled-green: #86efac;
+    --lightgreen: #e6f7e6;
+    --primary-purple: #6c2365;
+    --secondary-purple: #670c5e;
+    --primary-red: #d8000c;
+    --secondary-red: #a71d2a;
+    --primary-red2: #dc3545;
+    --lightred: #fff4f4;
+    --alternative-purple: #9747ff;
+    --lightgray: #dbdbdb;
+    --lightgray2: #f9f9f9;
+}
 
 body {
     font-family: Roboto, sans-serif;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: var(--lightgray);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,7 +39,7 @@ body {
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    background-color: #fff;
+    background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 100;
@@ -65,8 +80,8 @@ body {
     position: absolute;
     top: 50px;
     right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: white;
+    border: 1px solid var(--lightgray);
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
@@ -86,7 +101,7 @@ body {
 }
 
 .logout-dropdown button:hover {
-    background-color: #f0f0f0;
+    background-color: var(--lightgray);
 }
 
 .user-icon-container {
@@ -96,7 +111,7 @@ body {
 .user-icon {
     width: 40px;
     height: 40px;
-    background-color: #6a008a;
+    background-color: var(--primary-purple);
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -113,7 +128,7 @@ body {
 .sidebar {
     width: 0;
     min-width: 0;
-    background-color: #fff;
+    background-color: white;
     overflow-x: hidden;
     transition: 0.3s;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -136,12 +151,15 @@ body {
 }
 
 .sidebar a:hover {
-    background-color: #f0f0f0;
+    background-color: var(--lightgray);
 }
 
 .sidebar a.active {
-    background-color: #6a008a;
+    background-color: var(--primary-purple);
     color: #fff;
+}
+.sidebar a.active:hover {
+    background-color: var(--secondary-purple);
 }
 
 /* Notice Box */
@@ -166,15 +184,19 @@ body {
 }
 
 .flash-message.notice {
-    background: #e6f7e6;
-    color: #207520;
-    border: 1px solid #b6e2b6;
+    background-color: var(--lightgreen);
+    color: var(--secondary-green);
+    border: 1px solid var(--primary-green);
 }
 
 .flash-message.alert {
-    background: #fff0f0;
-    color: #b30000;
-    border: 1px solid #f5bcbc;
+    background-color: var(--lightred);
+    color: var(--secondary-red);
+    border: 1px solid var(--primary-red);
+}
+
+input[type="radio"] {
+    accent-color: var(--primary-green);
 }
 
 /* Font Awesome */

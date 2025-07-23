@@ -11,12 +11,12 @@
 .form-group select {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--lightgray);
     border-radius: 4px;
 }
 
 .enviar-btn {
-    background: #007bff;
+    background-color: var(--primary-green);
     color: #fff;
     border: none;
     padding: 10px 24px;
@@ -26,5 +26,5 @@
 }
 
 .enviar-btn:hover {
-    background: #0056b3;
+    background-color: var(--secondary-green);
 }

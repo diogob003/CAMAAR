@@ -1,5 +1,6 @@
 .template_box {
-    background-color: #fff;
+    text-decoration: none;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -59,7 +60,7 @@
     top: 8px;
     right: 8px;
     background: none;
-    color: #dc3545;
+    color: var(--primary-red);
     border: none;
     border-radius: 0;
     width: 28px;
@@ -76,13 +77,14 @@
 }
 
 .delete-template-btn-x:hover {
-    color: #a71d2a;
+    color: #fff;
+    background-color: var(--primary-red);
 }
 
 .edit-template-btn, .delete-template-btn-x {
     background: none;
     border: none;
-    color: #6a008a;
+    color: var(--primary-purple);
     font-size: 20px;
     cursor: pointer;
     padding: 4px 8px;
@@ -92,10 +94,5 @@
 
 .edit-template-btn:hover {
     color: #fff;
-    background: #6a008a;
-}
-
-.delete-template-btn-x:hover {
-    color: #fff;
-    background: #d32f2f;
+    background-color: var(--primary-purple);
 }
