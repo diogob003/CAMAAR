@@ -12,6 +12,7 @@ Rails.application.configure do
 
   # Cucumber disable push message
   CUCUMBER_PUBLISH_ENABLED=false
+  CUCUMBER_PUBLISH_QUIET=true
 
   # !!! DO NOT SET THIS ON PRODUCTION !!!
   # Set db timezone to local

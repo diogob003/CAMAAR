@@ -82,7 +82,7 @@ jobs:
 
       - name: Check behaviour with cucumber
         working-directory: src
-        run: bin/cucumber
+        run: bundle exec bin/cucumber
 
   test:
     runs-on: ubuntu-latest
