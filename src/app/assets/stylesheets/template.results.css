@@ -1,0 +1,23 @@
+.download-csv-btn {
+    background-color: var(--primary-green);
+    color: white !important;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 6px var(--primary-green);
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.download-csv-btn:hover,
+.download-csv-btn:focus {
+    background-color: var(--secondary-green);
+    box-shadow: 0 4px 12px var(--secondary-green);
+    text-decoration: none;
+    outline: none;
+}

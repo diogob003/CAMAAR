@@ -1,9 +1,3 @@
-# frozen_string_literal: true
-
-Dado("que estou logado como administrador") do
-  puts "Simulando login como administrador"
-end
-
 Dado("estou na página de gerenciamento da base de dados") do
   puts "Acessando página de gerenciamento da base de dados"
 end

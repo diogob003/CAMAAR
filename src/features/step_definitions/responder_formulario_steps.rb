@@ -11,8 +11,8 @@ Dado("existe um formulario para uma de minhas turmas") do
 end
 
 Quando("clico nesse formulário") do
-  expect(page).to have_css("a.formulario_box")
-  find("a.formulario_box").click
+  expect(page).to have_css("a.template_box")
+  find("a.template_box").click
 end
 
 Quando("vou para a página de submissao de respostas do formulário") do
@@ -38,9 +38,9 @@ Então("devo ser redirecionado para a página de submissao de respostas do formu
 end
 
 Então("o formulário deve continuar como não respondido") do
-  expect(page).to have_css("a.formulario_box")
+  expect(page).to have_css("a.template_box")
 
-  all("a.formulario_box").each do |div|
+  all("a.template_box").each do |div|
     expect(div).to have_css("p.status", text: "Pendente")
   end
 end

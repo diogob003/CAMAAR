@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "authenticated.home" %>
+<%= stylesheet_link_tag "template" %>
 
 <div class="header">
   <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
@@ -19,27 +20,38 @@
 
 <div class="main-content">
   <div class="sidebar" id="mySidebar">
-    <a href="#" class="active">Avaliações</a>
+    <%= link_to "Avaliações", authenticated_home_path , class: "active" %>
     <% if current_user && current_user.role == "professor" %>
-      <a href="admin">Gerenciamento</a>
+      <%= link_to "Gerenciamento", authenticated_admin_path %>
     <% end %>
   </div>
-  <div class="content-area" id="formularioBoxesContainer">
 
-    <% @forms_data.each_with_index do |form, idx| %>
-      <a class="formulario_box <%= form[:answered] ? "respondido" : "" %>"
-         data-form-id="<%= form[:id] %>"
-         data-class-group-id="<%= form[:class_group_id] %>"
-         href="/answer_form/?form_id=<%= form[:id] %>&class_group_id=<%= form[:class_group_id] %>"
-      >
-        <h3 class="subject"><%= form[:subject] %></h3>
-        <p class="semester"><%= form[:semester] %></p>
-        <p class="professor-name"><%= form[:professor] %></p>
-        <p class="status"><%= form[:answered] ? "Respondido" : "Pendente" %></p>
-      </a>
-    <% end %>
+  <div style="flex-grow: 1">
+    <div class="notice-box">
+      <% if notice %>
+        <div class="flash-message notice"><%= notice %></div>
+      <% elsif alert %>
+        <div class="flash-message alert"><%= alert %></div>
+      <% end %>
+    </div>
+
+    <div class="content-area" id="formularioBoxesContainer">
+      <% @forms_data.each_with_index do |form, idx| %>
+        <a class="template_box <%= form[:answered] ? "respondido" : "" %>"
+           data-form-id="<%= form[:id] %>"
+           data-class-group-id="<%= form[:class_group_id] %>"
+           href="/answer_form/?form_id=<%= form[:id] %>&class_group_id=<%= form[:class_group_id] %>"
+        >
+          <h3 class="subject"><%= form[:subject] %></h3>
+          <p class="semester"><%= form[:semester] %></p>
+          <p class="professor-name"><%= form[:professor] %></p>
+          <p class="status"><%= form[:answered] ? "Respondido" : "Pendente" %></p>
+        </a>
+      <% end %>
+    </div>
 
   </div>
+
 </div>
 
-<%= javascript_include_tag("authenticated.home")%>
+<%= javascript_include_tag("app") %>

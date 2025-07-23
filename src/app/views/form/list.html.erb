@@ -1,0 +1,64 @@
+<%= stylesheet_link_tag "template" %>
+
+<div class="header">
+  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+  <div class="header-title"> Gerenciamento - Formularios </div>
+  <div class="user-icon-container">
+    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+    <div class="logout-dropdown" id="logoutDropdown">
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+
+  <div class="sidebar" id="mySidebar">
+    <%= link_to "Avaliações", authenticated_home_path %>
+    <% if current_user && current_user.role == "professor" %>
+      <%= link_to "Gerenciamento", authenticated_admin_path, class: "active"%>
+    <% end %>
+  </div>
+
+  <div style="flex-grow: 1">
+    <div class="notice-box">
+      <% if notice %>
+        <div class="flash-message notice"><%= notice %></div>
+      <% elsif alert %>
+        <div class="flash-message alert"><%= alert %></div>
+      <% end %>
+    </div>
+
+    <div class="content-area">
+      <% @forms.each_with_index do |form, idx| %>
+        <% form.class_groups.each_with_index do |class_group, idx| %>
+          <a class="template_box">
+            <h3><%= class_group.subject.name %> - <%= form.template.title %></h3>
+            <p> <%= class_group.subject.code %> </p>
+            <p> <%= class_group.semester %> </p>
+
+            <%= button_to "&times;".html_safe,
+                          delete_form_path(id: form.id, class_form_id: class_group.class_forms.find_by(form_id: form.id)&.id),
+                          method: :delete,
+                          class: "delete-template-btn-x",
+                          onclick: "event.stopPropagation();"
+            %>
+
+          </a>
+        <% end %>
+      <% end %>
+
+      <%= link_to new_form_path, class: "template_box" do %>
+        <div class="template-box plus-box">
+          <h3 class="template-title plus-sign"> + </h3>
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+<%= javascript_include_tag("app") %>

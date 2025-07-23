@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "admin_templates/index"
+  get "admin_templates/list"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,6 +17,22 @@ Rails.application.routes.draw do
 
   get "answer_form", to: "form#answer_form"
   post "submit_form", to: "form#submit_form"
+
+  get "list_forms", to: "form#list"
+  get "edit_form", to: "form#edit_form"
+  get "new_form", to: "form#new_form"
+  get "form_results", to: "form#results"
+  post "send_form", to: "form#send_form"
+  delete "delete_form", to: "form#destroy"
+
+  post "download_result", to: "form#download_result"
+
+  resources :admin_templates, only: [ :index, :new, :create, :edit, :update, :destroy ] do
+    collection do
+      get :list
+      get :new
+    end
+  end
 
   if Rails.env.test?
     post "/test_login", to: "test_sessions#create"

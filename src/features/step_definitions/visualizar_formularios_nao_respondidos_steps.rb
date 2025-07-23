@@ -29,9 +29,9 @@ Então("devo ver uma grade com todos os formulários") do
 end
 
 Então("cada formulário deve mostrar o nome da disciplina, semestre e nome do professor") do
-  expect(page).to have_css("a.formulario_box")
+  expect(page).to have_css("a.template_box")
 
-  all("a.formulario_box").each do |a|
+  all("a.template_box").each do |a|
     expect(a).to have_css("h3.subject")
     expect(a).to have_css("p.semester")
     expect(a).to have_css("p.professor-name")
@@ -40,9 +40,9 @@ end
 
 
 Então("o formulário está marcado como respondido") do
-  expect(page).to have_css("a.formulario_box")
+  expect(page).to have_css("a.template_box")
 
-  all("a.formulario_box").each do |div|
+  all("a.template_box").each do |div|
     expect(div).to have_css("p.status", text: "Respondido")
   end
 end

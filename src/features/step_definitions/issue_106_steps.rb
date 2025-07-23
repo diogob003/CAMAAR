@@ -1,9 +1,3 @@
-# frozen_string_literal: true
-
-Dado("que estou logado como administrador") do
-  puts "Administrador logado"
-end
-
 Dado("pertenço a um departamento específico") do
   puts "Administrador pertence a um departamento específico"
 end

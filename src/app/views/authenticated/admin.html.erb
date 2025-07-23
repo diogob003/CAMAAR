@@ -13,19 +13,30 @@
 
 <div class="main-content">
   <div class="sidebar" id="mySidebar">
-    <a href="/authenticated/home">Avaliações</a>
+    <%= link_to "Avaliações", authenticated_home_path %>
     <% if current_user && current_user.role == "professor" %>
-      <a href="#" class="active">Gerenciamento</a>
+      <%= link_to "Gerenciamento", authenticated_admin_path, class: "active"%>
     <% end %>
   </div>
   <div class="content-area">
     <div class="management-card">
-      <button id="importarDadosBtn" class="management-button green" onclick="handleButtonClick('importarDados')">Importar dados</button>
-      <button id="editarTemplatesBtn" class="management-button light-green" onclick="handleButtonClick('editarTemplates')">Editar Templates</button>
-      <button id="enviarFormulariosBtn" class="management-button light-green" onclick="handleButtonClick('enviarFormularios')">Enviar Formularios</button>
-      <button id="resultadosBtn" class="management-button light-green" onclick="handleButtonClick('resultados')">Resultados</button>
+
+      <%= button_to "Importar dados", admin_templates_list_path, method: :get,
+                    id: "importarDadosBtn", class: "management-button green" %>
+
+      <%= button_to "Editar Templates", admin_templates_list_path, method: :get,
+                    id: "editarTemplatesBtn", class: "management-button #{@classrooms.any? ? 'green' : 'light-green'}" %>
+
+      <%= button_to "Enviar Formularios", list_forms_path, method: :get,
+                    id: "enviarFormulariosBtn", class: "management-button #{@templates.any? ? 'green' : 'light-green'}" %>
+
+      <%= button_to "Resultados", form_results_path, method: :get,
+                    id: "resultadosBtn", class: "management-button #{@sent_forms.any? ? 'green' : 'light-green'}" %>
+
+
     </div>
   </div>
 </div>
 
+<%= javascript_include_tag("app") %>
 <%= javascript_include_tag "authenticated.admin" %>

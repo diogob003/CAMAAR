@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_12_224401) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_15_121109) do
   create_table "answered_forms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,6 +95,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_224401) do
     t.datetime "updated_at", null: false
     t.integer "template_id"
     t.integer "order"
+    t.string "answer_type"
     t.index ["template_id"], name: "index_questions_on_template_id"
   end
 

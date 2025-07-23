@@ -30,25 +30,3 @@ function setButtonDisabled(buttonId, isDisabled) {
         console.warn(`Button with ID '${buttonId}' not found.`);
     }
 }
-
-function toggleSidebar() {
-    const sidebar = document.getElementById('mySidebar');
-    sidebar.classList.toggle('open');
-}
-
-function toggleLogoutDropdown() {
-    const dropdown = document.getElementById('logoutDropdown');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-window.onclick = function(event) {
-    if (!event.target.matches('.user-icon') && !event.target.matches('.user-icon *') && !event.target.matches('.logout-dropdown') && !event.target.matches('.logout-dropdown *')) {
-        const dropdowns = document.getElementsByClassName("logout-dropdown");
-        for (let i = 0; i < dropdowns.length; i++) {
-            const openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-                openDropdown.style.display = 'none';
-            }
-        }
-    }
-}

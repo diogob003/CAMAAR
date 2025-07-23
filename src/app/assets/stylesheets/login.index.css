@@ -1,17 +1,15 @@
-body {
-    font-family: Roboto, sans-serif;
+.container-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-color: #dbdbdb;
-    margin: 0;
+    background-color: var(--lightgray);
 }
 
 .container {
     display: flex;
-    background-color: #fff;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -32,8 +30,8 @@ body {
 
 .welcome-section {
     flex: 1;
-    background-color: #6c2365;
-    color: #fff;
+    background-color: var(--primary-purple);
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,7 +60,7 @@ body {
 .form-group input:not([type="submit"]) {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--lightgray);
     border-radius: 8px;
     font-size: 1em;
     box-sizing: border-box;
@@ -71,7 +69,7 @@ body {
 .login-button {
     width: 100%;
     padding: 12px;
-    background-color: #28a745;
+    background-color: var(--primary-green);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -81,7 +79,7 @@ body {
 }
 
 .login-button:hover {
-    background-color: #218838;
+    background-color: var(--secondary-green);
 }
 
 .welcome-section h1 {
@@ -90,9 +88,9 @@ body {
 }
 
 .alert-warning {
-    color: #d8000c;
-    background-color: #fff4f4;
-    border: 1px solid #d8000c;
+    color: var(--primary-red);
+    background-color: var(--lightred);
+    border: 1px solid var(--primary-red);
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 15px;

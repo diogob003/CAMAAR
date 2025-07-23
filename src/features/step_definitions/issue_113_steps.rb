@@ -1,17 +1,9 @@
-Dado("que estou logado como administrador") do
-  puts "Simulando login do administrador"
-end
-
 Dado("tenho algum template criado") do
   puts "Template criado"
 end
 
 Dado("não possuo templates criados") do
   puts "Nenhum template criado"
-end
-
-Quando("clico em {string}") do |botao|
-  puts "Clicando no botão #{botao}"
 end
 
 Quando("escolho um template") do

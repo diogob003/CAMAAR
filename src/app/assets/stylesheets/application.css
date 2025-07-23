@@ -8,3 +8,209 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* General Styles */
+:root {
+    --primary-green: #22c55e;
+    --secondary-green: #218838;
+    --disabled-green: #86efac;
+    --lightgreen: #e6f7e6;
+    --primary-purple: #6c2365;
+    --secondary-purple: #670c5e;
+    --primary-red: #d8000c;
+    --secondary-red: #a71d2a;
+    --primary-red2: #dc3545;
+    --lightred: #fff4f4;
+    --alternative-purple: #9747ff;
+    --lightgray: #dbdbdb;
+    --lightgray2: #f9f9f9;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    background-color: var(--lightgray);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 100;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    flex-grow: 1;
+}
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Logout */
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 20px;
+    color: #333;
+}
+
+.logout-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    border: 1px solid var(--lightgray);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    min-width: 120px;
+    z-index: 10;
+}
+
+.logout-dropdown button {
+    background: none;
+    border: none;
+    width: 100%;
+    padding: 10px 15px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.logout-dropdown button:hover {
+    background-color: var(--lightgray);
+}
+
+.user-icon-container {
+    position: relative;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-purple);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px; /* Adjusted font size for a bigger 'U' */
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* Sidebar */
+
+.sidebar {
+    width: 0;
+    min-width: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.3s;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+    z-index: 99;
+}
+
+.sidebar.open {
+    width: 300px;
+    min-width: 300px;
+}
+
+.sidebar a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: var(--lightgray);
+}
+
+.sidebar a.active {
+    background-color: var(--primary-purple);
+    color: #fff;
+}
+.sidebar a.active:hover {
+    background-color: var(--secondary-purple);
+}
+
+/* Notice Box */
+
+.notice-box {
+    display: flex;
+    padding-top: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.flash-message {
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.flash-message.notice {
+    background-color: var(--lightgreen);
+    color: var(--secondary-green);
+    border: 1px solid var(--primary-green);
+}
+
+.flash-message.alert {
+    background-color: var(--lightred);
+    color: var(--secondary-red);
+    border: 1px solid var(--primary-red);
+}
+
+input[type="radio"] {
+    accent-color: var(--primary-green);
+}
+
+/* Font Awesome */
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.fa-bars:before { content: "\f0c9"; }
+.fa-paper-plane:before { content: "\f1d8"; }
+.fa-search:before { content: "\f002"; }
+.fa-user:before { content: "\f007"; }
+.fa-pencil:before { content: "\f040"; }

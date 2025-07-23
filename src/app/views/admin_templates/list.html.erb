@@ -1,0 +1,63 @@
+<%= stylesheet_link_tag "template" %>
+
+<div class="header">
+  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+  <div class="header-title"> Gerenciamento - Templates </div>
+  <div class="user-icon-container">
+    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+    <div class="logout-dropdown" id="logoutDropdown">
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+
+  <div class="sidebar" id="mySidebar">
+    <%= link_to "Avaliações", authenticated_home_path %>
+    <% if current_user && current_user.role == "professor" %>
+      <%= link_to "Gerenciamento", authenticated_admin_path, class: "active"%>
+    <% end %>
+  </div>
+
+  <div style="flex-grow: 1">
+    <div class="notice-box">
+      <% if notice %>
+        <div class="flash-message notice"><%= notice %></div>
+      <% elsif alert %>
+        <div class="flash-message alert"><%= alert %></div>
+      <% end %>
+    </div>
+
+    <div class="content-area">
+      <% @templates.each_with_index do |template, idx| %>
+        <a class="template_box" href="<%= edit_admin_template_path(template) %>"
+           data-template-id="<%= template.id %>">
+          <h3><%= template.title %></h3>
+
+          <%= button_to "&times;".html_safe,
+                        admin_template_path(template),
+                        method: :delete,
+                        form: { "data-turbo-confirm": nil },
+                        class: "delete-template-btn-x",
+                        title: "Delete template",
+                        onclick: "event.stopPropagation();"
+          %>
+
+          <p class="template-description"><%= template.description %></p>
+
+        </a>
+    <% end %>
+      <%= link_to new_admin_template_path, class: "template_box" do %>
+        <div class="template-box plus-box">
+          <h3 class="template-title plus-sign"> + </h3>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+
+</div>
+
+<%= javascript_include_tag("app") %>

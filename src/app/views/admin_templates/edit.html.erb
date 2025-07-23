@@ -1,0 +1,84 @@
+<%= stylesheet_link_tag "admin_templates.new" %>
+
+<div class="header">
+  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+  <div class="header-title">Gerenciamento - Edit Template</div>
+  <div class="user-icon-container">
+    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+    <div class="logout-dropdown" id="logoutDropdown">
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="sidebar" id="mySidebar">
+    <%= link_to "Avaliações", authenticated_home_path %>
+    <% if current_user && current_user.role == "professor" %>
+      <%= link_to "Gerenciamento", authenticated_admin_path, class: "active"%>
+    <% end %>
+  </div>
+
+  <div class="form-container">
+    <h2>Edit Template</h2>
+    <%= form_with model: @template, url: admin_template_path(@template), method: :patch, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :title, "Template Name" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description, "Description" %>
+        <%= f.text_field :description, class: "form-control" %>
+      </div>
+
+      <div id="questions-list">
+        <%= f.fields_for :questions do |qf| %>
+          <div class="question-fields" data-question-index="<%= qf.index %>">
+            <%= qf.hidden_field :order, value: qf.index %>
+            <%= qf.hidden_field :id if qf.object.persisted? %>
+            <%= qf.hidden_field :_destroy, class: "destroy-question-field" %>
+            <div class="form-group">
+              <div class="question-header">
+                <%= qf.label :title, "Question Name" %>
+                <button type="button" class="delete-question-btn-x" title="Delete question" onclick="deleteQuestion(this)">&times;</button>
+              </div>
+              <%= qf.text_field :title, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= qf.label :answer_type, "Answer Type" %>
+              <%= qf.select :answer_type, options_for_select([%w[Text text], %w[Radio radio]], qf.object.answer_type || "text"), {}, class: "form-control answer-type-select" %>
+            </div>
+            <% if qf.object.answer_type == "radio" || qf.object.options.any? %>
+              <div class="options-area">
+                <label>Options</label>
+                <div class="options-list">
+                  <%= qf.fields_for :options do |of| %>
+                    <div class="option-field">
+                      <%= of.text_field :description, class: "form-control", placeholder: "Option name" %>
+                      <%= of.hidden_field :order, value: of.index %>
+                      <%= of.hidden_field :id if of.object.persisted? %>
+                      <%= of.hidden_field :_destroy, class: "destroy-option-field" %>
+                      <button type="button" class="delete-option-btn-x" title="Delete option" onclick="deleteOption(this)">&times;</button>
+                    </div>
+                  <% end %>
+                </div>
+                <button type="button" class="add-option-btn" data-question-index="<%= qf.index %>">Add Option</button>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="centered">
+        <button type="button" id="add-question-btn" class="add-question-btn">
+          <span class="plus-sign">+</span> Add Question
+        </button>
+      </div>
+
+      <%= f.submit "Update Template", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_include_tag("app") %>
+<%= javascript_include_tag("admin_templates.edit") %>

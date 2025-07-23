@@ -1,52 +1,52 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avaliação - <%= @subject.name %> - <%= @class_group.semester %></title>
-  <%= stylesheet_link_tag "form.answer_form" %>
-</head>
+<%= stylesheet_link_tag "form.answer_form" %>
 
-<body>
-  <div class="header">
-    <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
-    <div class="header-title">Avaliação - <%= @subject.name %> - <%= @class_group.semester %></div>
-    <div class="user-icon-container">
-      <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
-      <div class="logout-dropdown" id="logoutDropdown">
-        <%= button_to "Logout", logout_path, method: :delete, class: "logout-btn" %>
-      </div>
+<div class="header">
+  <div class="menu-icon fa fa-bars" onclick="toggleSidebar()"></div>
+  <div class="header-title">Avaliação - <%= @subject.name %> - <%= @class_group.semester %></div>
+  <div class="user-icon-container">
+    <div class="user-icon" onclick="toggleLogoutDropdown()">U</div>
+    <div class="logout-dropdown" id="logoutDropdown">
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'logout-btn' %>
     </div>
   </div>
+</div>
 
-  <div class="main-content">
-    <div class="form-container">
-      <%= form_with url: submit_form_path, method: :post do %>
-        <%= hidden_field_tag :form_id, @form.id %>
-        <% @questions.each_with_index do |question, idx| %>
-          <div class="question-section">
-            <h4><%= question.title %></h4>
-            <% if question.options.any? %>
-              <div class="radio-group">
-                <% question.options.each do |option| %>
-                  <label>
-                    <%= radio_button_tag "answers[#{question.id}]", option.id %>
-                    <%= option.description %>
-                  </label>
-                <% end %>
-              </div>
-            <% else %>
-              <div class="text-input-group">
-                <%= text_field_tag "answers[#{question.id}]", nil, placeholder: "Type your answer" %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-        <button class="send-button" type="submit">
-          <i class="fa fa-paper-plane"></i>
-        </button>
+<div class="main-content">
+
+  <div class="sidebar" id="mySidebar">
+    <%= link_to "Avaliações", authenticated_home_path, class: 'active'%>
+    <% if current_user && current_user.role == "professor" %>
+      <%= link_to "Gerenciamento", authenticated_admin_path %>
+    <% end %>
+  </div>
+
+  <div class="form-container">
+    <%= form_with url: submit_form_path, method: :post do %>
+      <%= hidden_field_tag :form_id, @form.id %>
+      <% @questions.each_with_index do |question, idx| %>
+        <div class="question-section">
+          <h4><%= question.title %></h4>
+          <% if question.options.any? %>
+            <div class="radio-group">
+              <% question.options.each do |option| %>
+                <label>
+                  <%= radio_button_tag "answers[#{question.id}]", option.id %>
+                  <%= option.description %>
+                </label>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-input-group">
+              <%= text_field_tag "answers[#{question.id}]", nil, placeholder: "Type your answer" %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-    </div>
+      <button class="send-button" type="submit">
+        <i class="fa fa-paper-plane"></i>
+      </button>
+    <% end %>
   </div>
+</div>
 
-  <%= javascript_include_tag "form.answer_form" %>
-
-</body>
+<%= javascript_include_tag "app" %>

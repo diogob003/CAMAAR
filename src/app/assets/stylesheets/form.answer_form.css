@@ -1,96 +1,5 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 100;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.menu-icon {
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 20px;
-    color: #333;
-}
-
-.header-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    flex-grow: 1;
-}
-
-.user-icon-container {
-    position: relative;
-}
-
-.user-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #6a008a;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    cursor: pointer;
-    font-weight: bold;
-    line-height: 1;
-}
-
-.logout-dropdown {
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: none; /* Hidden by default */
-    min-width: 120px;
-    z-index: 10;
-}
-
-.logout-dropdown button {
-    background: none;
-    border: none;
-    width: 100%;
-    padding: 10px 15px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-}
-
-.logout-dropdown button:hover {
-    background-color: #f0f0f0;
-}
-
-.main-content {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align content to the top */
-    position: relative; /* For the floating button */
-    overflow-y: auto; /* Enable scrolling for content if it overflows */
-}
-
 .form-container {
-    background-color: #fff;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -102,9 +11,10 @@ body {
 }
 
 .question-section {
-    background-color: #f9f9f9;
+    background-color: var(--lightgray2);
     border-radius: 8px;
     padding: 20px;
+    margin-bottom: 20px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
 }
 
@@ -142,7 +52,7 @@ body {
 }
 
 .text-input-group input[type="text"]:focus {
-    border-bottom-color: #6a008a; /* Highlight on focus */
+    border-bottom-color: var(--primary-purple); /* Highlight on focus */
 }
 
 .send-button {
@@ -151,7 +61,7 @@ body {
     right: 30px;
     width: 60px;
     height: 60px;
-    background-color: #6a008a; /* Purple color */
+    background-color: var(--primary-purple);
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -161,22 +71,10 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none; /* Remove button border */
+    border: none;
 }
 
 .send-button:hover {
-    background-color: #5a007a; /* Darker purple on hover */
+    background-color: var(--secondary-puple);
     transform: translateY(-3px);
 }
-
-/* Basic Font Awesome icons */
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.fa-bars:before { content: "\f0c9"; }
-.fa-paper-plane:before { content: "\f1d8"; } /* Font Awesome send icon */

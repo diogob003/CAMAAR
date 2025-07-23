@@ -1,6 +1,5 @@
 # language: pt
 
-@ignore
 Funcionalidade: Gerenciamento de templates de formulários
 
   Como administrador
@@ -9,16 +8,16 @@ Funcionalidade: Gerenciamento de templates de formulários
 
   Cenário: Editar um template existente
     Dado que estou logado como administrador
-    E estou na pagina de gerenciamento de templates
-    E existe um template criado por mim
-    Quando clico na opção "Editar" do template
-    Então devo modificar o nome, a descrição ou as perguntas do template
-    E ao salvar, as mudanças não devem afetar formulários já criados com esse template
+    E tenho templates de formulários disponíveis
+    E estou na página de gerenciamento de templates
+    Quando clico no card do template
+    E altero o nome do template
+    E clico em editar
+    Então o template deve ter o nome alterado
 
   Cenário: Deletar um template existente
     Dado que estou logado como administrador
+    E tenho templates de formulários disponíveis
     E estou na página de gerenciamento de templates
-    E existe um template criado por mim
     Quando clico na opção "Deletar" do template
     Então o template deve ser removido da lista de templates disponíveis
-    E os formulários que já foram criados com base nesse template devem permanecer inalterados

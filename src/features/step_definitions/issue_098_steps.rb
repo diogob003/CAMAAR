@@ -4,10 +4,6 @@ Dado("estou autenticado como administrador") do
   puts "Login feito como administrador"
 end
 
-Dado("estou na página \"Gerenciamento\"") do
-  puts "Acessando a página de Gerenciamento"
-end
-
 Quando("clicar em \"Importar dados\"") do
   puts "Clicando no botão \"Importar dados\""
 end
