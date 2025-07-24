@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   post "login", to: "login#login"
   delete "logout", to: "login#logout"
 
+  get "form", to: "form#index"
+
   get "authenticated/home", to: "authenticated#home"
   get "authenticated/admin", to: "authenticated#admin"
 
