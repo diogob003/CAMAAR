@@ -1,3 +1,5 @@
+# Entidade responsavel por representar uma turma de uma disciplina
+# relacionada a professores, alunos, formularios e etc
 class ClassGroup < ApplicationRecord
   belongs_to :subject
 
@@ -9,4 +11,8 @@ class ClassGroup < ApplicationRecord
 
   has_many :class_forms
   has_many :forms, through: :class_forms
+
+  def first_professor_name
+    class_professors.first&.professor&.name
+  end
 end

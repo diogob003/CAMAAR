@@ -1,3 +1,4 @@
+# Controller utilizado apenas para testes de autenticação
 class TestSessionsController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create

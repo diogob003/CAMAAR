@@ -1,53 +1,39 @@
+# Controller responsavel por gerenciar as rotas de templates
+# criação, edição, listagem e exclusão
 class AdminTemplatesController < ApplicationController
-  def index
-  end
+  before_action :require_login, only: [ :list, :create, :edit, :update, :destroy ]
+  before_action :set_template, only: [ :edit, :update, :destroy ]
+  before_action :authorize_template, only: [ :edit, :update, :destroy ]
+
+  def index; end
 
   def list
-    return head :unauthorized unless logged_in?
-    user = current_user
-    @templates = Template.where(creator_id: current_user.id)
+    @templates = TemplateService.list_for_user(current_user)
   end
 
   def new
-    @template = Template.new
-    @template.questions.build
+    @template = TemplateService.new_template
   end
 
   def create
-    if template_params[:title].blank?
-      redirect_to admin_templates_list_path, alert: "Template name can't be blank."
-      return
-    end
-
-    @template = Template.new(template_params)
-    @template.creator_id = current_user.id
-
-    if @template.save
+    result = TemplateService.create_template(template_params, current_user)
+    error = result[:error]
+    if result[:success]
       redirect_to admin_templates_list_path, notice: "Template created successfully."
+    elsif error
+      redirect_to admin_templates_list_path, alert: error
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @template = Template.find(params[:id])
-    if @template.creator_id != current_user.id
-      redirect_to admin_templates_list_path, alert: "You are not authorized to edit this template."
-    else
-      @template.questions = @template.questions.sort_by(&:order)
-      @template.questions.each do |q|
-        q.options = q.options.sort_by(&:order)
-      end
-      @template.questions.build if @template.questions.empty?
-      render :edit, notice: "Edit successfully"
-    end
+    @template = TemplateService.prepare_for_edit(@template)
+    render :edit, notice: "Edit successfully"
   end
 
   def update
-    @template = Template.find(params[:id])
-    if @template.creator_id != current_user.id
-      redirect_to admin_templates_list_path, alert: "You are not authorized to edit this template."
-    elsif @template.update(template_params)
+    if TemplateService.update_template(@template, template_params)
       redirect_to admin_templates_list_path, notice: "Template updated successfully."
     else
       render :edit, status: :unprocessable_entity
@@ -55,24 +41,25 @@ class AdminTemplatesController < ApplicationController
   end
 
   def destroy
-    template = Template.find(params[:id])
-    if template.forms.exists?
-      redirect_to admin_templates_list_path, alert: "Cannot delete: template has associated forms."
-    else
-      template.destroy
-      redirect_to admin_templates_list_path, notice: "Template deleted successfully."
-    end
+    result = TemplateService.destroy_template(@template)
+    redirect_to admin_templates_list_path, notice: result[:notice], alert: result[:alert]
   end
 
   private
 
+  def require_login
+    head :unauthorized unless logged_in?
+  end
+
+  def set_template
+    @template = Template.find(params[:id])
+  end
+
+  def authorize_template
+    redirect_to admin_templates_list_path, alert: "You are not authorized to edit this template." unless @template.creator_id == current_user.id
+  end
+
   def template_params
-    params.require(:template).permit(
-      :title, :description,
-      questions_attributes: [
-        :id, :title, :answer_type, :order, :_destroy,
-        options_attributes: [ :id, :description, :order, :_destroy ]
-      ]
-    )
+    AdminTemplateParams.permit(params)
   end
 end
