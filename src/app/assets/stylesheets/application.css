@@ -27,7 +27,7 @@
 }
 
 body {
-    font-family: Roboto, sans-serif;
+    font-family: "Roboto", sans-serif;
     margin: 0;
     background-color: var(--lightgray);
     display: flex;
@@ -198,19 +198,3 @@ body {
 input[type="radio"] {
     accent-color: var(--primary-green);
 }
-
-/* Font Awesome */
-
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.fa-bars:before { content: "\f0c9"; }
-.fa-paper-plane:before { content: "\f1d8"; }
-.fa-search:before { content: "\f002"; }
-.fa-user:before { content: "\f007"; }
-.fa-pencil:before { content: "\f040"; }
